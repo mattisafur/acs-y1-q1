@@ -73,13 +73,14 @@
 #
 #
 
+
 def projectroom1(state):
     if state["rooms_visited"]["ProjectRoom1"]:
         print("You have already seen this room")
+        state["rooms_visited"]["ProjectRoom1"] = True
     else:
         print("you enter a room for the first time")
 
-    state["rooms_visited"]["ProjectRoom1"] = True
 
     print(
         "possible commands:\n"
