@@ -22,6 +22,7 @@ def stairexit(state):
             "D) Go back to the previous corridor."
             )
         print() # TODO remove
+        print() # TODO remove
 
         choice = input("> ")
 
