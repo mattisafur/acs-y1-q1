@@ -21,6 +21,7 @@ def stairexit(state):
             "C) Try to force open the blocked doors to create another route.\n"
             "D) Go back to the previous corridor."
             )
+        print() # TODO remove
 
         choice = input("> ")
 
