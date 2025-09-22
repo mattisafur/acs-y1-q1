@@ -10,15 +10,16 @@ def lobby(state):
     while True:
         print(
             "Possible commands:\n"
-            "Go to West Corridor\n"
+            "Go to East Corridor\n"
             "Go to North Corridor\n"
+            "Go to Project Room 1\n"
             "Quit"
         )
 
         choice = input("> ")
         match choice.strip().lower():
-            case "go to west corridor":
-                state["current_room"] = "WestCorridor"
+            case "go to east corridor":
+                state["current_room"] = "EastCorridor"
                 return
             case "go to north corridor":
                 if state["inventory"]["Map"]:
@@ -26,6 +27,9 @@ def lobby(state):
                     return
                 else:
                     print("You need to obtain Map to continue to NorthCorridor.")
+            case "go to project room 1":
+                state["current_room"] = "ProjectRoom1"
+                return
             case "quit":
                 exit()
             case _:

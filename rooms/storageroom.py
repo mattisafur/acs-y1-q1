@@ -22,7 +22,7 @@ def storageroom(state):
         print("move past dig cabinet - Try to move past the big cabinet.")
         print("leave - Leave the room.")
         print("move past table - See if you can move past the table to your left.")
-        print("Or type 'go to lobby' or 'quit' at any time.")
+        print("Or type 'go to North corridor' or 'quit' at any time.")
 
         user_choice = input("\nEnter your choice: ").strip().lower()
 
@@ -32,13 +32,13 @@ def storageroom(state):
                 )
 
             user_choice2 = input(
-                "\nChoose:\ngo left - Take the path to the left\ngo right - Take the path to the right\n> "
+                "\nChoose:\ngo left - Take the path to the left\n go right - Take the path to the right\n> "
                 ).strip().lower()
 
             if user_choice2 == "go left":
                 print("\nYou walk on the left path and get surprised by a zombie!")
                 print("You try to escape, but fail to choose quickly enough and get killed.")
-                state["current_room"] = "Lobby"
+                state["current_room"] = "NorthCorridor"
                 return
 
             elif user_choice2 == "go right":
@@ -49,29 +49,30 @@ def storageroom(state):
                 if user_choice3 == "go left":
                     print("\nYou find a familiar door handle. It's the emergency exit door.")
                     print("You return to the Lobby with new information.")
-                    # code to pick up and add door handle to inverntory
-                    state["current_room"] = "Lobby"
+                    # code to pick up and add door handle to inventory
+
+                    state["current_room"] = "NorthCorridor"
                     return
 
                 elif user_choice3 == "go right":
                     print(
                         "\nYou walk onto the path on the right and get jumpscared by a zombie that instantly bites you."
                         )
-                    state["current_room"] = "Lobby"
+                    state["current_room"] = "NorthCorridor"
                     return
 
                 else:
-                    print("Invalid option in the second fork.")
+                    print("Invalid option.")
 
             else:
-                print("Invalid option in the first fork.")
+                print("Invalid option.")
 
-        elif user_choice == "move past dig cabinet":
+        elif user_choice == "move past big cabinet":
             print("\nYou try to push past the big cabinet, but it's too heavy. You reconsider your options.")
 
-        elif user_choice == "leave" or user_choice == "go to lobby":
-            print("\nYou leave the storage room and return to the lobby.")
-            state["current_room"] = "Lobby"
+        elif user_choice == "leave" or user_choice == "go to NorthCorridor":
+            print("\nYou leave the storage room and return to the North Corridor.")
+            state["current_room"] = "NorthCorridor"
             return
 
         elif user_choice == "move past table":

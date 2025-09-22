@@ -13,7 +13,6 @@ def northcorridor(state):
             "Go to Lobby\n"
             "Go to Front Desk Office\n"
             "Go to Storage Room\n"
-            "Go to Project room\n"
             "Go to Teachers room\n"
             "Go to East Corridor\n"
             "Quit"
@@ -29,9 +28,6 @@ def northcorridor(state):
                 return
             case "go to storage room":
                 state["current_room"] = "Storage"
-                return
-            case "go to project room":
-                state["current_room"] = "ProjectRoom3"
                 return
             case "go to teachers room":
                 state["current_room"] = "TeachersRoom4"

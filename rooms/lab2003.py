@@ -36,12 +36,13 @@ def lab2003(state):
             case "enter the code 72946":
                 print(
                     "You carefully type in 72946. After a short pause, the screen unlocks.\n"
-                    "The computer reveals the digital floor plan of the school.\n"
+                    "The computer reveals the digital map of the school.\n"
                     "Safe rooms are highlighted in green, blocked corridors in red, and the emergency exits glow in blue.\n"
                     "You quickly print a copy and take it with you.\n"
-                    "You obtained the Floor Plan.\n"
+                    "You obtained the map.\n"
                     "You are being redirected to the corridor to continue the game"
                 )
+                state["inventory"]["Map"] = True
                 state["current_room"] = "EastCorridor"
                 return
             case "try a random number":

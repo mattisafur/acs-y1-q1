@@ -1,5 +1,9 @@
 from rooms.eastcorridor import eastcorridor
+from rooms.frontdeskoffice import frontdeskoffice
+from rooms.lab2003 import lab2003
+from rooms.northcorridor import northcorridor
 from rooms.projectroom1 import projectroom1
+from rooms.storageroom import storageroom
 from rooms.teachersroom4 import teachersroom4
 from rooms.lab2001 import lab2001
 from rooms.lobby import lobby
@@ -48,15 +52,15 @@ if __name__ == "__main__":
             case "EastCorridor":
                 eastcorridor(state)
             case "Lab2003":
-                ...
+                lab2003(state)
             case "Lobby":
                 lobby(state)
             case "ProjectRoom1":
                 projectroom1(state)
             case "NorthCorridor":
-                ...
+                northcorridor(state)
             case "FrontDeskOffice":
-                ...
+                frontdeskoffice(state)
             case "Classroom2015":
                 ...
             case "Classroom2021":
@@ -74,7 +78,7 @@ if __name__ == "__main__":
             case "ProjectRoom3":
                 ...
             case "Storage":
-                ...
+                storageroom(state)
             case "WestCorridor":
                 westcorridor(state)
             case "StairExit":

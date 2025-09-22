@@ -22,7 +22,7 @@ def westcorridor(state):
         print(
             "Go to Stair Exit \n"
             "Go to Teachers Room 4\n"
-            "Go to East Corridor \n"
+            "Go to North Corridor \n"
             "go to Classroom 2.031\n"
             "Go to Classroom 2.032"
         )
@@ -40,9 +40,9 @@ def westcorridor(state):
                 state["current_room"] = "TeachersRoom4"
                 return
 
-            case "go to east corridor":
+            case "go to north corridor":
                 print("Okay, you are going into ...")
-                state["current_room"] = "EastCorridor"
+                state["current_room"] = "NorthCorridor"
                 return
 
             case "go to classroom 2.031" | "Go to classroom 2.032":

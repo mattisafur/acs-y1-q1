@@ -45,7 +45,7 @@ def projectroom1(state):
 
                 print(
                     "Correct, You solved the puzzle and wrote down the combination on a piece of paper, and return to the lobby."
-                    )
+                )
 
                 state["current_room"] = "Lobby"
                 return

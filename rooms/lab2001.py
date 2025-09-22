@@ -1,6 +1,8 @@
 # #Illia Room
 
 def lab2001(state):
+    state_snapshot = copy.deepcopy(state)
+
     if state["rooms_visited"]["Lab2001"]:
         print("You have already seen this room")
         state["rooms_visited"]["Lab001"] = True
@@ -39,11 +41,14 @@ def lab2001(state):
 
                     match userguess.strip().lower():
                         case "fight":
-                            print("something fight")
-                        case "fly away":
-                            print("Something bad happend")
+                            print("something fight"
+                            )
+                            state = state_snapshot
+                            return
                         case "set the building on fire":
                             print("Nice, you died")
+                            state = state_snapshot
+                            return
                         case "fly away":
                             state["go to lobby"] = "Lobby"
                             return
@@ -51,8 +56,10 @@ def lab2001(state):
                             print("You won")
                             state["current_room"] = "EastCorridor"
                             return
-                            break
-
+                        case "quit":
+                            exit()
+                        case _:
+                            print("Invalid choice. Try again.")
             case "quit":
                 exit()
 
