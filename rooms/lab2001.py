@@ -205,6 +205,8 @@ def lab2001(state):
                             return
                         case "sneak":
                             print("You won")
+                            state["current_room"] = "EastCorridor"
+                            return
                             break
 
             case "go to lobby":
