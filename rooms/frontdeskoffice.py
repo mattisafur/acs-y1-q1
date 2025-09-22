@@ -6,15 +6,15 @@ def frontdeskoffice(state):
 
     print(
         "You step into the room\n"
-        "possible commands:\n"
-        "look around\n"
-        "go to lobby\n"
-        "quit", )
+        "Possible commands:\n"
+        "Look around\n"
+        "Go to Lobby\n"
+        "Quit", )
 
     while True:
         user_input = input("> ")
 
-        match user_input:
+        match user_input.strip().lower():
             case "look around":
                 print(
                     "You enter the Front Desk office. A zombie is slumped in a chair, seemingly asleep.\n"
@@ -23,7 +23,7 @@ def frontdeskoffice(state):
                 )
 
                 print(
-                    "possible commands:\n"
+                    "Possible commands:\n"
                     "Look around\n"
                     "Fight\n"
                     "Sneak around"
@@ -31,49 +31,52 @@ def frontdeskoffice(state):
 
                 while True:
                     user_input = input("> ")
-                    match user_input:
+                    match user_input.strip().lower():
                         case "look around":
                             print(
                                 "You look around the room for anything useful in this situation.\n"
                                 "you see a jacket left behind by a student on a chair. you pick it up\n"
-                                "Maybe it could be helpful."
+                                "Maybe it could be helpful.\n"
+                                "Possible commands:\n"
+                                "Fight\n"
+                                "Go to Corridor\n"
+                                "Tie the zombie up"
                             )
                             state["inventory"]["Jacket"] = True
 
                             while True:
                                 user_input = input("> ")
-                                match user_input:
+                                match user_input.strip().lower():
                                     case "fight":
                                         print("you died")
                                         state = state_snapshot
                                         state["current_room"] = "NorthCorridor"
                                         return
-                                    case "Go to Corridor":
+                                    case "go to corridor":
                                         print("As you try to leave the room the zombie wakes up and you die")
                                         state = state_snapshot
                                         state["current_room"] = "NorthCorridor"
                                         return
-                                    case "Tie the zombie up":
+                                    case "tie the zombie up":
                                         print(
                                             "Where on the zombie do you wanna tie?\n"
-                                            "possible commands\n"
+                                            "possible commands:\n"
                                             "Tie his face\n"
                                             "Tie his Body"
                                         )
                                         while True:
                                             user_input = input("> ")
-                                            match user_input:
-                                                case "Tie his face":
+                                            match user_input.strip().lower():
+                                                case "tie his face":
                                                     print(
                                                         "You tied his face so the zombie cannot see you,\n"
                                                         "however the zombie can still smell you and wakes up\n"
                                                         "You died"
                                                     )
                                                     state = state_snapshot
-                                                    state["current_room"] = "NorthCorridor"
                                                     return
 
-                                                case "Tie his body":
+                                                case "tie his body":
                                                     print(
                                                         "You tied the zombie to the chair. It violently wakes up and tries to attack you.\n"
                                                         "However, the zombie is tied down and cannot move. You quickly grab the Master Key\n"
@@ -96,9 +99,9 @@ def frontdeskoffice(state):
                                 "out every action with lowercase letters to not wake the zombie up."
                             )
                             print(
-                                "possible options:\n"
-                                "move the zombie\n"
-                                "dig the key from under the zombie"
+                                "Possible commands:\n"
+                                "Move the zombie\n"
+                                "Dig the key from under the zombie"
                             )
 
                             while True:
@@ -109,7 +112,7 @@ def frontdeskoffice(state):
                                     state = state_snapshot
                                     state["current_room"] = "NorthCorridor"
                                     return
-                                match user_input:
+                                match user_input.strip().lower():
                                     case "move the zombie":
                                         print("You wake up the zombie. you have died.")
                                         state = state_snapshot

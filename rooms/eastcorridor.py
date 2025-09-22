@@ -7,19 +7,22 @@ def eastcorridor(state):
 
     while True:
         print(
-        "1) Go to Lab 2001\n"
-        "2) Go to Lab 2003\n"
-        "3) Go to Lobby")
+            "Possible commands:\n"
+            "Go to Lab 2001\n"
+            "Go to Lab 2003\n"
+            "Go to Lobby\n"
+            "Quit"
+        )
 
         choice = input("> ")
-        match choice:
-            case "1":
+        match choice.strip().lower():
+            case "go to lab 2001":
                 state["current_room"] = "Lab2001"
                 return
-            case "2":
+            case "go to lab 2003":
                 state["current_room"] = "Lab2003"
                 return
-            case "3":
+            case "go to lobby":
                 state["current_room"] = "Lobby"
                 return
             case "quit":

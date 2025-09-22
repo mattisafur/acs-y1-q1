@@ -6,16 +6,16 @@ def teachersroom4(state):
         print("you enter a room for the first time")
 
     print(
-        "possible commands:\n"
-        "look around\n"
-        "go to lobby\n"
-        "quit",
+        "Possible commands:\n"
+        "Look around\n"
+        "Go to Lobby\n"
+        "Quit",
     )
 
     while True:
         user_input = input("> ")
 
-        match user_input:
+        match user_input.strip().lower():
             case "look around":
                 print(
                     "You step into the teacher’s lounge. Papers are scattered, coffee mugs still half full. "

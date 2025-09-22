@@ -1,49 +1,54 @@
+import copy
+
+
 def westcorridor(state):
+    state_snapshot = copy.deepcopy(state)
     firt_time_in_room = False
     if not state["rooms_visited"]["WestCorridor"]:
         print("You are first time in West Corridor")
         state["rooms_visited"]["WestCorridor"] = True
         firt_time_in_room = True
     else:
-        print("You w been here")
+        print("You have been here")
 
+    # TODO we need to implement rooms where the player will go and what rooms he will see
     print(
         "You can see this\n"
         "You can see this\n"
         "You can see this\n"
-        "You can see this"
+        "You can see this\n"
     )
     while True:
         print(
-            "Go to Lab2001 \n"
-            "Go to ... \n"
-            "Go to ... \n"
-            "Go to ... \n"
-            "Go to ... \n"
+            "Go to Stair Exit \n"
+            "Go to Teachers Room 4\n"
+            "Go to East Corridor \n"
+            "go to Classroom 2.031\n"
+            "Go to Classroom 2.032"
         )
 
-        choice = input ("> ")
+        choice = input("> ")
 
-        match choice:
-            case "Go to Lab2001":
-                print("Okey, you are going into Lab 2001")
-                state["current_room"] = "Lab2001"
+        match choice.strip().lower():
+            case "go to stair exit":
+                print("Okay, you are going into StairExit")
+                state["current_room"] = "StairExit"
                 return
 
-            case "Go to ...":
-                print("Okey, you are going into ...")
-                state["current_room"] = "..."
+            case "go to teachers room 4":
+                print("Okay, you are going into Teachers Room 4")
+                state["current_room"] = "TeachersRoom4"
                 return
 
-            case "Go to ...":
-                print("Okey, you are going into ...")
-                state["current_room"] = "..."
+            case "go to east corridor":
+                print("Okay, you are going into ...")
+                state["current_room"] = "EastCorridor"
                 return
 
-            case "Go to ...":
-                print("Okey, you are going into ...")
-                state["current_room"] = "..."
+            case "go to classroom 2.031" | "Go to classroom 2.032":
+                print("The door is locked, is not possible to get in.")
                 return
+
 
 if __name__ == "__main__":
     import copy

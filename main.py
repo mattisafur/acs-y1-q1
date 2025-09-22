@@ -2,6 +2,8 @@ from rooms.eastcorridor import eastcorridor
 from rooms.projectroom1 import projectroom1
 from rooms.teachersroom4 import teachersroom4
 from rooms.lab2001 import lab2001
+from rooms.lobby import lobby
+from rooms.westcorridor import westcorridor
 
 # state dictionary
 state = {
@@ -48,7 +50,7 @@ if __name__ == "__main__":
             case "Lab2003":
                 ...
             case "Lobby":
-                ...
+                lobby(state)
             case "ProjectRoom1":
                 projectroom1(state)
             case "NorthCorridor":
@@ -74,7 +76,7 @@ if __name__ == "__main__":
             case "Storage":
                 ...
             case "WestCorridor":
-                ...
+                westcorridor(state)
             case "StairExit":
                 ...
             case "TeachersRoom4":

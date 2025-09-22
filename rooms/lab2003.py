@@ -1,4 +1,9 @@
+import copy
+
+
 def lab2003(state):
+    state_snapshot = copy.deepcopy(state)
+
     # Check if the room has been visited
     if not state["rooms_visited"]["Lab2003"]:
         print("You enter the room for the first time.")
@@ -17,48 +22,52 @@ def lab2003(state):
 
     while True:
         print(
-            "A) Enter the code 72946\n"
-            "B) Try a random number\n"
-            "C) Smash the keyboard in frustration\n"
-            "D) Shut down the computer\n"
+            "Possible commands:\n"
+            "Enter the code 72946\n"
+            "Try a random number\n"
+            "Smash the keyboard in frustration\n"
+            "Shut down the computer\n"
+            "Go to East Corridor\n"
+            "Quit"
         )
         choice = input("> ")
 
-        match choice:
-            case "A":
+        match choice.strip().lower():
+            case "enter the code 72946":
                 print(
                     "You carefully type in 72946. After a short pause, the screen unlocks.\n"
                     "The computer reveals the digital floor plan of the school.\n"
                     "Safe rooms are highlighted in green, blocked corridors in red, and the emergency exits glow in blue.\n"
                     "You quickly print a copy and take it with you.\n"
-                    "You obtained the Floor Plan."
+                    "You obtained the Floor Plan.\n"
+                    "You are being redirected to the corridor to continue the game"
                 )
-                break
-
-            case "B":
+                state["current_room"] = "EastCorridor"
+                return
+            case "try a random number":
                 print(
                     "The loud error beep echoes through the room.\n"
                     "You panic, worried the zombies outside heard it. You leave in a rush, empty-handed."
                 )
-                break
-
-            case "C":
+                state["current_room"] = "EastCorridor"
+                return
+            case "smash the keyboard in frustration":
                 print(
                     "The monitor flickers and dies.\n"
                     "No chance of recovering the information now.\n"
                     "You storm out angrily."
                 )
-                break
-
-            case "D":
+                state = state_snapshot
+                return
+            case "shut down the computer":
                 print(
                     "The screen goes black.\n"
                     "You realize you just locked yourself out of the system.\n"
                     "With no time to fix it, you leave the lab."
                 )
-                break
-
-            case "go to EastCorridor":
+                state["current_room"] = "EastCorridor"
+                return
+            case "go to east corridor":
                 state["current_room"] = "EastCorridor"
                 return
             case "quit":
