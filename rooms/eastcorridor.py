@@ -14,13 +14,13 @@ def eastcorridor(state):
             choice = input("> ")
             match choice:
                 case "1":
-                    state["current_room"] = "lab2001"
+                    state["current_room"] = "Lab2001"
                     return
                 case "2":
-                    state["current_room"] = "lab2003"
+                    state["current_room"] = "Lab2003"
                     return
                 case "3":
-                    state["current_room"] = "lobby"
+                    state["current_room"] = "Lobby"
                     return
                 case "quit":
                     exit()
