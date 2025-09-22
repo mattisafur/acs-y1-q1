@@ -6,26 +6,26 @@ def eastcorridor(state):
         print("You are back in the East Corridor.")
 
     while True:
-            print(
-            "1) Go to Lab 2001\n"
-            "2) Go to Lab 2003\n"
-            "3) Go to Lobby")
+        print(
+        "1) Go to Lab 2001\n"
+        "2) Go to Lab 2003\n"
+        "3) Go to Lobby")
 
-            choice = input("> ")
-            match choice:
-                case "1":
-                    state["current_room"] = "Lab2001"
-                    return
-                case "2":
-                    state["current_room"] = "Lab2003"
-                    return
-                case "3":
-                    state["current_room"] = "Lobby"
-                    return
-                case "quit":
-                    exit()
-                case _:
-                    print("Invalid choice. Try again.")
+        choice = input("> ")
+        match choice:
+            case "1":
+                state["current_room"] = "Lab2001"
+                return
+            case "2":
+                state["current_room"] = "Lab2003"
+                return
+            case "3":
+                state["current_room"] = "Lobby"
+                return
+            case "quit":
+                exit()
+            case _:
+                print("Invalid choice. Try again.")
 
 
 if __name__ == "__main__":
