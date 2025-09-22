@@ -142,7 +142,7 @@ def lab2001(state):
     print(
         "possible commands:\n"
         "look around\n"
-        "go to lobby\n"
+        "go to east corridor\n"
         "quit",
     )
 
@@ -207,8 +207,8 @@ def lab2001(state):
                             print("You won")
                             break
 
-            case "go to lobby":
-                state["go to lobby"] = "Lobby"
+            case "go to east corridor":
+                state["current_room"] = "EastCorridor"
                 return
 
             case "quit":
