@@ -3,6 +3,7 @@ from rooms.frontdeskoffice import frontdeskoffice
 from rooms.lab2003 import lab2003
 from rooms.northcorridor import northcorridor
 from rooms.projectroom1 import projectroom1
+from rooms.stairexit import stairexit
 from rooms.storageroom import storageroom
 from rooms.teachersroom4 import teachersroom4
 from rooms.lab2001 import lab2001
@@ -72,7 +73,7 @@ if __name__ == "__main__":
             case "TeachersRoom3":
                 ...
             case "TeachersRoom4":
-                ...
+                teachersroom4(state)
             case "EquinoxStudentSociety":
                 ...
             case "ProjectRoom3":
@@ -82,7 +83,7 @@ if __name__ == "__main__":
             case "WestCorridor":
                 westcorridor(state)
             case "StairExit":
-                ...
+                stairexit(state)
             case "TeachersRoom4":
                 teachersroom4(state)
             case "Classroom2031":

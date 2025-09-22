@@ -1,3 +1,4 @@
+import copy
 # #Illia Room
 
 def lab2001(state):

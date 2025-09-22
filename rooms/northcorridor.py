@@ -14,7 +14,7 @@ def northcorridor(state):
             "Go to Front Desk Office\n"
             "Go to Storage Room\n"
             "Go to Teachers room\n"
-            "Go to East Corridor\n"
+            "Go to West Corridor\n"
             "Quit"
         )
 
@@ -32,8 +32,8 @@ def northcorridor(state):
             case "go to teachers room":
                 state["current_room"] = "TeachersRoom4"
                 return
-            case "go to east corridor":
-                state["current_room"] = "EastCorridor"
+            case "go to west corridor":
+                state["current_room"] = "WestCorridor"
                 return
             case "quit":
                 exit()
