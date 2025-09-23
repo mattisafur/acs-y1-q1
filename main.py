@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from rooms.eastcorridor import eastcorridor
 from rooms.frontdeskoffice import frontdeskoffice
 from rooms.lab2003 import lab2003
@@ -42,6 +44,8 @@ state = {
         "Handle": False,
         "Jacket": False
     },
+    "player_name": "not implemented",
+    "start_time": datetime.now(),
 }
 
 if __name__ == "__main__":
