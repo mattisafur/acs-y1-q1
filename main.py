@@ -23,19 +23,10 @@ state = {
         "ProjectRoom1": False,
         "NorthCorridor": False,
         "FrontDeskOffice": False,
-        "Classroom2015": False,
-        "Classroom2021": False,
-        "TeachersRoom1": False,
-        "TeachersRoom2": False,
-        "TeachersRoom3": False,
-        "EquinoxStudentSociety": False,
-        "ProjectRoom3": False,
+        "TeachersRoom4": False,
         "Storage": False,
         "WestCorridor": False,
         "StairExit": False,
-        "TeachersRoom4": False,
-        "Classroom2031": False,
-        "Classroom2035": False,
     },
     "inventory": {
         "Map": False,
@@ -66,22 +57,8 @@ if __name__ == "__main__":
                 northcorridor(state)
             case "FrontDeskOffice":
                 frontdeskoffice(state)
-            case "Classroom2015":
-                ...
-            case "Classroom2021":
-                ...
-            case "TeachersRoom1":
-                ...
-            case "TeachersRoom2":
-                ...
-            case "TeachersRoom3":
-                ...
             case "TeachersRoom4":
                 teachersroom4(state)
-            case "EquinoxStudentSociety":
-                ...
-            case "ProjectRoom3":
-                ...
             case "Storage":
                 storageroom(state)
             case "WestCorridor":
@@ -90,7 +67,3 @@ if __name__ == "__main__":
                 stairexit(state)
             case "TeachersRoom4":
                 teachersroom4(state)
-            case "Classroom2031":
-                ...
-            case "Classroom2035":
-                ...
