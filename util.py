@@ -6,5 +6,5 @@ def print_stats(state):
         "Stats:\n"
         f"Name - {state["player_name"]}\n"
         f"Time played - {datetime.now() - state["start_time"]}\n"
-        f"Percentage of rooms visited - {sum(state["rooms_visited"].values()) / len(state["rooms_visited"])}"
+        f"Percentage of rooms visited - {sum(state["rooms_visited"].values()) / len(state["rooms_visited"]) * 100}"
     )
