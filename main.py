@@ -33,7 +33,8 @@ state = {
         "MasterKey": False,
         "Keycard": False,
         "Handle": False,
-        "Jacket": False
+        "Jacket": False,
+        "Passcode": False
     },
     "player_name": "not implemented",
     "start_time": datetime.now(),

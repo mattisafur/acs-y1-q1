@@ -6,10 +6,11 @@ def projectroom1(state):
 
     if state["rooms_visited"]["ProjectRoom1"]:
         print("You have already seen this room")
-        state["rooms_visited"]["ProjectRoom1"] = True
+        state["current_room"] = "Lobby"
+        return
     else:
         print("you enter a room for the first time")
-
+        state["rooms_visited"]["ProjectRoom1"] = True
     print(
         "Possible commands:\n"
         "Look around\n"
@@ -46,6 +47,7 @@ def projectroom1(state):
                 print(
                     "Correct, You solved the puzzle and wrote down the combination on a piece of paper, and return to the lobby."
                 )
+                state["inventory"]["Passcode"] = True
 
                 state["current_room"] = "Lobby"
                 return

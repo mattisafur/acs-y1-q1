@@ -8,7 +8,7 @@ def frontdeskoffice(state):
         "You step into the room\n"
         "Possible commands:\n"
         "Look around\n"
-        "Go to Lobby\n"
+        "Go to North Corridor\n"
         "Quit", )
 
     while True:
@@ -39,7 +39,7 @@ def frontdeskoffice(state):
                                 "Maybe it could be helpful.\n"
                                 "Possible commands:\n"
                                 "Fight\n"
-                                "Go to Corridor\n"
+                                "Go to North Corridor\n"
                                 "Tie the zombie up"
                             )
                             state["inventory"]["Jacket"] = True
@@ -52,7 +52,7 @@ def frontdeskoffice(state):
                                         state = state_snapshot
                                         state["current_room"] = "NorthCorridor"
                                         return
-                                    case "go to corridor":
+                                    case "go to North corridor":
                                         print("As you try to leave the room the zombie wakes up and you die")
                                         state = state_snapshot
                                         state["current_room"] = "NorthCorridor"
@@ -127,8 +127,8 @@ def frontdeskoffice(state):
 
                                         state["current_room"] = "NorthCorridor"
                                         return
-            case "go to lobby":
-                state["go to lobby"] = "Lobby"
+            case "go to North Corridor":
+                state["current_room"] = "NorthCorridor"
                 return
             case "quit":
                 exit()
