@@ -51,3 +51,7 @@ def display_take_help() -> None:
 
 def display_take_invalid_syntax() -> None:
     raise NotImplementedError
+
+
+def display_invalid_command() -> None:
+    print("Invalid command.")

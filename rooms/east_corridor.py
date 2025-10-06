@@ -47,17 +47,23 @@ def east_corridor(state: State):
                     case "lobby":
                         state.current_room = "lobby"
                         return
+
+                continue
             case Commands.look:
                 print(
                     "The corridor is empty, nothing to see here, go choose your next room!"
                 )
+                continue
             case Commands.inventory:
                 display_inventory(state)
+                continue
             case Commands.quit:
                 quit_game()
             case Commands.pause:
                 pause_game(state)
             case Commands.stats:
                 print_stats()
+                continue
             case Commands.leaderboard:
                 print_leaderboard()
+                continue
