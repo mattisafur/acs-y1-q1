@@ -9,8 +9,8 @@ class Inventory: ...
 @dataclass
 class State:
     user_name: str
+    current_room: str
     previous_room: str
     visited_rooms: list[str]
     time_played: Time
-    current_room: str
     inventory: Inventory
