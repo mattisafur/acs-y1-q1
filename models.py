@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from datetime import time as Time
+from enum import Enum
 
 
 @dataclass
@@ -14,3 +15,16 @@ class State:
     visited_rooms: list[str]
     time_played: Time
     inventory: Inventory
+    ...
+
+
+class Commands(Enum):
+    help = "?"
+    go = "go"
+    take = "take"
+    look = "look"
+    inventory = "inventory"
+    quit = "quit"
+    pause = "pause"
+    stats = "stats"
+    leaderboard = "leaderboard"

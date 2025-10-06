@@ -3,6 +3,7 @@ from util import (
     display_go_help,
     display_go_invalid_syntax,
     display_go_list,
+    display_invalid_command,
     display_inventory,
     get_user_input,
     pause_game,
@@ -67,3 +68,5 @@ def east_corridor(state: State):
             case Commands.leaderboard:
                 print_leaderboard()
                 continue
+
+        display_invalid_command()
