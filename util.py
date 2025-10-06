@@ -1,3 +1,4 @@
+from types import NotImplementedType
 from models import State
 
 
@@ -22,4 +23,31 @@ def pause_game(state: State) -> None:
 
 
 def display_inventory(state: State) -> None:
+    raise NotImplementedError
+
+
+def display_go_help() -> None:
+    print(
+        "go <room name>|list\n"
+        "Go to another room\n"
+        "<room name>\n"
+        "\tGo to the specified room\n"
+        "list\n"
+        "\tList connected rooms"
+    )
+
+
+def display_go_list(rooms: list[str]) -> None:
+    print("Connected rooms:\n", "\n".join(rooms))
+
+
+def display_go_invalid_syntax() -> None:
+    print("Invalid syntax\nUse `go ?` for help")
+
+
+def display_take_help() -> None:
+    raise NotImplementedError
+
+
+def display_take_invalid_syntax() -> None:
     raise NotImplementedError
