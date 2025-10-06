@@ -38,7 +38,7 @@ def lab_2001(state: State):
                         "> "
                     )
 
-                    match userguess.strip().lower():
+                    match userguess:
                         case "fight":
                             print("You try to fight the zombies, but there are too many!")
                             print("You die a horrible death...")
