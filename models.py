@@ -22,6 +22,7 @@ class Commands(Enum):
     help = "?"
     go = "go"
     take = "take"
+    answer = "answer"
     look = "look"
     inventory = "inventory"
     quit = "quit"

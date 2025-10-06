@@ -7,8 +7,8 @@ from util import (
     display_inventory,
     get_user_input,
     pause_game,
-    print_leaderboard,
-    print_stats,
+    display_leaderboard,
+    display_stats,
     quit_game,
 )
 
@@ -63,10 +63,10 @@ def east_corridor(state: State):
             case Commands.pause:
                 pause_game(state)
             case Commands.stats:
-                print_stats()
+                display_stats()
                 continue
             case Commands.leaderboard:
-                print_leaderboard()
+                display_leaderboard()
                 continue
 
         display_invalid_command()

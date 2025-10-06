@@ -5,11 +5,11 @@ def get_user_input() -> list[str]:
     return input("> ").strip().split(" ")
 
 
-def print_leaderboard() -> None:
+def display_leaderboard() -> None:
     raise NotImplementedError
 
 
-def print_stats() -> None:
+def display_stats() -> None:
     raise NotImplementedError
 
 

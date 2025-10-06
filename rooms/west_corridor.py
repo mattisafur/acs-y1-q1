@@ -6,8 +6,8 @@ from util import (
     display_inventory,
     get_user_input,
     pause_game,
-    print_leaderboard,
-    print_stats,
+    display_leaderboard,
+    display_stats,
     quit_game,
 )
 
@@ -18,7 +18,9 @@ def west_corridor(state: State):
 
     print("You are in the west corridor")
 
-    display_go_list(["stair_exit", "classroom_2.035", "classroom_2.031", "project_room_4"])
+    display_go_list(
+        ["stair_exit", "classroom_2.035", "classroom_2.031", "project_room_4"]
+    )
 
     while True:
         user_input = get_user_input()
@@ -37,7 +39,14 @@ def west_corridor(state: State):
                     case "?":
                         display_go_help()
                     case "list":
-                        display_go_list(["stair_exit", "classroom_2.035", "classroom_2.031", "project_room_4"])
+                        display_go_list(
+                            [
+                                "stair_exit",
+                                "classroom_2.035",
+                                "classroom_2.031",
+                                "project_room_4",
+                            ]
+                        )
                     case "stair_exit":
                         state.current_room = "stair_exit"
                         return
@@ -61,6 +70,6 @@ def west_corridor(state: State):
             case Commands.pause:
                 pause_game(state)
             case Commands.stats:
-                print_stats()
+                display_stats()
             case Commands.leaderboard:
-                print_leaderboard()
+                display_leaderboard()
