@@ -14,6 +14,7 @@ from util import (
 
 
 def east_corridor(state: State):
+    # mark east corridor as visited if it has not yet been
     if "east_corridor" not in state.visited_rooms:
         state.visited_rooms.append("east_corridor")
 
@@ -22,14 +23,13 @@ def east_corridor(state: State):
     display_go_list(["lab_2001", "lab_2003", "lobby"])
 
     while True:
-        user_input = get_user_input()
+        # split the user input to the command (string) and the arguments (list of strings)
+        command, *args = get_user_input()
 
-        match user_input.pop(0):
+        match command:
             case Commands.help:
-                ...
+                raise NotImplementedError
             case Commands.go:
-                args = user_input
-
                 if len(args) != 1:
                     display_go_invalid_syntax()
                     continue

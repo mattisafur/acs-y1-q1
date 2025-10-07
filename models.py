@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from datetime import time as Time
-from enum import Enum
+from enum import StrEnum, unique
 
 
 @dataclass
@@ -15,10 +15,10 @@ class State:
     visited_rooms: list[str]
     time_played: Time
     inventory: Inventory
-    ...
 
 
-class Commands(Enum):
+@unique
+class Commands(StrEnum):
     help = "?"
     go = "go"
     take = "take"
