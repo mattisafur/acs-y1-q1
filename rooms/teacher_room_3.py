@@ -72,8 +72,6 @@ if __name__ == "__main__":
     parent_dir = Path(__file__).parent.parent
     sys.path.insert(0, str(parent_dir))
     
-    from models import Inventory
-    
     # Create test state
     test_state = State(
         user_name="TestPlayer",
@@ -81,7 +79,7 @@ if __name__ == "__main__":
         previous_room="",
         visited_rooms=[],
         time_played=Time(),
-        inventory=Inventory(),
+        inventory=[],
     )
     
     teacher_room_3(test_state)

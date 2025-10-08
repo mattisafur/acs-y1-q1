@@ -1,10 +1,10 @@
 from datetime import time as Time
 
-from models import Inventory, State
+from models import State
 
 state: State = State(
     current_room="main_menu",
-    inventory=Inventory(),
+    inventory=[],
     previous_room="",
     time_played=Time(),
     user_name="",
