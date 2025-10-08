@@ -57,7 +57,6 @@ def lab_2001(state: State):
 
                     match args[0]:
                         case "sneak":
-                            # TODO print missing text from flowchart
                             print("You notice a keycard on one of the desks")
                             pickable_items.append("keycard")
                             continue
