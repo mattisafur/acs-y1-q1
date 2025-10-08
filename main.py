@@ -1,23 +1,15 @@
-from datetime import timedelta as TimeDelta
-
 from models import State
 from rooms.east_corridor import east_corridor
 from rooms.lab_2001 import lab_2001
 
-state: State = State(
-    current_room="main_menu",
-    inventory=[],
-    previous_room="",
-    time_played=TimeDelta(),
-    user_name="",
-    visited_rooms=[],
-)
-
+state = State.new_game("dummy_state")
 
 def main_menu():
-    # load state into global variable
-    ...
+    # TODO implement main menu
+    global state
+    state = State.new_game("test")
 
+main_menu()
 
 while True:
     match state.current_room:

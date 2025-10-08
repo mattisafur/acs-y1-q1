@@ -148,7 +148,7 @@ if __name__ == "__main__":
 
     # Create test state
     test_state = State(
-        user_name="TestPlayer",
+        player_name="TestPlayer",
         current_room="front_desk_office",
         previous_room="",
         visited_rooms=[],

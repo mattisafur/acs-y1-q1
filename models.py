@@ -1,16 +1,28 @@
 from dataclasses import dataclass
 from datetime import timedelta as TimeDelta
 from enum import StrEnum, unique
+from typing import Self
 
 
 @dataclass
 class State:
-    user_name: str
+    player_name: str
     current_room: str
-    previous_room: str
+    previous_room: str | None
     visited_rooms: list[str]
     time_played: TimeDelta
     inventory: list[str]
+
+    @classmethod
+    def new_game(cls, player_name: str) -> Self:
+        return cls(
+            player_name=player_name,
+            current_room="main_menu",
+            previous_room=None,
+            visited_rooms=[],
+            time_played=TimeDelta(),
+            inventory=[],
+        )
 
 
 @unique

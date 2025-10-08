@@ -69,7 +69,7 @@ if __name__ == "__main__":
 
     # Create test state
     test_state = State(
-        user_name="TestPlayer",
+        player_name="TestPlayer",
         current_room="project_room_1",
         previous_room="",
         visited_rooms=[],
