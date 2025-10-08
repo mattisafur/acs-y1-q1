@@ -1,4 +1,6 @@
-def project_room_1(state):
+from models import State
+from util import get_user_input
+def project_room_1(state: State):
     ...
 
     # if state["rooms_visited"]["project_room_1"]:
@@ -54,4 +56,27 @@ def project_room_1(state):
             case "quit":
                 exit()
 
-project_room_1(False)
+
+if __name__ == "__main__":
+    # This runs only when testing the room standalone
+    import sys
+    from pathlib import Path
+    from datetime import time as Time
+
+    # Add parent directory to Python path so we can import from main folder
+    parent_dir = Path(__file__).parent.parent
+    sys.path.insert(0, str(parent_dir))
+
+    from models import Inventory
+
+    # Create test state
+    test_state = State(
+        user_name="TestPlayer",
+        current_room="project_room_1",
+        previous_room="",
+        visited_rooms=[],
+        time_played=Time(),
+        inventory=Inventory(),
+    )
+
+    project_room_1(test_state)
