@@ -1,3 +1,4 @@
+from datetime import timedelta as TimeDelta, datetime as DateTime
 from models import State
 
 
@@ -62,3 +63,10 @@ def display_answer_invalid_syntax() -> None:
 
 def display_invalid_command() -> None:
     print("Invalid command.")
+
+
+def update_time_played(
+    current_time_played: TimeDelta, session_start_time: DateTime
+) -> TimeDelta:
+    time_played_this_session = DateTime.now() - session_start_time
+    return current_time_played + time_played_this_session

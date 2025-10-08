@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from datetime import time as Time
+from datetime import timedelta as TimeDelta
 from enum import StrEnum, unique
 
 
@@ -9,7 +9,7 @@ class State:
     current_room: str
     previous_room: str
     visited_rooms: list[str]
-    time_played: Time
+    time_played: TimeDelta
     inventory: list[str]
 
 
