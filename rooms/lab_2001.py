@@ -54,11 +54,13 @@ def lab_2001(state: State):
                 if can_choose_action:
                     if len(args) != 1:
                         display_answer_invalid_syntax()
+                        continue
 
                     match args[0]:
                         case "sneak":
                             print("You notice a keycard on one of the desks")
                             pickable_items.append("keycard")
+                            can_use_look = False
                             continue
                         case "fly away":
                             print("You have no wings, so the zombies get you")
@@ -120,7 +122,9 @@ def lab_2001(state: State):
                 pause_game(state)
             case Commands.stats:
                 display_stats()
+                continue
             case Commands.leaderboard:
                 display_leaderboard()
+                continue
 
         display_invalid_command()
