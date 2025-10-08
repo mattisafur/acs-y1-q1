@@ -1,85 +1,114 @@
-from models import State
-from util import get_user_input
+from copy import deepcopy
+
+from models import Commands, State
+from util import (
+    display_answer_invalid_syntax,
+    display_go_help,
+    display_go_invalid_syntax,
+    display_go_list,
+    display_invalid_command,
+    display_leaderboard,
+    display_stats,
+    display_take_help,
+    display_take_list,
+    get_user_input,
+    pause_game,
+    quit_game,
+)
 
 
 def teacher_room_3(state: State):
-    if "teacher_room_3" in state.visited_rooms:
-        print("You have already seen this room")
-    else:
-        print("You enter a room for the first time")
-        state.visited_rooms.append("teacher_room_3")
+    state_snapshot = deepcopy(state)
 
+    if "teacher_room_3" not in state.visited_rooms:
+        # set room as visited
+        state.visited_rooms.append("teacher_room_3")
+    else:
+        # allow re-entry but notify player
+        print("You have already visited this room before.")
+        state.current_room = state.previous_room
+        return
+
+    # prologue 
     print(
-        "Possible commands:\n"
-        "--- Look around\n"
-        "--- Go to Lobby\n"
-        "--- Quit\n",
+        "You step into the teacher's lounge. Papers are scattered everywhere, coffee mugs still half full as if abandoned in a hurry. \n"
+        "A bookshelf is tilted precariously, blocking part of the exit. The room feels eerie in its stillness, \n"
+        "as though the teachers left in the middle of their day.\n"
     )
+
+    puzzle_solved = False
 
     while True:
-        user_input = get_user_input()
+        # split the user input to the command (string) and the arguments (list of strings)
+        cmd, *args = get_user_input()
 
-        match " ".join(user_input).strip().lower():
-            case "look around":
-                print(
-                    "You step into the teacher's lounge. Papers are scattered, coffee mugs still half full. "
-                    "A bookshelf is tilted, blocking part of the exit. On the desk you see four folders labeled A, B, C, D with notes stuck to them. "
-                    "A whiteboard says: 'Put knowledge in the right order. Only then the truth is revealed.'"
-                )
-
-                print(
-                    "The teacher's lounge is a mess. The bookshelf looks unstable.\n"
-                    "On the desk are four folders labeled A, B, C, D. Each has a note:\n"
-                    "Folder A: 'Comes after B.'\n"
-                    "Folder B: 'Must be first.'\n"
-                    "Folder C: 'Is never next to A.'\n"
-                    "Folder D: 'Always after C.'\n"
-                    "A whiteboard reads: 'Put knowledge in the right order. Only then the truth is revealed.'\n"
-                )
-
-                while True:
-                    userguess_input = get_user_input()
-                    userguess = "".join(userguess_input).strip().upper()
+        match cmd:
+            case Commands.help:
+                raise NotImplementedError
+            case Commands.look:
+                if not puzzle_solved:
+                    print(
+                        "The teacher's lounge is a mess. The bookshelf looks unstable and could fall at any moment.\n"
+                        "On the desk are four folders labeled A, B, C, D. Each has a note stuck to it:\n"
+                        "  Folder A: 'Comes after B.'\n"
+                        "  Folder B: 'Must be first.'\n"
+                        "  Folder C: 'Is never next to A.'\n"
+                        "  Folder D: 'Always after C.'\n"
+                        "A whiteboard reads: 'Put knowledge in the right order. Only then the truth is revealed.'\n"
+                    )
                     
-                    if userguess == "BCDA":
-                        print("Correct, you solved this one!")
-                        state.previous_room = "teacher_room_3"
-                        state.current_room = "lobby"
-                        return
-                    else:
-                        print("Incorrect, try again!")
+                    # Now ask for the answer directly
+                    while True:
+                        print("Enter the correct order (e.g., ABCD):")
+                        user_answer = get_user_input()
+                        answer = "".join(user_answer).strip().upper()
+                        
+                        if answer == "BCDA":
+                            print(
+                                "Correct! The folders click into place. You hear a soft mechanical sound as the bookshelf slowly rights itself, "
+                                "revealing a clear path to the exit. You feel a sense of accomplishment."
+                            )
+                            puzzle_solved = True
+                            break  # Exit the answer loop
+                        else:
+                            print(
+                                "Incorrect! The bookshelf groans ominously. That doesn't seem right."
+                            )
+                            print("(You will be returned to the start of the room)")
+                            state = state_snapshot
+                            return
+                else:
+                    print("You've already solved this puzzle. The bookshelf is no longer blocking the exit.")
+            case Commands.go:
+                if len(args) != 1:
+                    display_go_invalid_syntax()
+                    continue
 
-            case "go to lobby":
-                state.previous_room = "teacher_room_3"
-                state.current_room = "lobby"
-                return
+                match args[0]:
+                    case "?":
+                        display_go_help()
+                        continue
+                    case "list":
+                        display_go_list(["north_corridor"])
+                        continue
+                    case "north_corridor":
+                        if puzzle_solved:
+                            print(
+                                "With the bookshelf out of the way, you carefully navigate through the scattered papers and exit the teacher's lounge."
+                            )
+                            state.current_room = "north_corridor"
+                            return
+                        else:
+                            print(
+                                "The tilted bookshelf is blocking your path. You need to solve the puzzle to clear the way."
+                            )
+            case Commands.quit:
+                quit_game()
+            case Commands.pause:
+                pause_game(state)
+            case Commands.stats:
+                display_stats()
+            case Commands.leaderboard:
+                display_leaderboard()
             
-            case "quit":
-                print("Thanks for playing!")
-                exit()
-            
-            case _:
-                print("Invalid command. Try 'Look around', 'Go to Lobby', or 'Quit'.")
-
-
-if __name__ == "__main__":
-    # This runs only when testing the room standalone
-    import sys
-    from pathlib import Path
-    from datetime import time as Time
-    
-    # Add parent directory to Python path so we can import from main folder
-    parent_dir = Path(__file__).parent.parent
-    sys.path.insert(0, str(parent_dir))
-    
-    # Create test state
-    test_state = State(
-        user_name="TestPlayer",
-        current_room="teacher_room_3",
-        previous_room="",
-        visited_rooms=[],
-        time_played=Time(),
-        inventory=[],
-    )
-    
-    teacher_room_3(test_state)
+        display_invalid_command()
