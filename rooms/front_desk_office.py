@@ -1,4 +1,5 @@
 import copy
+
 from models import State
 from util import get_user_input
 
@@ -134,17 +135,16 @@ def front_desk_office(state):
             case "quit":
                 exit()
 
+
 if __name__ == "__main__":
     # This runs only when testing the room standalone
     import sys
+    from datetime import timedelta as TimeDelta
     from pathlib import Path
-    from datetime import time as Time
 
     # Add parent directory to Python path so we can import from main folder
     parent_dir = Path(__file__).parent.parent
     sys.path.insert(0, str(parent_dir))
-
-    from models import Inventory
 
     # Create test state
     test_state = State(
@@ -152,8 +152,8 @@ if __name__ == "__main__":
         current_room="front_desk_office",
         previous_room="",
         visited_rooms=[],
-        time_played=Time(),
-        inventory=Inventory(),
+        time_played=TimeDelta(),
+        inventory=[],
     )
 
     front_desk_office(test_state)

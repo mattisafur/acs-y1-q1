@@ -1,12 +1,11 @@
-from datetime import time as Time
-
+from datetime import timedelta as TimeDelta
 from models import State
 
 state: State = State(
     current_room="main_menu",
     inventory=[],
     previous_room="",
-    time_played=Time(),
+    time_played=TimeDelta(),
     user_name="",
     visited_rooms=[],
 )
