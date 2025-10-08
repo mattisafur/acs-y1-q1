@@ -8,7 +8,7 @@ from typing import Self
 class State:
     player_name: str
     current_room: str
-    previous_room: str | None
+    previous_room: str
     visited_rooms: list[str]
     time_played: TimeDelta
     inventory: list[str]
