@@ -48,7 +48,15 @@ def display_take_help() -> None:
     raise NotImplementedError
 
 
+def display_take_list(items: list[str]) -> None:
+    raise NotImplementedError
+
+
 def display_take_invalid_syntax() -> None:
+    raise NotImplementedError
+
+
+def display_answer_invalid_syntax() -> None:
     raise NotImplementedError
 
 

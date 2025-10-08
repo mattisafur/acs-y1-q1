@@ -4,17 +4,13 @@ from enum import StrEnum, unique
 
 
 @dataclass
-class Inventory: ...
-
-
-@dataclass
 class State:
     user_name: str
     current_room: str
     previous_room: str
     visited_rooms: list[str]
     time_played: Time
-    inventory: Inventory
+    inventory: list[str]
 
 
 @unique
