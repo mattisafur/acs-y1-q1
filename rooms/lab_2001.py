@@ -53,6 +53,7 @@ def lab_2001(state: State):
                     print(
                         "The lights flicker on and off, making strange shadows on the walls. Tables are overturned, and zombies shuffle between them, their groans filling in the silence. On a nearby desk, you spot a Keycard that could unlock electronic doors in the corridor. The zombies are too close for comfort, though. You'll have to be careful if you want to grab it without being noticed."
                     )
+                    print("fly away\nsneak\nfight\nset building on fire") # TODO enter the correct text here, missing from flowchart
             case Commands.answer:
                 # only let the user run the answer command if if they have a challenge they need to answer, if not the command will be skipped so the code will print "invalid command"
                 if can_choose_action:
@@ -102,9 +103,9 @@ def lab_2001(state: State):
                         case "list":
                             display_take_list(pickable_items)
                             continue
-                    
+
                     # check if the item the user entered is in the list of possible items to pick up AND that this item the user entered is the keycard
-                    # checking both of these is pretty redundant because there is only one item in this room but I am checking both just so it will be easier to understand 
+                    # checking both of these is pretty redundant because there is only one item in this room but I am checking both just so it will be easier to understand
                     if args[0] in pickable_items and args[0] == "keycard":
                         print(
                             "You picked up the keycard You want to get out of this room to the east corridor as quickly as possible"
