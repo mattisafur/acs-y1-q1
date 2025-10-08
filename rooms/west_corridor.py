@@ -3,6 +3,7 @@ from util import (
     display_go_help,
     display_go_invalid_syntax,
     display_go_list,
+    display_invalid_command,
     display_inventory,
     get_user_input,
     pause_game,
@@ -18,19 +19,15 @@ def west_corridor(state: State):
 
     print("You are in the west corridor")
 
-    display_go_list(
-        ["stair_exit", "classroom_2.035", "classroom_2.031", "project_room_4"]
-    )
+    display_go_list(["stair_exit", "classroom_2.035", "classroom_2.031", "project_room_4"])
 
     while True:
-        user_input = get_user_input()
+        command, *args = get_user_input()
 
-        match user_input.pop(0):
+        match command:
             case Commands.help:
-                ...
+                raise NotImplementedError
             case Commands.go:
-                args = user_input
-
                 if len(args) != 1:
                     display_go_invalid_syntax()
                     continue
@@ -59,6 +56,8 @@ def west_corridor(state: State):
                     case "project_room_4":
                         state.current_room = "project_room_4"
                         return
+                    
+                continue
             case Commands.look:
                 print(
                     "The corridor is empty, nothing to see here, go choose your next room!"
@@ -73,3 +72,5 @@ def west_corridor(state: State):
                 display_stats()
             case Commands.leaderboard:
                 display_leaderboard()
+
+        display_invalid_command()
