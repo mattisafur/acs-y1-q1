@@ -18,7 +18,7 @@ class State:
         return cls(
             player_name=player_name,
             current_room="main_menu",
-            previous_room=None,
+            previous_room="",
             visited_rooms=[],
             time_played=TimeDelta(),
             inventory=[],
