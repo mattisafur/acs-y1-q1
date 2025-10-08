@@ -52,11 +52,11 @@ def lab_2001(state: State):
                     )
             case Commands.answer:
                 if can_choose_action:
-                    if len(args) != 1:
+                    if not args:
                         display_answer_invalid_syntax()
                         continue
 
-                    match args[0]:
+                    match " ".join(args):
                         case "sneak":
                             print("You notice a keycard on one of the desks")
                             pickable_items.append("keycard")
