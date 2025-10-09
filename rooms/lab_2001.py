@@ -153,3 +153,18 @@ def lab_2001(state: State):
                 continue  # skip the "invalid command" functon call at end of loop
 
         display_invalid_command()
+
+
+if __name__ == "__main__":
+    from datetime import timedelta as TimeDelta
+
+    mock_state = State(
+        player_name="mock",
+        current_room="lab_2001",
+        previous_room="",
+        visited_rooms=[],
+        time_played=TimeDelta(),
+        inventory=[],
+    )
+
+    lab_2001(mock_state)
