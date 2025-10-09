@@ -2,14 +2,12 @@ from models import State
 from util import get_user_input
 
 def north_corridor(state):
-    ...
-    # if not state["rooms_visited"]["north_corridor"]:
-    #     state["rooms_visited"]["north_corridor"] = True
-    #     print(
-    #         "You step into the North Corridor for the first time. You see a bunch of rooms in the corridor. You check which room you can visit"
-    #     )
-    # else:
-    #     print("You are back in the North Corridor.")
+    if "north_corridor" not in state.visited_rooms:
+        state.visited_rooms.append("north_corridor")
+
+    print("You are in the north corridor")
+
+    display_go_list(["Lobby", "Front Desk Office", "Classroom 2.021", "Classroom 2.015", "Equinox Student's Society", "Storage Room", "Project room 3", "Teachers room 3", "Teachers room 2", "Teachers room 1" ])
 
     while True:
         print(
