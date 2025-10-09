@@ -20,6 +20,8 @@ state = State.new_game("dummy_state")
 
 def main_menu():
     while True:
+        global state
+        
         print("what would you like to do?")
 
         cmd, *args = get_user_input()
@@ -40,7 +42,6 @@ def main_menu():
                     print("a save with the specified name already exists")
                     continue
 
-                global state
                 state = State.new_game(args[0])
 
                 print("starting new game")
@@ -59,7 +60,6 @@ def main_menu():
                     print("Save does not exist")
                     continue
 
-                global state
                 state = loaded_state
 
                 print("save loaded, resuming game")
