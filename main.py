@@ -1,4 +1,4 @@
-from db import delete_state, load_state
+from db import delete_save, load_save
 from models import Command, State
 from rooms.east_corridor import east_corridor
 from rooms.lab_2001 import lab_2001
@@ -37,7 +37,7 @@ def main_menu():
                     display_new_help()
                     continue
 
-                if load_state(args[0]) is not None:
+                if load_save(args[0]) is not None:
                     print("a save with the specified name already exists")
                     continue
 
@@ -54,7 +54,7 @@ def main_menu():
                     display_load_help()
                     continue
 
-                loaded_state = load_state(args[0])
+                loaded_state = load_save(args[0])
                 if loaded_state is None:
                     print("Save does not exist")
                     continue
@@ -72,13 +72,13 @@ def main_menu():
                     display_delete_help()
                     continue
 
-                if load_state(args[0]) is None:
+                if load_save(args[0]) is None:
                     print("Save does not exist")
                     continue
 
                 user_input = input("are you sure you want to delete the save? [y/N]: ")
                 if user_input == "y":
-                    delete_state(args[0])
+                    delete_save(args[0])
                     print("save deleted")
 
                 continue
