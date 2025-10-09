@@ -2,14 +2,13 @@ from models import Command, State
 from rooms import teacher_room_3
 from util import (
     display_go_help,
-    display_go_invalid_syntax,
     display_go_list,
     display_invalid_command,
     display_inventory,
-    get_user_input,
-    pause_game,
     display_leaderboard,
     display_stats,
+    get_user_input,
+    pause_game,
     quit_game,
 )
 
@@ -20,7 +19,9 @@ def west_corridor(state: State):
 
     print("You are in the west corridor")
 
-    display_go_list(["stair_exit", "classroom_2.035", "classroom_2.031", "project_room_4"])
+    display_go_list(
+        ["stair_exit", "classroom_2.035", "classroom_2.031", "project_room_4"]
+    )
 
     while True:
         command, *args = get_user_input()
@@ -30,7 +31,7 @@ def west_corridor(state: State):
                 raise NotImplementedError
             case Command.go:
                 if len(args) != 1:
-                    display_go_invalid_syntax()
+                    display_invalid_syntax("go")
                     continue
 
                 match args[0]:
@@ -57,7 +58,7 @@ def west_corridor(state: State):
                     case "project_room_4":
                         state.current_room = "project_room_4"
                         return
-                    
+
                 continue
             case Command.look:
                 print(
@@ -75,6 +76,7 @@ def west_corridor(state: State):
                 display_leaderboard()
 
         display_invalid_command()
+
 
 if __name__ == "__main__":
     from datetime import timedelta as TimeDelta

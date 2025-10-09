@@ -39,12 +39,12 @@ def display_go_help() -> None:
     )
 
 
+def display_invalid_syntax(command_name: str) -> None:
+    print(f"Invalid syntax\nUser `{command_name} ?` for help")
+
+
 def display_go_list(rooms: list[str]) -> None:
     print("Connected rooms:\n", "\n".join(rooms))
-
-
-def display_go_invalid_syntax() -> None:
-    print("Invalid syntax\nUse `go ?` for help")
 
 
 def display_take_help() -> None:
@@ -55,36 +55,16 @@ def display_take_list(items: list[str]) -> None:
     raise NotImplementedError
 
 
-def display_take_invalid_syntax() -> None:
-    print("Invalid syntax\nUse `take ?` for help")
-
-
-def display_answer_invalid_syntax() -> None:
-    print("Invalid syntax\nUser `answer ?` for help")
-
-
 def display_invalid_command() -> None:
     print("Invalid command.")
-
-
-def display_new_invalid_syntax() -> None:
-    raise NotImplementedError
 
 
 def display_new_help() -> None:
     raise NotImplementedError
 
 
-def display_load_invalid_syntax() -> None:
-    print("Invalid syntax\nUser `load ?` for help")
-
-
 def display_load_help() -> None:
     raise NotImplementedError
-
-
-def display_delete_invalid_syntax() -> None:
-    print("Invalid syntax\nUser `delete ?` for help")
 
 
 def display_delete_help() -> None:

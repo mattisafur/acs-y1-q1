@@ -2,11 +2,10 @@ from copy import deepcopy
 
 from models import Command, State
 from util import (
-    display_answer_invalid_syntax,
     display_go_help,
-    display_go_invalid_syntax,
     display_go_list,
     display_invalid_command,
+    display_invalid_syntax,
     display_leaderboard,
     display_stats,
     display_take_help,
@@ -63,7 +62,7 @@ def lab_2001(state: State):
                 if can_choose_action:
                     # if no arguments are given, print "invalid syntax"
                     if not args:
-                        display_answer_invalid_syntax()
+                        display_invalid_syntax("answer")
                         continue  # skip the "invalid command" functon call at end of loop
 
                     # when matching, join all the arguments together to reconstruct the player's answer (for exmample ["fly", "away"] will become "fly away")
@@ -96,7 +95,7 @@ def lab_2001(state: State):
                 if len(pickable_items) > 0:
                     # make sure only one argument was passed to the command
                     if len(args) != 1:
-                        display_go_invalid_syntax()
+                        display_invalid_syntax("take")
                         continue  # skip the "invalid command" functon call at end of loop
 
                     # match on the first argument, which is also the only argument because of the check we did above
@@ -122,7 +121,7 @@ def lab_2001(state: State):
             case Command.go:
                 # make sure only one argument was passed to the command
                 if len(args) != 1:
-                    display_go_invalid_syntax()
+                    display_invalid_syntax("go")
                     continue  # skip the "invalid command" functon call at end of loop
 
                 # match on the first argument, which is also the only argument because of the check we did above

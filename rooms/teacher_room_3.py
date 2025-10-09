@@ -2,11 +2,10 @@ from copy import deepcopy
 
 from models import Command, State
 from util import (
-    display_answer_invalid_syntax,
     display_go_help,
-    display_go_invalid_syntax,
     display_go_list,
     display_invalid_command,
+    display_invalid_syntax,
     display_leaderboard,
     display_stats,
     display_take_help,
@@ -29,7 +28,7 @@ def teacher_room_3(state: State):
         state.current_room = state.previous_room
         return
 
-    # prologue 
+    # prologue
     print(
         "You step into the teacher's lounge. Papers are scattered everywhere, coffee mugs still half full as if abandoned in a hurry. \n"
         "A bookshelf is tilted precariously, blocking part of the exit. The room feels eerie in its stillness, \n"
@@ -56,13 +55,13 @@ def teacher_room_3(state: State):
                         "  Folder D: 'Always after C.'\n"
                         "A whiteboard reads: 'Put knowledge in the right order. Only then the truth is revealed.'\n"
                     )
-                    
+
                     # Now ask for the answer directly
                     while True:
                         print("Enter the correct order (e.g., ABCD):")
                         user_answer = get_user_input()
                         answer = "".join(user_answer).strip().upper()
-                        
+
                         if answer == "BCDA":
                             print(
                                 "Correct! The folders click into place. You hear a soft mechanical sound as the bookshelf slowly rights itself, "
@@ -78,10 +77,12 @@ def teacher_room_3(state: State):
                             state = state_snapshot
                             return
                 else:
-                    print("You've already solved this puzzle. The bookshelf is no longer blocking the exit.")
+                    print(
+                        "You've already solved this puzzle. The bookshelf is no longer blocking the exit."
+                    )
             case Command.go:
                 if len(args) != 1:
-                    display_go_invalid_syntax()
+                    display_invalid_syntax("go")
                     continue
 
                 match args[0]:
@@ -127,4 +128,3 @@ if __name__ == "__main__":
     )
 
     teacher_room_3(mock_state)
-

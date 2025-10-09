@@ -3,11 +3,10 @@ from datetime import timedelta as TimeDelta
 
 from models import Command, State
 from util import (
-    display_answer_invalid_syntax,
     display_go_help,
-    display_go_invalid_syntax,
     display_go_list,
     display_invalid_command,
+    display_invalid_syntax,
     display_leaderboard,
     display_stats,
     display_take_help,
@@ -16,6 +15,7 @@ from util import (
     pause_game,
     quit_game,
 )
+
 
 def lab_2003(state: State):
     state_snapshot = deepcopy(state)
@@ -58,7 +58,7 @@ while True:
         case Command.answer:
             if can_choose_action:
                 if not args:
-                    display_answer_invalid_syntax()
+                    display_invalid_syntax("answer")
                     continue
                 match " ".join(args):
                     case "Type code from Project room":
@@ -117,7 +117,7 @@ while True:
         case Command.take:
             if len(pickable_items) > 0:
                 if len(args) != 1:
-                    display_go_invalid_syntax()
+                    display_invalid_syntax("go")
                     continue
                 match args[0]:
                     case "?":
@@ -135,7 +135,7 @@ while True:
                     )
         case Command.go:
             if len(args) != 1:
-                display_go_invalid_syntax()
+                display_invalid_syntax("go")
                 continue
             match args[0]:
                 case "?":

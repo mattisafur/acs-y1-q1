@@ -1,9 +1,9 @@
 from models import Command, State
 from util import (
     display_go_help,
-    display_go_invalid_syntax,
     display_go_list,
     display_invalid_command,
+    display_invalid_syntax,
     display_inventory,
     display_leaderboard,
     display_stats,
@@ -31,7 +31,7 @@ def east_corridor(state: State):
                 raise NotImplementedError
             case Command.go:
                 if len(args) != 1:
-                    display_go_invalid_syntax()
+                    display_invalid_syntax("go")
                     continue
 
                 match args[0]:

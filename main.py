@@ -4,13 +4,11 @@ from rooms.east_corridor import east_corridor
 from rooms.lab_2001 import lab_2001
 from util import (
     display_delete_help,
-    display_delete_invalid_syntax,
     display_invalid_command,
+    display_invalid_syntax,
     display_leaderboard,
     display_load_help,
-    display_load_invalid_syntax,
     display_new_help,
-    display_new_invalid_syntax,
     get_user_input,
     quit_game,
 )
@@ -21,7 +19,7 @@ state = State.new_game("dummy_state")
 def main_menu():
     while True:
         global state
-        
+
         print("what would you like to do?")
 
         cmd, *args = get_user_input()
@@ -31,7 +29,7 @@ def main_menu():
                 raise NotImplementedError
             case Command.new:
                 if args != 1:
-                    display_new_invalid_syntax()
+                    display_invalid_syntax("new")
                     continue
 
                 if args[0] == "?":
@@ -48,7 +46,7 @@ def main_menu():
                 return
             case Command.load:
                 if args != 1:
-                    display_load_invalid_syntax()
+                    display_invalid_syntax("load")
                     continue
 
                 if args[0] == "?":
@@ -66,7 +64,7 @@ def main_menu():
                 return
             case Command.delete:
                 if args != 1:
-                    display_delete_invalid_syntax()
+                    display_invalid_syntax("delete")
                     continue
 
                 if args[0] == "?":
