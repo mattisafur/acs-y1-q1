@@ -53,14 +53,16 @@ def lab_2001(state: State):
                     print(
                         "The lights flicker on and off, making strange shadows on the walls. Tables are overturned, and zombies shuffle between them, their groans filling in the silence. On a nearby desk, you spot a Keycard that could unlock electronic doors in the corridor. The zombies are too close for comfort, though. You'll have to be careful if you want to grab it without being noticed."
                     )
-                    print("fly away\nsneak\nfight\nset building on fire") # TODO enter the correct text here, missing from flowchart
+                    print(
+                        "fly away\nsneak\nfight\nset building on fire"
+                    )  # TODO enter the correct text here, missing from flowchart
             case Commands.answer:
                 # only let the user run the answer command if if they have a challenge they need to answer, if not the command will be skipped so the code will print "invalid command"
                 if can_choose_action:
                     # ig no arguments are given, print "invalid syntax"
                     if not args:
                         display_answer_invalid_syntax()
-                        continue
+                        continue  # skip the "invalid command" functon call at end of loop
 
                     # when matching, join all the arguments together to reconstruct the player's answer (for exmample ["fly", "away"] will become "fly away")
                     match " ".join(args):
@@ -70,7 +72,7 @@ def lab_2001(state: State):
                                 "keycard"
                             )  # make keycard possible to pick up by adding it to the list of items we can pick up in the room
                             can_use_look = False  # make "look" no longer available
-                            continue
+                            continue  # skip the "invalid command" functon call at end of loop
 
                         # all cases under here result in death, we only print the text that's not the same between the commands here, and under the match statement we reset the room because we want it to happen in all of these cases
                         case "fly away":
@@ -93,16 +95,16 @@ def lab_2001(state: State):
                     # make sure only one argument was passed to the command
                     if len(args) != 1:
                         display_go_invalid_syntax()
-                        continue
+                        continue  # skip the "invalid command" functon call at end of loop
 
                     # match on the first argument, which is also the only argument because of the check we did above
                     match args[0]:
                         case "?":
                             display_take_help()
-                            continue
+                            continue  # skip the "invalid command" functon call at end of loop
                         case "list":
                             display_take_list(pickable_items)
-                            continue
+                            continue  # skip the "invalid command" functon call at end of loop
 
                     # check if the item the user entered is in the list of possible items to pick up AND that this item the user entered is the keycard
                     # checking both of these is pretty redundant because there is only one item in this room but I am checking both just so it will be easier to understand
@@ -117,17 +119,18 @@ def lab_2001(state: State):
                 # make sure only one argument was passed to the command
                 if len(args) != 1:
                     display_go_invalid_syntax()
-                    continue
+                    continue  # skip the "invalid command" functon call at end of loop
 
                 # match on the first argument, which is also the only argument because of the check we did above
                 match args[0]:
                     case "?":
                         display_go_help()
-                        continue
+                        continue  # skip the "invalid command" functon call at end of loop
                     case "list":
                         display_go_list(["east_corridor"])
-                        continue
+                        continue  # skip the "invalid command" functon call at end of loop
                     case "east_corridor":
+                        # if player has the keycard, let them exit the room, if not, print something and stay in the room
                         if "keycard" in state.inventory:
                             print(
                                 "You quickly run out of the room and barricade the door behind you"
@@ -137,14 +140,16 @@ def lab_2001(state: State):
                         else:
                             print("You carefully sneak past the zombies...")
             case Commands.quit:
+                # function will quit the game, no need to add continue
                 quit_game()
             case Commands.pause:
+                # function will quit the game, no need to add continue
                 pause_game(state)
             case Commands.stats:
                 display_stats()
-                continue
+                continue  # skip the "invalid command" functon call at end of loop
             case Commands.leaderboard:
                 display_leaderboard()
-                continue
+                continue  # skip the "invalid command" functon call at end of loop
 
         display_invalid_command()
