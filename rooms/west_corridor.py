@@ -1,4 +1,4 @@
-from models import Commands, State
+from models import Command, State
 from util import (
     display_go_help,
     display_go_invalid_syntax,
@@ -25,9 +25,9 @@ def west_corridor(state: State):
         command, *args = get_user_input()
 
         match command:
-            case Commands.help:
+            case Command.help:
                 raise NotImplementedError
-            case Commands.go:
+            case Command.go:
                 if len(args) != 1:
                     display_go_invalid_syntax()
                     continue
@@ -58,19 +58,19 @@ def west_corridor(state: State):
                         return
                     
                 continue
-            case Commands.look:
+            case Command.look:
                 print(
                     "The corridor is empty, nothing to see here, go choose your next room!"
                 )
-            case Commands.inventory:
+            case Command.inventory:
                 display_inventory(state)
-            case Commands.quit:
+            case Command.quit:
                 quit_game()
-            case Commands.pause:
+            case Command.pause:
                 pause_game(state)
-            case Commands.stats:
+            case Command.stats:
                 display_stats()
-            case Commands.leaderboard:
+            case Command.leaderboard:
                 display_leaderboard()
 
         display_invalid_command()

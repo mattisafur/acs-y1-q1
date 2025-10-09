@@ -1,6 +1,6 @@
 from copy import deepcopy
 
-from models import Commands, State
+from models import Command, State
 from util import (
     display_answer_invalid_syntax,
     display_go_help,
@@ -44,10 +44,10 @@ def lab_2001(state: State):
 
         # match on the command (e.g. take)
         match cmd:
-            case Commands.help:
+            case Command.help:
                 # the help command is not implemented yet so we raising "not implemented" error
                 raise NotImplementedError
-            case Commands.look:
+            case Command.look:
                 # only let the user run the look command if the look command is allowed to be run, if not the command will be skipped so the code will print "invalid command"
                 if can_use_look:
                     print(
@@ -56,7 +56,7 @@ def lab_2001(state: State):
                     print(
                         "fly away\nsneak\nfight\nset building on fire"
                     )  # TODO enter the correct text here, missing from flowchart
-            case Commands.answer:
+            case Command.answer:
                 # only let the user run the answer command if if they have a challenge they need to answer, if not the command will be skipped so the code will print "invalid command"
                 if can_choose_action:
                     # ig no arguments are given, print "invalid syntax"
@@ -89,7 +89,7 @@ def lab_2001(state: State):
                     print("(You will be returned to the start of the room)")
                     state = state_snapshot  # reset the game state
                     return
-            case Commands.take:
+            case Command.take:
                 # if there are no items you can pick up, skip the commands logic and continue with the code so it will print "invalid command"
                 if len(pickable_items) > 0:
                     # make sure only one argument was passed to the command
@@ -115,7 +115,7 @@ def lab_2001(state: State):
                         state.inventory.append(
                             "keycard"
                         )  # add the keycard to the inventory
-            case Commands.go:
+            case Command.go:
                 # make sure only one argument was passed to the command
                 if len(args) != 1:
                     display_go_invalid_syntax()
@@ -139,16 +139,16 @@ def lab_2001(state: State):
                             return
                         else:
                             print("You carefully sneak past the zombies...")
-            case Commands.quit:
+            case Command.quit:
                 # function will quit the game, no need to add continue
                 quit_game()
-            case Commands.pause:
+            case Command.pause:
                 # function will quit the game, no need to add continue
                 pause_game(state)
-            case Commands.stats:
+            case Command.stats:
                 display_stats()
                 continue  # skip the "invalid command" functon call at end of loop
-            case Commands.leaderboard:
+            case Command.leaderboard:
                 display_leaderboard()
                 continue  # skip the "invalid command" functon call at end of loop
 

@@ -1,6 +1,6 @@
 from copy import deepcopy
 
-from models import Commands, State
+from models import Command, State
 from util import (
     display_answer_invalid_syntax,
     display_go_help,
@@ -43,9 +43,9 @@ def teacher_room_3(state: State):
         cmd, *args = get_user_input()
 
         match cmd:
-            case Commands.help:
+            case Command.help:
                 raise NotImplementedError
-            case Commands.look:
+            case Command.look:
                 if not puzzle_solved:
                     print(
                         "The teacher's lounge is a mess. The bookshelf looks unstable and could fall at any moment.\n"
@@ -79,7 +79,7 @@ def teacher_room_3(state: State):
                             return
                 else:
                     print("You've already solved this puzzle. The bookshelf is no longer blocking the exit.")
-            case Commands.go:
+            case Command.go:
                 if len(args) != 1:
                     display_go_invalid_syntax()
                     continue
@@ -102,13 +102,13 @@ def teacher_room_3(state: State):
                             print(
                                 "The tilted bookshelf is blocking your path. You need to solve the puzzle to clear the way."
                             )
-            case Commands.quit:
+            case Command.quit:
                 quit_game()
-            case Commands.pause:
+            case Command.pause:
                 pause_game(state)
-            case Commands.stats:
+            case Command.stats:
                 display_stats()
-            case Commands.leaderboard:
+            case Command.leaderboard:
                 display_leaderboard()
             
         display_invalid_command()

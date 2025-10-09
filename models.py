@@ -26,7 +26,7 @@ class State:
 
 
 @unique
-class Commands(StrEnum):
+class Command(StrEnum):
     help = "?"
     go = "go"
     take = "take"
