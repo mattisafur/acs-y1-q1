@@ -2,6 +2,7 @@ from db import delete_state, load_state
 from models import Command, State
 from rooms.east_corridor import east_corridor
 from rooms.lab_2001 import lab_2001
+from rooms.lobby import lobby
 from util import (
     display_delete_help,
     display_invalid_command,
@@ -100,3 +101,5 @@ while True:
             lab_2001(state)
         case "east_corridor":
             east_corridor(state)
+        case "lobby":
+            lobby(state)
