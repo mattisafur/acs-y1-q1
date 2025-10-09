@@ -5,10 +5,10 @@ from util import (
     display_go_list,
     display_invalid_command,
     display_inventory,
-    get_user_input,
-    pause_game,
     display_leaderboard,
     display_stats,
+    get_user_input,
+    pause_game,
     quit_game,
 )
 

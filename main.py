@@ -17,6 +17,7 @@ from util import (
 
 state = State.new_game("dummy_state")
 
+
 def main_menu():
     while True:
         print("what would you like to do?")
