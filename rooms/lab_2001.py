@@ -56,6 +56,8 @@ def lab_2001(state: State):
                     print(
                         "fly away\nsneak\nfight\nset building on fire"
                     )  # TODO enter the correct text here, missing from flowchart
+                    can_choose_action = True
+                    continue
             case Command.answer:
                 # only let the user run the answer command if if they have a challenge they need to answer, if not the command will be skipped so the code will print "invalid command"
                 if can_choose_action:
