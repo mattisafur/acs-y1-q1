@@ -55,7 +55,7 @@ def lobby(state: State):
                         state.current_room = "project_room_1"
                         return
                     case "main_stair_exit":
-                        print("Sorry, I could be a nice message, only if I went as oooops, for whatever reason!")
+                        print("Sorry, it could be a nice way to get out, only if it won't be closed, try other doors.")
                         continue
 
                 continue
