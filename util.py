@@ -65,6 +65,30 @@ def display_invalid_command() -> None:
     print("Invalid command.")
 
 
+def display_new_invalid_syntax() -> None:
+    raise NotImplementedError
+
+
+def display_new_help() -> None:
+    raise NotImplementedError
+
+
+def display_load_invalid_syntax() -> None:
+    raise NotImplementedError
+
+
+def display_load_help() -> None:
+    raise NotImplementedError
+
+
+def display_delete_invalid_syntax() -> None:
+    raise NotImplementedError
+
+
+def display_delete_help() -> None:
+    raise NotImplementedError
+
+
 def update_time_played(
     current_time_played: TimeDelta, session_start_time: DateTime
 ) -> TimeDelta:

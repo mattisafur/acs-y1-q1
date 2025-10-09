@@ -1,13 +1,95 @@
-from models import State
+from db import delete_state, load_state
+from models import Command, State
 from rooms.east_corridor import east_corridor
 from rooms.lab_2001 import lab_2001
+from util import (
+    display_delete_help,
+    display_delete_invalid_syntax,
+    display_invalid_command,
+    display_leaderboard,
+    display_load_help,
+    display_load_invalid_syntax,
+    display_new_help,
+    display_new_invalid_syntax,
+    get_user_input,
+    quit_game,
+)
 
 state = State.new_game("dummy_state")
 
 def main_menu():
-    # TODO implement main menu
-    global state
-    state = State.new_game("test")
+    while True:
+        print("what would you like to do?")
+
+        cmd, *args = get_user_input()
+
+        match cmd:
+            case Command.help:
+                raise NotImplementedError
+            case Command.new:
+                if args != 1:
+                    display_new_invalid_syntax()
+                    continue
+
+                if args[0] == "?":
+                    display_new_help()
+                    continue
+
+                if load_state(args[0]) is not None:
+                    print("a save with the specified name already exists")
+                    continue
+
+                global state
+                state = State.new_game(args[0])
+
+                print("starting new game")
+                return
+            case Command.load:
+                if args != 1:
+                    display_load_invalid_syntax()
+                    continue
+
+                if args[0] == "?":
+                    display_load_help()
+                    continue
+
+                loaded_state = load_state(args[0])
+                if loaded_state is None:
+                    print("Save does not exist")
+                    continue
+
+                global state
+                state = loaded_state
+
+                print("save loaded, resuming game")
+                return
+            case Command.delete:
+                if args != 1:
+                    display_delete_invalid_syntax()
+                    continue
+
+                if args[0] == "?":
+                    display_delete_help()
+                    continue
+
+                if load_state(args[0]) is None:
+                    print("Save does not exist")
+                    continue
+
+                user_input = input("are you sure you want to delete the save? [y/N]: ")
+                if user_input == "y":
+                    delete_state(args[0])
+                    print("save deleted")
+
+                continue
+            case Command.quit:
+                quit_game()
+            case Command.leaderboard:
+                display_leaderboard()
+                continue
+
+        display_invalid_command()
+
 
 main_menu()
 
