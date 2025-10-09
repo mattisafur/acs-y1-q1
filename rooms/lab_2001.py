@@ -61,7 +61,7 @@ def lab_2001(state: State):
             case Command.answer:
                 # only let the user run the answer command if if they have a challenge they need to answer, if not the command will be skipped so the code will print "invalid command"
                 if can_choose_action:
-                    # ig no arguments are given, print "invalid syntax"
+                    # if no arguments are given, print "invalid syntax"
                     if not args:
                         display_answer_invalid_syntax()
                         continue  # skip the "invalid command" functon call at end of loop
@@ -117,6 +117,8 @@ def lab_2001(state: State):
                         state.inventory.append(
                             "keycard"
                         )  # add the keycard to the inventory
+
+                    continue
             case Command.go:
                 # make sure only one argument was passed to the command
                 if len(args) != 1:

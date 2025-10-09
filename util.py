@@ -56,11 +56,11 @@ def display_take_list(items: list[str]) -> None:
 
 
 def display_take_invalid_syntax() -> None:
-    raise NotImplementedError
+    print("Invalid syntax\nUse `take ?` for help")
 
 
 def display_answer_invalid_syntax() -> None:
-    raise NotImplementedError
+    print("Invalid syntax\nUser `answer ?` for help")
 
 
 def display_invalid_command() -> None:
@@ -76,7 +76,7 @@ def display_new_help() -> None:
 
 
 def display_load_invalid_syntax() -> None:
-    raise NotImplementedError
+    print("Invalid syntax\nUser `load ?` for help")
 
 
 def display_load_help() -> None:
@@ -84,7 +84,7 @@ def display_load_help() -> None:
 
 
 def display_delete_invalid_syntax() -> None:
-    raise NotImplementedError
+    print("Invalid syntax\nUser `delete ?` for help")
 
 
 def display_delete_help() -> None:
