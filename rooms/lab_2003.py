@@ -1,6 +1,7 @@
 from copy import deepcopy
+from datetime import timedelta as TimeDelta
 
-from models import Commands, State
+from models import Command, State
 from util import (
     display_answer_invalid_syntax,
     display_go_help,
@@ -40,10 +41,10 @@ while True:
     cmd, *args = get_user_input()
 
     match cmd:
-        case Commands.help:
+        case Command.help:
         # the help command is not implemented yet so we raising "not implemented" error
             raise NotImplementedError
-        case Commands.look:
+        case Command.look:
             if can_use_look:
                 print("There is just one computer on. On the screen it displays:\n"
                       "“Login required – Insert authorized password.\n”"
@@ -54,7 +55,7 @@ while True:
                     "Type your mom's number\n"
                     "Write positive affirmations"
                 )
-        case Commands.answer:
+        case Command.answer:
             if can_choose_action:
                 if not args:
                     display_answer_invalid_syntax()
@@ -113,7 +114,7 @@ while True:
                         state.current_room = "east_corridor"
                     case _:
                         print("Invalid choice.")
-        case Commands.take:
+        case Command.take:
             if len(pickable_items) > 0:
                 if len(args) != 1:
                     display_go_invalid_syntax()
@@ -132,7 +133,7 @@ while True:
                     state.inventory.append(
                         "Knive"
                     )
-        case Commands.go:
+        case Command.go:
             if len(args) != 1:
                 display_go_invalid_syntax()
                 continue
@@ -151,14 +152,14 @@ while True:
                         state.current_room = "east_corridor"
                     else:
                         print("You go back to East Corridor precautiously..")
-                case Commands.quit:
+                case Command.quit:
                     quit_game()
-                case Commands.pause:
+                case Command.pause:
                     pause_game(state)
-                case Commands.stats:
+                case Command.stats:
                     display_stats()
                     continue
-                case Commands.leaderboard:
+                case Command.leaderboard:
                     display_leaderboard()
                     continue
 # Create test state
