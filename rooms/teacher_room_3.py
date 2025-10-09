@@ -110,5 +110,21 @@ def teacher_room_3(state: State):
                 display_stats()
             case Command.leaderboard:
                 display_leaderboard()
-            
-        display_invalid_command()
+            case _:
+                display_invalid_command()
+
+
+if __name__ == "__main__":
+    from datetime import timedelta as TimeDelta
+
+    mock_state = State(
+        player_name="mock",
+        current_room="teacher_room_3",
+        previous_room="",
+        visited_rooms=[],
+        time_played=TimeDelta(),
+        inventory=[],
+    )
+
+    teacher_room_3(mock_state)
+
