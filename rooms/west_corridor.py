@@ -1,4 +1,5 @@
 from models import Command, State
+from rooms import teacher_room_3
 from util import (
     display_go_help,
     display_go_invalid_syntax,
@@ -74,3 +75,17 @@ def west_corridor(state: State):
                 display_leaderboard()
 
         display_invalid_command()
+
+if __name__ == "__main__":
+    from datetime import timedelta as TimeDelta
+
+    mock_state = State(
+        player_name="mock",
+        current_room="west_corridor",
+        previous_room="",
+        visited_rooms=[],
+        time_played=TimeDelta(),
+        inventory=[],
+    )
+
+    west_corridor(mock_state)
