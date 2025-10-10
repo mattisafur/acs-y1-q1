@@ -31,7 +31,7 @@ def lab_2001(state: State):
 
     # prologue. will only show up once as re-entering the room is not possible
     print(
-        "A loud bang can be heard and a door opens. You wake up suddenly and slowly remember where you are, the University. You were in class falling asleep when you woke up and no one was around you, well that's not true. There is a zombie coming into this room. Reacting fast you hide behind some of the tables. There must have been a zombie outbreak. You theorize that maybe the biology students have accidentally created a virus. However it is not the time to ponder the origin of the zombie. You have to get out of this room and also grab the keycard to open the door in the corridor."
+        "A loud bang can be heard and a door opens. You wake up suddenly and slowly remember where you are, the University. \nYou were in class falling asleep when you woke up and no one was around you, well that's not true. \nThere is a zombie coming into this room. Reacting fast you hide behind some of the tables. \nThere must have been a zombie outbreak. You theorize that maybe the biology students have accidentally created a virus. \nHowever it is not the time to ponder the origin of the zombie. You have to get out of this room and also grab the keycard to open the door in the corridor."
     )
 
     can_use_look = True
@@ -51,7 +51,7 @@ def lab_2001(state: State):
                 # only let the user run the look command if the look command is allowed to be run, if not the command will be skipped so the code will print "invalid command"
                 if can_use_look:
                     print(
-                        "The lights flicker on and off, making strange shadows on the walls. Tables are overturned, and zombies shuffle between them, their groans filling in the silence. On a nearby desk, you spot a Keycard that could unlock electronic doors in the corridor. The zombies are too close for comfort, though. You'll have to be careful if you want to grab it without being noticed."
+                        "The lights flicker on and off, making strange shadows on the walls. \nTables are overturned, and zombies shuffle between them, their groans filling in the silence. On a nearby desk, you spot a Keycard that could unlock electronic doors in the corridor. \nThe zombies are too close for comfort, though. You'll have to be careful if you want to grab it without being noticed. \n"
                     )
                     print(
                         "fly away\nsneak\nfight\nset building on fire"
