@@ -4,6 +4,7 @@ from util import (
     display_go_help,
     display_go_list,
     display_invalid_command,
+    display_invalid_syntax,
     display_inventory,
     display_leaderboard,
     display_stats,
@@ -64,16 +65,20 @@ def west_corridor(state: State):
                 print(
                     "The corridor is empty, nothing to see here, go choose your next room!"
                 )
+                continue
             case Command.inventory:
                 display_inventory(state)
+                continue
             case Command.quit:
                 quit_game()
             case Command.pause:
                 pause_game(state)
             case Command.stats:
                 display_stats()
+                continue
             case Command.leaderboard:
                 display_leaderboard()
+                continue
 
         display_invalid_command()
 
