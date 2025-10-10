@@ -52,10 +52,11 @@ class State:
             DateTime.now(),  # session_start_time - reset when loading
         )
 
-        def to_sql_value_string(self) -> str:
-            visited_rooms_str = ', '.join(self.visited_rooms) if self.visited_rooms else ''
-            inventory_str = ', '.join(self.inventory) if self.inventory else ''
-            return f"'{self.player_name}','{self.current_room}','{self.previous_room}','{visited_rooms_str}',{self.time_played.total_seconds()},'{inventory_str}'"
+    def to_sql_value_string(self) -> str:
+        visited_rooms_str = ', '.join(self.visited_rooms) if self.visited_rooms else ''
+        inventory_str = ', '.join(self.inventory) if self.inventory else ''
+        return f"'{self.player_name}','{self.current_room}','{self.previous_room}','{visited_rooms_str}',{self.time_played.total_seconds()},'{inventory_str}'"
+
 
 @unique
 class Command(StrEnum):
