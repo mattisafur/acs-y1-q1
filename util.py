@@ -1,3 +1,4 @@
+import json
 from datetime import datetime as DateTime
 from datetime import timedelta as TimeDelta
 
@@ -13,7 +14,19 @@ def quit_game() -> None:
 
 
 def pause_game(state: State) -> None:
-    raise NotImplementedError
+    state.time_played = update_time_played(state.time_played, state.session_start_time)
+    save_data = {
+        "player_name": state.player_name,
+        "current_room": state.current_room,
+        "inventory": state.inventory,
+        "time_played": state.time_played.total_seconds(),
+        "last_saved": DateTime.now().isoformat(),
+    }
+    saved_file_name = f"{state.player_name}_save.json"
+    with open(saved_file_name, "w") as f:
+        json.dump(save_data, f, indent=4)
+    print(f"Game paused and saved successfully as '{saved_file_name}'.")
+    quit_game()
 
 
 def display_leaderboard() -> None:
@@ -21,7 +34,16 @@ def display_leaderboard() -> None:
 
 
 def display_stats(state: State) -> None:
-    raise NotImplementedError
+        total_seconds = int(state.time_played.total_seconds())
+        hours = total_seconds // 3600
+        minutes = (total_seconds % 3600) // 60
+        percentage = (len(state.rooms_visited) / len(state.all_rooms)) * 100 if state.all_rooms else 0
+
+        print("Stats\n"
+        "-----\n"
+        f"Name: {state.player_name}\n"
+        f"Time played: {hours}h{minutes}m\n"
+        f"Rooms visited: {percentage:.0f}% ({len(state.rooms_visited)}/{len(state.all_rooms)})")
 
 
 def display_inventory(state: State) -> None:
