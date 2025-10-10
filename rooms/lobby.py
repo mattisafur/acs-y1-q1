@@ -46,7 +46,7 @@ def lobby(state: State):
                             state.current_room = "north_corridor"
                             return
                         else:
-                            print("You don't have item (...) go find it!")
+                            print("")
                             continue
                     case "east_corridor":
                         state.current_room = "east_corridor"
