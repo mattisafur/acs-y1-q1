@@ -22,7 +22,7 @@ def pause_game(state: State) -> None:
         "time_played": state.time_played.total_seconds(),
         "last_saved": DateTime.now().isoformat(),
     }
-    saved_file_name = f"{state.player_name}_save.json"
+    saved_file_name = f"{state.player_name}.json"
     with open(saved_file_name, "w") as f:
         json.dump(save_data, f, indent=4)
     print(f"Game paused and saved successfully as '{saved_file_name}'.")
@@ -108,7 +108,9 @@ def display_inventory_help() -> None:
 
 
 def display_new_help() -> None:
-    raise NotImplementedError
+    print("New player <player name>\n"
+          "New game\n"
+          )
 
 
 def display_load_help() -> None:
@@ -116,4 +118,6 @@ def display_load_help() -> None:
 
 
 def display_delete_help() -> None:
-    raise NotImplementedError
+    print("Delete player <player name>\n"
+        "Delete item <item> from your inventory\n"
+        "Delete progress")
