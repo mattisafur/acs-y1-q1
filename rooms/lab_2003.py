@@ -85,7 +85,7 @@ def lab_2003(state: State):
                             )
                             last_words = input("  ")
                             print(
-                                "You leave the room desperate and anxious.\n"
+                                "\n You leave the room desperate and anxious.\n"
                                 "You bite a zombie from behind.\n"
                                 "The zombie bites you back.\n"
                                 "You bleed to death in the East Corridor.\n"
@@ -96,7 +96,7 @@ def lab_2003(state: State):
                             print("As an instinct, you decide to type your mom's number:")
                             mom_number = input("  ")
                             print(
-                                "The screen displays 'Incorrect password' and you cry a lot.\n"
+                                "\n The screen displays 'Incorrect password' and you cry a lot.\n"
                                 "You drink something from a glass — it was the zombie potion.\n"
                                 "You are now one of them. It is not allowed to become a zombie."
                             )
@@ -137,7 +137,7 @@ def lab_2003(state: State):
                     case "list":
                         display_take_list(pickable_items)
                         continue
-                if args[0] in pickable_items and args[0] == "Knive":
+                if args[0] in pickable_items and args[0] == "Knife":
                     print(
                         "You picked up a knive You want to get out of this room to the east corridor as quickly as possible"
                     )
