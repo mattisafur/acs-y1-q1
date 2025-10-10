@@ -64,10 +64,10 @@ def north_corridor(state: State):
                     case "project_room_1":
                         state.current_room = "project_room_1"
                         return
-                    case "teachers_room_3":
-                        state.current_room = "teachers_room_3"
+                    case "teacher_room_3":
+                        state.current_room = "teacher_room_3"
                         return
-                    case "classroom_2_021" | "classroom_2_015" | "equinox_students_society" | "project_room_3" | "teachers_room_1" | "teachers_room_2":
+                    case "classroom_2_021" | "classroom_2_015" | "equinox_students_society" | "project_room_3" | "teacher_room_1" | "teacher_room_2":
                         print("The door is locked.")
                         return
                     case _:
