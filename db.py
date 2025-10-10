@@ -12,6 +12,27 @@ def initialize_database() -> None:
 
 
 def load_save(name: str) -> State | None:
+    with sqlite3.connect(config.DATABASE_FILE_PATH) as conn:
+        cur = conn.execute(f"SELECT * FROM saves WHERE name = '{name}'")
+        results = cur.fetchall()
+
+        match len(results):
+            case 0:
+                return None
+            case 1:
+                return State(
+                    results[0][0],
+                    results[0][1],
+                    results[0][2],
+                    results[0][3],
+                    results[0][4],
+                    results[0][5],
+                )
+            case _:
+                raise Exception("got more than one entry from db")
+
+
+def save_state(save: State) -> None:
     raise NotImplementedError
 
 

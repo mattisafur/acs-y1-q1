@@ -1,4 +1,4 @@
-from db import delete_save, load_save
+from db import delete_save, initialize_database, load_save
 from models import Command, State
 from rooms.east_corridor import east_corridor
 from rooms.lab_2001 import lab_2001
@@ -16,6 +16,7 @@ from util import (
 
 state = State.new_game("dummy_state")
 
+initialize_database()
 
 def main_menu():
     while True:
