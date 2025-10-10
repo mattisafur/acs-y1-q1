@@ -1,5 +1,5 @@
 from models import Command, State
-from rooms import teacher_room_3
+
 from util import (
     display_go_help,
     display_go_list,
