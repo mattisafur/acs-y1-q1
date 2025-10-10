@@ -14,18 +14,11 @@ def quit_game() -> None:
 
 
 def pause_game(state: State) -> None:
+    from db import save_state
+    
     state.time_played = update_time_played(state.time_played, state.session_start_time)
-    save_data = {
-        "player_name": state.player_name,
-        "current_room": state.current_room,
-        "inventory": state.inventory,
-        "time_played": state.time_played.total_seconds(),
-        "last_saved": DateTime.now().isoformat(),
-    }
-    saved_file_name = f"{state.player_name}.json"
-    with open(saved_file_name, "w") as f:
-        json.dump(save_data, f, indent=4)
-    print(f"Game paused and saved successfully as '{saved_file_name}'.")
+    save_state(state)
+    print(f"Game paused and saved as '{state.player_name}'.")
     quit_game()
 
 

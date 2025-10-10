@@ -1,4 +1,4 @@
-from db import delete_save, initialize_database, load_save
+from db import delete_save, initialize_database, load_save, save_state
 from models import Command, State
 from rooms.east_corridor import east_corridor
 from rooms.front_desk_office import front_desk_office
@@ -52,6 +52,7 @@ def main_menu():
                     continue
 
                 state = State.new_game(args[0])
+                save_state(state)
 
                 print("starting new game")
                 return

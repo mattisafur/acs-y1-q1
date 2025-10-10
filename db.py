@@ -28,7 +28,7 @@ def load_save(name: str) -> State | None:
 def save_state(save: State) -> None:
     with sqlite3.connect(config.DATABASE_FILE_PATH) as conn:
         conn.execute(
-            f"INSERT INTO saves (player_name,current_room,previous_room,visited_rooms,time_played,inventory) ({save.to_sql_value_string()})"
+            f"INSERT OR REPLACE INTO saves (player_name,current_room,previous_room,visited_rooms,time_played,inventory) VALUES ({save.to_sql_value_string()})"
         )
 
 
