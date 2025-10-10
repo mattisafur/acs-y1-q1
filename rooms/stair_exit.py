@@ -1,13 +1,11 @@
-from copy import deepcopy
 from datetime import timedelta as TimeDelta
 
 from models import Command, State
 from util import (
-    display_answer_invalid_syntax,
     display_go_help,
-    display_go_invalid_syntax,
     display_go_list,
     display_invalid_command,
+    display_invalid_syntax,
     display_leaderboard,
     display_stats,
     display_take_help,
@@ -17,6 +15,7 @@ from util import (
     quit_game,
 )
 
+
 def stair_exit(state: State):
     print(
         "You spot a door with a exit sign. That is your chance to escape the building\n"
@@ -25,7 +24,7 @@ def stair_exit(state: State):
         "The acrid fumes make it hard to breathe, and the groans of zombies echo from below.\n"
         "The upper floors are blocked by debris, leaving no other route.\n"
         "You hear loud noises coming from where the door ir. The wall start to fall. You are stuck\n"
-        "You must find a way to pass the smoke in order to leave the building. There is nowhere else to go"
+        "You must find a way to pass the smoke in order to leave the building. There is nowhere else to go. What do you do?"
     )
 
     can_choose_action = True
@@ -68,22 +67,24 @@ def stair_exit(state: State):
                             life = 3
                             while life > 0:
                                 print(f"You have {life} chances left to escape the smoke.")
-                                print("1) Keep pushing forward blindly.\n"
-                                      "2) Drop low to the ground to find cleaner air.\n"
-                                      "3) Search around in the smoke for something useful.")
+                                print("Keep pushing forward blindly\n"
+                                      "Drop low to the ground to find cleaner air\n"
+                                      "Search around in the smoke for something useful")
                                 action = input("> ")
                                 match action:
-                                    case "1":
+                                    case "Keep pushing forward blindly":
                                         print("You stumble blindly, coughing harder. Your strength fades.\n"
                                               "You fall to the floor unconsciously. Game Over.")
                                         return
-                                    case "2":
+                                    case "Drop low to the ground to find cleaner air":
                                         print("You drop low and breathe slightly cleaner air.\n"
                                               "Through the haze, you spot the emergency exit door ahead.\n"
-                                              "You are able to get to the exit door.")
+                                              "You are able to get to the exit door.\n"
+                                              "You use the masterkey on the door... It works!\n"
+                                              "You are free!")
                                         state.current_room = "west_corridor"
                                         return
-                                    case "3":
+                                    case "Search around in the smoke for something useful.":
                                         print("You don't find anything.\nGame Over.")
                                         return
                                     case "quit":
