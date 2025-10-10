@@ -26,7 +26,7 @@ def lab_2001(state: State):
     else:
         # print that you don't want to be in this room and return to the previous room
         print("There is a zombie inside this room, you don't want to go in.")
-        state.current_room = east_corridor
+        state.current_room = "east_corridor"
         return
 
     # prologue. will only show up once as re-entering the room is not possible
