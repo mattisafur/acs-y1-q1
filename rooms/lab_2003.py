@@ -113,7 +113,7 @@ def lab_2003(state: State):
             case Command.take:
                 if len(pickable_items) > 0:
                     if len(args) != 1:
-                        display_go_invalid_syntax()
+                        display_invalid_syntax()
                         continue
                     match args[0]:
                         case "?":
