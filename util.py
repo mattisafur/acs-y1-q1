@@ -49,13 +49,13 @@ def display_stats(state: State) -> None:
         total_seconds = int(state.time_played.total_seconds())
         hours = total_seconds // 3600
         minutes = (total_seconds % 3600) // 60
-        percentage = (len(state.rooms_visited) / len(state.all_rooms)) * 100 if state.all_rooms else 0
+        percentage = (len(state.visited_rooms) / len(state.all_rooms)) * 100 if state.all_rooms else 0
 
         print("Stats\n"
         "-----\n"
         f"Name: {state.player_name}\n"
         f"Time played: {hours}h{minutes}m\n"
-        f"Rooms visited: {percentage:.0f}% ({len(state.rooms_visited)}/{len(state.all_rooms)})")
+        f"Rooms visited: {percentage:.0f}% ({len(state.visited_rooms)}/{len(state.all_rooms)})")
 
 
 def display_inventory(state: State) -> None:
