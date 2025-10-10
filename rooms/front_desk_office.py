@@ -1,38 +1,17 @@
-from copy import deepcopy
+import copy
 
-from models import Command, State
-from util import (
-    display_invalid_syntax,
-    display_go_help,
-    display_go_list,
-    display_invalid_command,
-    display_leaderboard,
-    display_stats,
-    display_take_help,
-    display_take_list,
-    get_user_input,
-    pause_game,
-    quit_game,
-)
+from models import State
+from util import get_user_input
 
+def front_desk_office(state):
+    state_snapshot = copy.deepcopy(state)
 
-def front_desk_office(state: State):
-    state_snapshot = deepcopy(state)
-
-    if "front_desk_office" not in state.visited_rooms:
-        # set room as visited
-        state.visited_rooms.append("front_desk_office")
-    else:
-        # print that you don't want to be in this room and return to the previous room
-        print("There is a zombie inside this room, you don't want to go in.")
-        state.current_room = state.previous_room
-        return
-
-    can_use_look = True
-    can_choose_action = False
-    pickable_items: list[str] = []
-    challenge1 = True
-    challenge2 = True
+    print(
+        "You step into the room\n"
+        "Possible commands:\n"
+        "Look\n"
+        "Go to North Corridor\n"
+        "Quit", )
 
     while True:
         cmd, *args = get_user_input()
@@ -106,18 +85,28 @@ def front_desk_office(state: State):
                                                 return
                             continue
                         case "sneak around":
-                            print("You sneak around the room. Every action you do from now on needs to be done in lower case to not wake up the zombie.")
-                            print("move the zombie\ndig the key from under the zombie")
-                            if challenge2:
-                                # if any(char.isupper() for char in cmd):
-                                if not args:
-                                    display_invalid_syntax("answer")
+                            print(
+                                "You immediately become silent and approach the zombie carefully\n"
+                                "Any action from here on out has to be very quiet. You have to type\n"
+                                "out every action with lowercase letters to not wake the zombie up."
+                            )
+                            print(
+                                "Possible commands:\n"
+                                "Move the zombie\n"
+                                "Dig the key from under the zombie"
+                            )
 
-                                cmd, *args = get_user_input()
-                                match " ".join(args):
+                            while True:
+                                user_input = input("> ")
+
+                                if any(char.isupper() for char in user_input):
+                                    print("You spoke too loudly, the zombie woke up. You have died.")
+                                    state = state_snapshot
+                                    state["current_room"] = "north_corridor"
+                                    return
+                                match user_input.strip().lower():
                                     case "move the zombie":
-                                        print("you died")
-                                        print("(You will be returned to the start of the room)")
+                                        print("You wake up the zombie. you have died.")
                                         state = state_snapshot
                                         return
                                 match " ".join(args):
