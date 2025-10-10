@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from datetime import timedelta as TimeDelta
 from enum import StrEnum, unique
-from typing import Self
+from typing import Any, Self
 
 
 @dataclass
@@ -17,12 +17,40 @@ class State:
     def new_game(cls, player_name: str) -> Self:
         return cls(
             player_name=player_name,
-            current_room="main_menu",
+            current_room="lab_2001",
             previous_room="",
             visited_rooms=[],
             time_played=TimeDelta(),
             inventory=[],
         )
+
+    @classmethod
+    def from_db_tuple(cls, data: tuple[Any]) -> Self:
+        if len(data) != 6:
+            raise ValueError("data is not in correct format")
+
+        try:
+            player_name = data[0]
+            current_room = data[1]
+            previous_room = data[2]
+            visited_rooms = data[3].split(", ")
+            time_played = TimeDelta(seconds=data[4])
+            inventory = data[5].split(", ")
+        except Exception as e:
+            e.add_note("failed to parse value from database")
+            raise e
+
+        return cls(
+            player_name,
+            current_room,
+            previous_room,
+            visited_rooms,
+            time_played,
+            inventory,
+        )
+
+    def to_sql_value_string(self) -> str:
+        return f"'{self.player_name}','{self.current_room}','{self.previous_room}','{','.join(self.visited_rooms)}','{self.time_played.total_seconds()}','{','.join(self.inventory)}"
 
 
 @unique
