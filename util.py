@@ -30,7 +30,19 @@ def pause_game(state: State) -> None:
 
 
 def display_leaderboard() -> None:
-    raise NotImplementedError
+    print("Leaderboard: \n")
+    try:
+        with open("leaderboard.txt", "r", encoding="utf-8") as f:
+            lines = [ln.strip() for ln in f if ln.strip()]
+    except FileNotFoundError:
+        print("No records yet.")
+        return
+    if not lines:
+        print("No records yet.")
+        return
+    for i, line in enumerate(lines[:10], 1):
+        print(f"{i}. {line}")
+
 
 
 def display_stats(state: State) -> None:
@@ -114,7 +126,12 @@ def display_new_help() -> None:
 
 
 def display_load_help() -> None:
-    raise NotImplementedError
+    print("load <save_name>")
+    print("Load a saved game by name.")
+    print("Examples:")
+    print("  load autosave")
+    print("  load slot1")
+
 
 
 def display_delete_help() -> None:
