@@ -1,10 +1,28 @@
-import copy
+# import copy
+#
+# from models import State
+# from util import get_user_input
+#
 
-from models import State
-from util import get_user_input
+from copy import deepcopy
+
+from models import Command, State
+from util import (
+    display_go_help,
+    display_go_list,
+    display_invalid_command,
+    display_invalid_syntax,
+    display_leaderboard,
+    display_stats,
+    display_take_help,
+    display_take_list,
+    get_user_input,
+    pause_game,
+    quit_game,
+)
 
 def front_desk_office(state):
-    state_snapshot = copy.deepcopy(state)
+    state_snapshot = deepcopy(state)
 
     print(
         "You step into the room\n"
@@ -12,6 +30,14 @@ def front_desk_office(state):
         "Look\n"
         "Go to North Corridor\n"
         "Quit", )
+
+
+    can_use_look = True
+    can_choose_action = False
+    pickable_items: list[str] = []
+    challenge1 = True
+    # challenge2 = True
+
 
     while True:
         cmd, *args = get_user_input()
@@ -93,28 +119,37 @@ def front_desk_office(state):
                             print(
                                 "Possible commands:\n"
                                 "Move the zombie\n"
-                                "Dig the key from under the zombie"
+                                "Dig the key out from under the zombie"
                             )
 
-                            while True:
-                                user_input = input("> ")
+                            cmd, *args = get_user_input()
 
-                                if any(char.isupper() for char in user_input):
-                                    print("You spoke too loudly, the zombie woke up. You have died.")
-                                    state = state_snapshot
-                                    state["current_room"] = "north_corridor"
-                                    return
-                                match user_input.strip().lower():
-                                    case "move the zombie":
-                                        print("You wake up the zombie. you have died.")
-                                        state = state_snapshot
-                                        return
-                                match " ".join(args):
-                                    case "dig the key out from under the zombie":
-                                        print("you take the key and immediately leave the room")
-                                        pickable_items.append("master_key")
-                                        state.current_room = "north_corridor"
+                            match cmd:
+                                    case Command.answer:
+                                        if challenge1:
+                                            if not args:
+                                                display_invalid_syntax("answer")
 
+                                            match " ".join(args):
+                                                case "move the zombie":
+                                                    print("You wake up the zombie. you have died.")
+                                                    print("(You will be returned to the start of the room)")
+                                                    state = state_snapshot
+                                                    return
+                                                case "dig the key out from under the zombie":
+                                                    print("you take the key and immediately leave the room")
+                                                    pickable_items.append(
+                                                        "master_key")
+                                                    state.current_room = "north_corridor"
+                                                    return
+
+
+                                # if any(char.isupper() for char in user_input):
+                                #     print("You spoke too loudly, the zombie woke up. You have died.")
+                                #     state = state_snapshot
+                                #     state["current_room"] = "north_corridor"
+                                #     return
+                                # match user_input.strip().lower():
 
                         case "fight":
                             print("you died")
