@@ -64,11 +64,12 @@ def teacher_room_3(state: State):
 
                         if answer == "BCDA":
                             print(
-                                "Correct! The folders click into place. You hear a soft mechanical sound as the bookshelf slowly rights itself, "
+                                "Correct! The folders click into place.\n"
+                                "You hear a soft mechanical sound as the bookshelf slowly rights itself,\n"
                                 "revealing a clear path to the exit. You feel a sense of accomplishment."
                             )
                             puzzle_solved = True
-                            break  # Exit the answer loop
+                            break
                         else:
                             print(
                                 "Incorrect! The bookshelf groans ominously. That doesn't seem right."
@@ -95,7 +96,8 @@ def teacher_room_3(state: State):
                     case "north_corridor":
                         if puzzle_solved:
                             print(
-                                "With the bookshelf out of the way, you carefully navigate through the scattered papers and exit the teacher's lounge."
+                                "With the bookshelf out of the way,\n"
+                                "you carefully navigate through the scattered papers and exit the teacher's lounge."
                             )
                             state.current_room = "north_corridor"
                             return
