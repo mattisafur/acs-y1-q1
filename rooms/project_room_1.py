@@ -183,7 +183,7 @@ def project_room_1(state: State):
             case Command.go:
                 # make sure only one argument was passed to the command
                 if len(args) != 1:
-                    display_invalid_syntax(go)
+                    display_invalid_syntax("go")
                     continue
 
                 # match on the first argument, which is also the only argument because of the check we did above
@@ -231,4 +231,4 @@ if __name__ == "__main__":
         time_played=TimeDelta(),
         inventory=[],
     )
-project_room_1(test_state)
+    project_room_1(test_state)
