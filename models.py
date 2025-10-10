@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from datetime import timedelta as TimeDelta
 from enum import StrEnum, unique
 from typing import Any, Self
-
+from datetime import datetime as DateTime
 
 @dataclass
 class State:
@@ -12,6 +12,7 @@ class State:
     visited_rooms: list[str]
     time_played: TimeDelta
     inventory: list[str]
+    session_start_time: DateTime = None
 
     @classmethod
     def new_game(cls, player_name: str) -> Self:
@@ -22,6 +23,7 @@ class State:
             visited_rooms=[],
             time_played=TimeDelta(),
             inventory=[],
+            session_start_time=DateTime.now(),
         )
 
     @classmethod
@@ -47,6 +49,7 @@ class State:
             visited_rooms,
             time_played,
             inventory,
+            DateTime.now(),  # session_start_time - reset when loading
         )
 
     def to_sql_value_string(self) -> str:
