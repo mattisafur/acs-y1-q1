@@ -29,7 +29,7 @@ def main_menu():
             case Command.help:
                 raise NotImplementedError
             case Command.new:
-                if args != 1:
+                if len(args) != 1:
                     display_invalid_syntax("new")
                     continue
 
@@ -46,7 +46,7 @@ def main_menu():
                 print("starting new game")
                 return
             case Command.load:
-                if args != 1:
+                if len(args) != 1:
                     display_invalid_syntax("load")
                     continue
 
@@ -64,7 +64,7 @@ def main_menu():
                 print("save loaded, resuming game")
                 return
             case Command.delete:
-                if args != 1:
+                if len(args) != 1:
                     display_invalid_syntax("delete")
                     continue
 
