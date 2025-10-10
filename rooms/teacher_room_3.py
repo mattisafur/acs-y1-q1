@@ -6,6 +6,7 @@ from util import (
     display_go_list,
     display_invalid_command,
     display_invalid_syntax,
+    display_inventory,
     display_leaderboard,
     display_stats,
     display_take_help,
@@ -81,6 +82,7 @@ def teacher_room_3(state: State):
                     print(
                         "You've already solved this puzzle. The bookshelf is no longer blocking the exit."
                     )
+                continue
             case Command.go:
                 if len(args) != 1:
                     display_invalid_syntax("go")
@@ -105,14 +107,20 @@ def teacher_room_3(state: State):
                             print(
                                 "The tilted bookshelf is blocking your path. You need to solve the puzzle to clear the way."
                             )
+                        continue
+            case Command.inventory:
+                display_inventory(state)
+                continue
             case Command.quit:
                 quit_game()
             case Command.pause:
                 pause_game(state)
             case Command.stats:
                 display_stats()
+                continue
             case Command.leaderboard:
                 display_leaderboard()
+                continue
             case _:
                 display_invalid_command()
 
