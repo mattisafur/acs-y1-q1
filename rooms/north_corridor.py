@@ -1,79 +1,105 @@
-from models import State
-from util import get_user_input
+from models import Command, State
+from util import  (
+    display_go_help,
+    display_go_list,
+    display_invalid_command,
+    display_invalid_syntax,
+    display_inventory,
+    display_leaderboard,
+    display_stats,
+    get_user_input,
+    pause_game,
+    quit_game,
+)
 
-def north_corridor(state):
+
+def north_corridor(state: State):
     if "north_corridor" not in state.visited_rooms:
         state.visited_rooms.append("north_corridor")
 
-    print("You are in the north corridor")
+    print("You are in the north corridor. Choose where you would like to go: ")
 
-    display_go_list(["Lobby", "Front Desk Office", "Classroom 2.021", "Classroom 2.015", "Equinox Student's Society", "Storage Room", "Project room 3", "Teachers room 3", "Teachers room 2", "Teachers room 1" ])
+    available_rooms = [
+        "lobby",
+        "front_desk_office",
+        "classroom_2_021",
+        "classroom_2_015",
+        "equinox_students_society",
+        "storage_room",
+        "project_room_3",
+        "teachers_room_3",
+        "teachers_room_2",
+        "teachers_room_1",
+        "west_corridor",
+    ]
+
+    display_go_list(available_rooms)
 
     while True:
-        print(
-            "Possible commands:\n"
-            "Go to Lobby\n"
-            "Go to Front Desk Office\n"
-            "Go to Classroom 2021\n"
-            "Go to Classroom 2015\n"
-            "Go to Equinox Student's Society\n"
-            "Go to Storage Room\n"
-            "Go to Project room 3\n"
-            "Go to Teachers room 3\n"
-            "Go to Teachers room 2\n"
-            "Go to Teachers room 1\n"
-            "Go to West Corridor\n"
-            "Quit"
-        )
+        command, *args = get_user_input()
 
-        choice = input("> ")
-        match choice.strip().lower():
-            case "go to lobby":
-                state["current_room"] = "lobby"
-                return
-            case "go to front desk office":
-                state["current_room"] = "front_desk_office"
-                return
-            case "go to classroom 2021":
-                print("You go to Classroom 2021. The door is locked. You go back to North Corridor.")
+        match command:
+            case Command.help:
+                raise NotImplementedError
 
-            case "go to classroom 2015":
-                print("You go to Classroom 2015. The door is locked. You go back to North Corridor.")
+            case Command.go:
+                if len(args) != 1:
+                    display_invalid_syntax("go")
+                    continue
 
-            case "go to equinox student's society":
-                print("You go to Equinox Student's Society. The door is locked. You go back to North Corridor.")
+                match args[0].lower():
+                    case "?":
+                        display_go_help()
+                    case "list":
+                        display_go_list(available_rooms)
+                    case "lobby":
+                        state.current_room = "lobby"
+                        return
+                    case "front_desk_office":
+                        state.current_room = "front_desk_office"
+                        return
+                    case "storage_room":
+                        state.current_room = "storage_room"
+                        return
+                    case "project_room_1":
+                        state.current_room = "project_room_1"
+                        return
+                    case "teachers_room_3":
+                        state.current_room = "teachers_room_3"
+                        return
+                    case "classroom_2_021" | "classroom_2_015" | "equinox_students_society" | "project_room_3" | "teachers_room_1" | "teachers_room_2":
+                        print("The door is locked.")
+                        return
+                    case _:
+                        print("Invalid destination.")
+                continue
 
-            case "go to storage room":
-                state["current_room"] = "storage_room"
-                return
-            case "go to project room 3":
-                print("You go to Project Room 3. The door is locked. You go back to North Corridor.")
+            case Command.inventory:
+                display_inventory(state)
+                continue
 
-            case "go to teachers room 2":
-                print("You go to Teachers Room 2. The door is locked. You go back to North Corridor.")
+            case Command.quit:
+                quit_game()
 
-            case "go to teachers room 1":
-                print("You go to Teachers Room 1. The door is locked. You go back to North Corridor.")
+            case Command.pause:
+                pause_game(state)
 
-            case "go to west corridor":
-                state["current_room"] = "west_corridor"
-                return
-            case "quit":
-                exit()
-            case _:
-                print("Invalid choice. Try again.")
+            case Command.stats:
+                display_stats()
+                continue
+
+            case Command.leaderboard:
+                display_leaderboard()
+                continue
 
 if __name__ == "__main__":
-    # This runs only when testing the room standalone
     import sys
     from pathlib import Path
     from datetime import timedelta as TimeDelta
 
-    # Add parent directory to Python path so we can import from main folder
     parent_dir = Path(__file__).parent.parent
     sys.path.insert(0, str(parent_dir))
 
-    # Create test state
     test_state = State(
         player_name="TestPlayer",
         current_room="north_corridor",
