@@ -92,7 +92,7 @@ def lab_2001(state: State):
                                 "The zombies are stronger than you are, you get bitten. Game over."
                             )
 
-                    print("(You will be returned to the start of the room)")
+                    print("(You will be returned to the start of the room.)")
                     state.visited_rooms.remove("lab_2001")  # HACK fix the issue of not letting user back in after dying
                     state = state_snapshot  # reset the game state
                     return
@@ -122,7 +122,11 @@ def lab_2001(state: State):
                         state.inventory.append(
                             "keycard"
                         )  # add the keycard to the inventory
-
+                        print(
+                            "You quickly run out of the room and barricade the door behind you"
+                        )
+                        state.current_room = "east_corridor"
+                        return
 
                     continue
             case Command.go:
@@ -141,15 +145,15 @@ def lab_2001(state: State):
                         continue  # skip the "invalid command" functon call at end of loop
                     case "east_corridor":
                         # if player has the keycard, let them exit the room, if not, print something and stay in the room
-                        if "keycard" in state.inventory:
-                            print(
-                                "You quickly run out of the room and barricade the door behind you"
-                            )
-                            state.current_room = "east_corridor"
-                            return
-                        else:
-                            print("You carefully sneak past the zombies...")
-            case Command.quit:
+#                        if "keycard" in state.inventory:
+#                            print(
+#                                "You quickly run out of the room and barricade the door behind you."
+#                            )
+#                            state.current_room = "east_corridor"
+#                            return
+#                        else:
+#                            print("You carefully sneak past the zombies...")
+#            case Command.quit:
                 # function will quit the game, no need to add continue
                 quit_game()
             case Command.pause:
