@@ -89,6 +89,7 @@ def lab_2001(state: State):
                             )
 
                     print("(You will be returned to the start of the room)")
+                    state.visited_rooms.remove("lab_2001")  # HACK fix the issue of not letting user back in after dying
                     state = state_snapshot  # reset the game state
                     return
             case Command.take:
