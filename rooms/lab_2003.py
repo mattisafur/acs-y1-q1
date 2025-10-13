@@ -32,6 +32,12 @@ def lab_2003(state: State):
         state.current_room = state.previous_room
         return
 
+    print("Possible commands:\n"
+    "Look\n"
+    "Take\n"
+    "Go to East Corridor\n"
+    "Quit")
+
     can_use_look = True
     can_choose_action = True
     pickable_items: list[str] = []
@@ -48,7 +54,6 @@ def lab_2003(state: State):
                           "“Login required – Insert authorized password.”\n"
                           "You must insert something. \n")
                     print(
-                        "Possible commands:\n"
                         "Type code from Project room\n"
                         "Write a goodbye letter\n"
                         "Type your mom's number\n"
@@ -92,6 +97,7 @@ def lab_2003(state: State):
                                 "You bleed to death in the East Corridor.\n"
                                 f"{last_words} — you may rest in peace."
                             )
+                            state = state_snapshot
                             return
                         case "Type your mom's number":
                             print("As an instinct, you decide to type your mom's number:")
@@ -101,6 +107,7 @@ def lab_2003(state: State):
                                 "You drink something from a glass — it was the zombie potion.\n"
                                 "You are now one of them. It is not allowed to become a zombie."
                             )
+                            state = state_snapshot
                             return
                         case "Write positive affirmations":
                             print(
@@ -123,7 +130,7 @@ def lab_2003(state: State):
                             display_take_list(pickable_items)
                         case "knife":
                             print(
-                                "You picked up a knife. You want to get out of this room quickly."
+                                "You picked up a knife."
                             )
                             state.inventory.append("knife")
                         case _:
