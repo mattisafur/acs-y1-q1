@@ -48,6 +48,7 @@ def lab_2003(state: State):
                           "“Login required – Insert authorized password.”\n"
                           "You must insert something. \n")
                     print(
+                        "Possible commands:\n"
                         "Type code from Project room\n"
                         "Write a goodbye letter\n"
                         "Type your mom's number\n"

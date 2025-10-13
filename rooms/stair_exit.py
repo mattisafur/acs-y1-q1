@@ -33,6 +33,7 @@ def stair_exit(state: State):
         cmd, *args = get_user_input()
 
         print(
+            "Possible commands:\n"
             "Improvise a mask with keycard\n"
             "Rush through the smoke without any protection.\n"
             "Try to force open the blocked doors to create another route.\n"
@@ -67,7 +68,8 @@ def stair_exit(state: State):
                             life = 3
                             while life > 0:
                                 print(f"You have {life} chances left to escape the smoke.")
-                                print("Keep pushing forward blindly\n"
+                                print("Possible commands:\n"
+                                      "Keep pushing forward blindly\n"
                                       "Drop low to the ground to find cleaner air\n"
                                       "Search around in the smoke for something useful")
                                 action = input("> ")

@@ -54,6 +54,7 @@ def lab_2001(state: State):
                         "The lights flicker on and off, making strange shadows on the walls. \nTables are overturned, and zombies shuffle between them, their groans filling in the silence. On a nearby desk, you spot a Keycard that could unlock electronic doors in the corridor. \nThe zombies are too close for comfort, though. You'll have to be careful if you want to grab it without being noticed. \n"
                     )
                     print(
+                        "Possible commands:\n"
                         "fly away\nsneak\nfight\nset building on fire"
                     )  # TODO enter the correct text here, missing from flowchart
                     can_choose_action = True

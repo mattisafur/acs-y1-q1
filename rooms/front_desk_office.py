@@ -52,6 +52,7 @@ def front_desk_office(state):
                         "It is the Master Key and you’ll have to retrieve it carefully without waking the zombie."
                     )
                     print(
+                        "Possible commands:\n"
                         "look\nfight\nsneak around"
                     )
                     can_choose_action = True
@@ -68,6 +69,7 @@ def front_desk_office(state):
                                 "You look around the room for anything useful in this situation.\n"
                                 "you see a jacket left behind by a student on a chair. you pick it up\n"
                                 "Maybe it could be helpful to tie the zombie up.\n"
+                                "Possible commands:\n"
                                 "fight\n"
                                 "tie his face\n"
                                 "tie his body")
