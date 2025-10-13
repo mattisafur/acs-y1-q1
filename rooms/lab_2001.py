@@ -28,11 +28,14 @@ def lab_2001(state: State):
         print("There is a zombie inside this room, you don't want to go in.")
         state.current_room = "east_corridor"
         return
-
-    # prologue. will only show up once as re-entering the room is not possible
     print(
-        "A loud bang can be heard and a door opens. You wake up suddenly and slowly remember where you are, the University. \nYou were in class falling asleep when you woke up and no one was around you, well that's not true. \nThere is a zombie coming into this room. Reacting fast you hide behind some of the tables. \nThere must have been a zombie outbreak. You theorize that maybe the biology students have accidentally created a virus. \nHowever it is not the time to ponder the origin of the zombie. You have to get out of this room and also grab the keycard to open the door in the corridor."
-    )
+        "You step into the room\n"
+        "Possible commands:\n"
+        "Look\n"
+        "Take\n"
+        "Go to East Corridor\n"
+        "Quit", )
+    # prologue. will only show up once as re-entering the room is not possible
 
     can_use_look = True
     can_choose_action = False
@@ -119,6 +122,7 @@ def lab_2001(state: State):
                         state.inventory.append(
                             "keycard"
                         )  # add the keycard to the inventory
+
 
                     continue
             case Command.go:
