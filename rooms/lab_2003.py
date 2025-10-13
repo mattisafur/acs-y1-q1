@@ -139,10 +139,10 @@ def lab_2003(state: State):
                         continue
                 if args[0] in pickable_items and args[0] == "Knife":
                     print(
-                        "You picked up a knive You want to get out of this room to the east corridor as quickly as possible"
+                        "You picked up a knife You want to get out of this room to the east corridor as quickly as possible"
                     )
                     state.inventory.append(
-                        "Knive"
+                        "Knife"
                     )
             case Command.quit:
                 quit_game()
