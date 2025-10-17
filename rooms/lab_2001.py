@@ -145,19 +145,21 @@ def lab_2001(state: State):
                         continue  # skip the "invalid command" functon call at end of loop
                     case "east_corridor":
                         # if player has the keycard, let them exit the room, if not, print something and stay in the room
-#                        if "keycard" in state.inventory:
-#                            print(
-#                                "You quickly run out of the room and barricade the door behind you."
-#                            )
-#                            state.current_room = "east_corridor"
-#                            return
-#                        else:
-#                            print("You carefully sneak past the zombies...")
-#            case Command.quit:
+                        if "keycard" in state.inventory:
+                            print(
+                                "You quickly run out of the room and barricade the door behind you."
+                            )
+                            state.current_room = "east_corridor"
+                            return
+                        else:
+                            print("You carefully sneak past the zombies...")
+                            continue
+
+            case Command.quit:
                 # function will quit the game, no need to add continue
                 quit_game()
             case Command.pause:
-                # function will quit the game, no need to add continue
+                # function will pause the game
                 pause_game(state)
             case Command.stats:
                 display_stats()
