@@ -1,4 +1,4 @@
-from db import delete_save, initialize_database, load_save, save_state
+from db import delete_save, initialize_database, load_state, save_state
 from models import Command, State
 from rooms.east_corridor import east_corridor
 from rooms.front_desk_office import front_desk_office
@@ -47,7 +47,7 @@ def main_menu():
                     display_new_help()
                     continue
 
-                if load_save(args[0]) is not None:
+                if load_state(args[0]) is not None:
                     print("a save with the specified name already exists")
                     continue
 
@@ -65,7 +65,7 @@ def main_menu():
                     display_load_help()
                     continue
 
-                loaded_state = load_save(args[0])
+                loaded_state = load_state(args[0])
                 if loaded_state is None:
                     print("Save does not exist")
                     continue
@@ -83,7 +83,7 @@ def main_menu():
                     display_delete_help()
                     continue
 
-                if load_save(args[0]) is None:
+                if load_state(args[0]) is None:
                     print("Save does not exist")
                     continue
 

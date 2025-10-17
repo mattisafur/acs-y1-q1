@@ -1,8 +1,9 @@
 from dataclasses import dataclass
+from datetime import datetime as DateTime
 from datetime import timedelta as TimeDelta
 from enum import StrEnum, unique
 from typing import Any, Self
-from datetime import datetime as DateTime
+
 
 @dataclass
 class State:
@@ -12,7 +13,7 @@ class State:
     visited_rooms: list[str]
     time_played: TimeDelta
     inventory: list[str]
-    session_start_time: DateTime = None
+    session_start_time: DateTime
 
     @classmethod
     def new_game(cls, player_name: str) -> Self:
@@ -53,9 +54,29 @@ class State:
         )
 
     def to_sql_value_string(self) -> str:
-        visited_rooms_str = ', '.join(self.visited_rooms) if self.visited_rooms else ''
-        inventory_str = ', '.join(self.inventory) if self.inventory else ''
+        visited_rooms_str = ", ".join(self.visited_rooms) if self.visited_rooms else ""
+        inventory_str = ", ".join(self.inventory) if self.inventory else ""
         return f"'{self.player_name}','{self.current_room}','{self.previous_room}','{visited_rooms_str}',{self.time_played.total_seconds()},'{inventory_str}'"
+
+
+@dataclass
+class LeaderboardEntry:
+    player_name: str
+    play_time: TimeDelta
+
+    @classmethod
+    def from_db_tuple(cls, data: tuple[Any]) -> Self:
+        if len(data) != 2:
+            raise ValueError("data is not in correct format")
+
+        try:
+            player_name = data[0]
+            play_time = TimeDelta(seconds=data[1])
+        except Exception as e:
+            e.add_note("failed to parse value from database")
+            raise e
+
+        return cls(player_name=player_name, play_time=play_time)
 
 
 @unique
