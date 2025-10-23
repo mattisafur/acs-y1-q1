@@ -54,10 +54,11 @@ def lab_2001(state: State):
                 # only let the user run the look command if the look command is allowed to be run, if not the command will be skipped so the code will print "invalid command"
                 if can_use_look:
                     print(
-                        "The lights flicker on and off, making strange shadows on the walls. \nTables are overturned, and zombies shuffle between them, their groans filling in the silence. On a nearby desk, you spot a Keycard that could unlock electronic doors in the corridor. \nThe zombies are too close for comfort, though. You'll have to be careful if you want to grab it without being noticed. \n"
+                        "The lights flicker on and off, making strange shadows on the walls. \nTables are overturned, and zombies shuffle between them, their groans filling in the silence.\n"
+                        "On a nearby desk, you spot a Keycard that could unlock electronic doors in the corridor. \nThe zombies are too close for comfort, though.\n You'll have to be careful if you want to grab it without being noticed. \n"
                     )
                     print(
-                        "Possible commands:\n"
+                        "Possible actions:\n"
                         "fly away\nsneak\nfight\nset building on fire"
                     )  # TODO enter the correct text here, missing from flowchart
                     can_choose_action = True
@@ -117,7 +118,7 @@ def lab_2001(state: State):
                     # checking both of these is pretty redundant because there is only one item in this room but I am checking both just so it will be easier to understand
                     if args[0] in pickable_items and args[0] == "keycard":
                         print(
-                            "You picked up the keycard You want to get out of this room to the east corridor as quickly as possible"
+                            "You picked up the keycard.\n Tou quickly sneak past the zombies and try to open the door\n It works!\n"
                         )
                         state.inventory.append(
                             "keycard"
