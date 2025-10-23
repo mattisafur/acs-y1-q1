@@ -23,7 +23,7 @@ def lab_2003(state: State):
             "Apparently, you are not ready to come into this room.\n"
             "Go explore the rooms in the lobby and come back here."
         )
-        state.current_room = state.previous_room
+        state.current_room = "east_corridor"
         return
     elif "lab_2003" not in state.visited_rooms:
         state.visited_rooms.append("lab_2003")
@@ -36,7 +36,7 @@ def lab_2003(state: State):
             "Too bad....\n"
             "CHOOSE ANOTHER ROOM!!!"
         )
-        state.current_room = state.previous_room
+        state.current_room = "east_corridor"
         return
 
     print("Possible commands:\n"
