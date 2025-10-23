@@ -63,8 +63,8 @@ def update_time_played(
 
 
 def display_go_list(rooms: list[str]) -> None:
-    print("Connected rooms:\n", "\n".join(rooms))
-
+    print("Rooms available:\n", "\n".join(rooms))
+    print("Use command 'go' before typing your chosen room")
 
 def display_take_list(items: list[str]) -> None:
     print("Items available to pick up:\n" + "\n".join(items))
