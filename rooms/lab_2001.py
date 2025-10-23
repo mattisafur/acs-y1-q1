@@ -54,7 +54,7 @@ def lab_2001(state: State):
                 # only let the user run the look command if the look command is allowed to be run, if not the command will be skipped so the code will print "invalid command"
                 if can_use_look:
                     print(
-                        "You wake up to strange noises in the university’s computer lab.\n The last thing you remember is falling asleep during math class.\n The lights flicker, tables are overturned and your classmates walk and moan around like zombies.\n You don’t know what’s happening, but you don't want to stay to find out".
+                        "You wake up to strange noises in the university’s computer lab.\n The last thing you remember is falling asleep during math class.\n The lights flicker, tables are overturned and your classmates walk and moan around like zombies.\n You don’t know what’s happening, but you don't want to stay to find out."
                     )
                     print(
                         "A few things go through your mind, but you decide to:\n"
