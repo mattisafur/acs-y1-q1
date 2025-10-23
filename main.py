@@ -1,4 +1,4 @@
-from db import delete_save, initialize_database, load_state, save_state
+from db import delete_state, initialize_database, load_state, save_state
 from models import Command, State
 from rooms.east_corridor import east_corridor
 from rooms.front_desk_office import front_desk_office
