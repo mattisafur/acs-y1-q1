@@ -18,17 +18,24 @@ from util import (
 
 
 def lab_2003(state: State):
-    state_snapshot = deepcopy(state)
-
-    if "lab_2003" not in state.visited_rooms:
+    if "project_room_1" not in state.visited_rooms:
+        print(
+            "Apparently, you are not ready to come into this room.\n"
+            "Go explore the rooms in the lobby and come back here."
+        )
+        state.current_room = state.previous_room
+        return
+    elif "lab_2003" not in state.visited_rooms:
         state.visited_rooms.append("lab_2003")
         print("You are in the Computer lab 2.003.")
     else:
-        print("You forgot the door opened last time you were here.\n"
-              "The zombies got in and are throwing a party.\n"
-              "No humans are invited.\n"
-              "Too bad....\n"
-              "CHOOSE ANOTHER ROOM!!!")
+        print(
+            "You forgot the door opened last time you were here.\n"
+            "The zombies got in and are throwing a party.\n"
+            "No humans are invited.\n"
+            "Too bad....\n"
+            "CHOOSE ANOTHER ROOM!!!"
+        )
         state.current_room = state.previous_room
         return
 
