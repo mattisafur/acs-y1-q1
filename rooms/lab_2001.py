@@ -54,11 +54,10 @@ def lab_2001(state: State):
                 # only let the user run the look command if the look command is allowed to be run, if not the command will be skipped so the code will print "invalid command"
                 if can_use_look:
                     print(
-                        "The lights flicker on and off, making strange shadows on the walls. \nTables are overturned, and zombies shuffle between them, their groans filling in the silence.\n"
-                        "On a nearby desk, you spot a Keycard that could unlock electronic doors in the corridor. \nThe zombies are too close for comfort, though.\n You'll have to be careful if you want to grab it without being noticed. \n"
+                        "You wake up to strange noises in the university’s computer lab.\n The last thing you remember is falling asleep during math class.\n The lights flicker, tables are overturned and your classmates walk and moan around like zombies.\n You don’t know what’s happening, but you don't want to stay to find out".
                     )
                     print(
-                        "Possible actions:\n"
+                        "A few things go through your mind, but you decide to:\n"
                         "fly away\nsneak\nfight\nset building on fire"
                     )  # TODO enter the correct text here, missing from flowchart
                     can_choose_action = True
@@ -74,10 +73,8 @@ def lab_2001(state: State):
                     # when matching, join all the arguments together to reconstruct the player's answer (for exmample ["fly", "away"] will become "fly away")
                     match " ".join(args):
                         case "sneak":
-                            print("You notice a keycard on one of the desks.\n You imagine is from the door of the laboratory.\nSo you decided to take it\n")
-                            ("\n \n")
-                            ("To pick up the keycard, you should use the command 'Take keycard'")
-                            ("\n \n")
+                            print("You notice a keycard on one of the desks.\nYou imagine is from the door of the laboratory.\nSo you decided to take it\n\n"
+                            "To pick up the keycard, you should use the command 'take keycard'")
                             pickable_items.append(
                                 "keycard"
                             )  # make keycard possible to pick up by adding it to the list of items we can pick up in the room
