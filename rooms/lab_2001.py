@@ -74,7 +74,10 @@ def lab_2001(state: State):
                     # when matching, join all the arguments together to reconstruct the player's answer (for exmample ["fly", "away"] will become "fly away")
                     match " ".join(args):
                         case "sneak":
-                            print("You notice a keycard on one of the desks")
+                            print("You notice a keycard on one of the desks.\n You imagine is from the door of the laboratory.\nSo you decided to take it\n")
+                            ("\n \n")
+                            ("To pick up the keycard, you should use the command 'Take keycard'")
+                            ("\n \n")
                             pickable_items.append(
                                 "keycard"
                             )  # make keycard possible to pick up by adding it to the list of items we can pick up in the room
