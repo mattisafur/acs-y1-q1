@@ -118,7 +118,7 @@ def lab_2001(state: State):
                     # checking both of these is pretty redundant because there is only one item in this room but I am checking both just so it will be easier to understand
                     if args[0] in pickable_items and args[0] == "keycard":
                         print(
-                            "Keycard in hand, you sneak past the zombies and swipe the lab door.\n It opens.\n You slip into the corridor and quickly close it behind you.\n")
+                            "Keycard in hand, you sneak past the zombies and swipe the lab door.\nIt opens.\nYou slip into the corridor and quickly close it behind you.\n")
                         state.inventory.append(
                             "keycard"
                         )  # add the keycard to the inventory
