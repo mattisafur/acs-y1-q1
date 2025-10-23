@@ -54,7 +54,7 @@ def lab_2001(state: State):
                 # only let the user run the look command if the look command is allowed to be run, if not the command will be skipped so the code will print "invalid command"
                 if can_use_look:
                     print(
-                        "You wake up to strange noises in the university’s computer lab.\n The last thing you remember is falling asleep during math class.\n The lights flicker, tables are overturned and your classmates walk and moan around like zombies.\n You don’t know what’s happening, but you don't want to stay to find out."
+                        "You wake up to strange noises in the university’s computer lab.\nThe last thing you remember is falling asleep during math class.\nThe lights flicker, tables are overturned and your classmates walk and moan around like zombies.\nYou don’t know what’s happening, but you don't want to stay to find out."
                     )
                     print(
                         "A few things go through your mind, but you decide to:\n"
@@ -118,14 +118,10 @@ def lab_2001(state: State):
                     # checking both of these is pretty redundant because there is only one item in this room but I am checking both just so it will be easier to understand
                     if args[0] in pickable_items and args[0] == "keycard":
                         print(
-                            "You picked up the keycard.\n Tou quickly sneak past the zombies and try to open the door\n It works!\n"
-                        )
+                            "Keycard in hand, you sneak past the zombies and swipe the lab door.\n It opens.\n You slip into the corridor and quickly close it behind you.\n")
                         state.inventory.append(
                             "keycard"
                         )  # add the keycard to the inventory
-                        print(
-                            "You quickly run out of the room and barricade the door behind you"
-                        )
                         state.current_room = "east_corridor"
                         return
 
