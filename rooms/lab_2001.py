@@ -83,16 +83,31 @@ def lab_2001(state: State):
 
                         # all cases under here result in death, we only print the text that's not the same between the commands here, and under the match statement we reset the room because we want it to happen in all of these cases
                         case "fly away":
-                            print("You have no wings, so the zombies get you")
+                            print(
+                                "You flap your arms desperately, hoping to take off like a bird.\n"
+                                "The zombies glance at you with amusement as you wobble unsteadily.\n"
+                                "You lift off for a split second... and crash straight into a desk.\n"
+                                "Pain shoots through your body, and before you can recover, the zombies surround you.\n"
+                                "Being human, flight was never an option. You have met a grim fate.\n"
+                                "GAME OVER."
+                            )
                         case "fight":
                             print(
-                                "You set the building on fire, but you can’t escape. Zombies vanish, but you die."
+                                "You try to fight one of your classmates.\n"
+                                "They barely react and soon more zombies surround you.\n"
+                                "You struggle, but you are only human.\n"
+                                "The zombies overpower you.\n"
+                                "GAME OVER."
                             )
                         case "set building on fire":
                             print(
-                                "The zombies are stronger than you are, you get bitten. Game over."
+                                "You try to set the building on fire with what you have.\n"
+                                "The flames sputter and fail to catch.\n"
+                                "One of the zombies notices you struggling.\n"
+                                "Before you can react, it pushes you into a corner and sets you on fire instead.\n"
+                                "You scream as the flames engulf you.\n"
+                                "GAME OVER."
                             )
-
                     print("(You will be returned to the start of the room.)")
                     state.visited_rooms.remove("lab_2001")  # HACK fix the issue of not letting user back in after dying
                     state = state_snapshot  # reset the game state
