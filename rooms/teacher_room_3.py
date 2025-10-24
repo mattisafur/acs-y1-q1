@@ -21,15 +21,12 @@ def teacher_room_3(state: State):
     state_snapshot = deepcopy(state)
 
     if "teacher_room_3" not in state.visited_rooms:
-        # set room as visited
         state.visited_rooms.append("teacher_room_3")
     else:
-        # allow re-entry but notify player
         print("You have already visited this room before.")
         state.current_room = state.previous_room
-        return
+        return state
 
-    # prologue
     print(
         "You step into the teacher's lounge. Papers are scattered everywhere, coffee mugs still half full as if abandoned in a hurry. \n"
         "A bookshelf is tilted precariously, blocking part of the exit. The room feels eerie in its stillness, \n"
@@ -39,7 +36,6 @@ def teacher_room_3(state: State):
     puzzle_solved = False
 
     while True:
-        # split the user input to the command (string) and the arguments (list of strings)
         cmd, *args = get_user_input()
 
         match cmd:
@@ -57,7 +53,6 @@ def teacher_room_3(state: State):
                         "A whiteboard reads: 'Put knowledge in the right order. Only then the truth is revealed.'\n"
                     )
 
-                    # Now ask for the answer directly
                     while True:
                         print("Enter the correct order (e.g., ABCD):")
                         user_answer = get_user_input()
@@ -76,8 +71,8 @@ def teacher_room_3(state: State):
                                 "Incorrect! The bookshelf groans ominously. That doesn't seem right."
                             )
                             print("(You will be returned to the start of the room)")
-                            state = state_snapshot
-                            return
+                            state = deepcopy(state_snapshot)
+                            return state
                 else:
                     print(
                         "You've already solved this puzzle. The bookshelf is no longer blocking the exit."
@@ -102,7 +97,7 @@ def teacher_room_3(state: State):
                                 "you carefully navigate through the scattered papers and exit the teacher's lounge."
                             )
                             state.current_room = "north_corridor"
-                            return
+                            return state
                         else:
                             print(
                                 "The tilted bookshelf is blocking your path. You need to solve the puzzle to clear the way."
@@ -124,6 +119,8 @@ def teacher_room_3(state: State):
             case _:
                 display_invalid_command()
 
+    return state
+
 
 if __name__ == "__main__":
     from datetime import timedelta as TimeDelta
@@ -138,3 +135,4 @@ if __name__ == "__main__":
     )
 
     teacher_room_3(mock_state)
+

@@ -3,7 +3,7 @@ from models import Command, State
 from rooms.east_corridor import east_corridor
 from rooms.front_desk_office import front_desk_office
 from rooms.lab_2001 import lab_2001
-from rooms.lab_2003 import lab_2003n
+from rooms.lab_2003 import lab_2003
 from rooms.lobby import lobby
 from rooms.north_corridor import north_corridor
 from rooms.project_room_1 import project_room_1
