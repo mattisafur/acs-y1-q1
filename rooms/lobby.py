@@ -50,7 +50,7 @@ def lobby(state: State):
                             continue
                     case "east_corridor":
                         state.current_room = "east_corridor"
-                        return
+                        return state
                     case "project_room_1":
                         state.current_room = "project_room_1"
                         return
