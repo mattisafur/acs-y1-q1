@@ -107,26 +107,27 @@ main_menu()
 while True:
     match state.current_room:
         case "main_menu":
-            main_menu()
+             main_menu()
         case "lab_2001":
-            lab_2001(state)
+            state = lab_2001(state)
         case "east_corridor":
-            east_corridor(state)
+            state = east_corridor(state)
         case "lobby":
-            lobby(state)
+            state = lobby(state)
         case "front_desk_office":
-            front_desk_office(state)
+            state = front_desk_office(state)
         case "lab_2003":
-            lab_2003(state)
+            state = lab_2003(state)
         case "north_corridor":
-            north_corridor(state)
+            state = north_corridor(state)
         case "project_room_1":
-            project_room_1(state)
+            state = project_room_1(state)
         case "stair_exit":
-            stair_exit(state)
+            state = stair_exit(state)
         case "storage_room":
-            storage_room(state)
+            state = storage_room(state)
         case "teacher_room_3":
-            teacher_room_3(state)
+            state = teacher_room_3(state)
         case "west_corridor":
-            west_corridor(state)
+            state = west_corridor(state)
+
