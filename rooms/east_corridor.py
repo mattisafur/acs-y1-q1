@@ -41,13 +41,13 @@ def east_corridor(state: State):
                         display_go_list(["lab_2001", "lab_2003", "lobby"])
                     case "lab_2001":
                         state.current_room = "lab_2001"
-                        return
+                        return state
                     case "lab_2003":
                         state.current_room = "lab_2003"
-                        return
+                        return state
                     case "lobby":
                         state.current_room = "lobby"
-                        return
+                        return state
 
                 continue
             case Command.look:
