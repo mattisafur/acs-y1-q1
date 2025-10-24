@@ -53,7 +53,7 @@ def lobby(state: State):
                         return state
                     case "project_room_1":
                         state.current_room = "project_room_1"
-                        return
+                        return state
                     case "main_stair_exit":
                         print("Sorry, it could be a nice way to get out, only if it won't be closed, try other doors.")
                         continue
