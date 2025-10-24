@@ -27,7 +27,7 @@ def lab_2001(state: State):
         # print that you don't want to be in this room and return to the previous room
         print("There is a zombie inside this room, you don't want to go in.")
         state.current_room = "east_corridor"
-        return
+        return state
     print(
         "You step into the room\n"
         "Possible commands:\n"
@@ -110,7 +110,7 @@ def lab_2001(state: State):
                     print("(You will be returned to the start of the room.)")
                     state.visited_rooms.remove("lab_2001")  # HACK fix the issue of not letting user back in after dying
                     state = state_snapshot  # reset the game state
-                    return
+                    return state
             case Command.take:
                 # if there are no items you can pick up, skip the commands logic and continue with the code so it will print "invalid command"
                 if len(pickable_items) > 0:
@@ -137,7 +137,7 @@ def lab_2001(state: State):
                             "keycard"
                         )  # add the keycard to the inventory
                         state.current_room = "east_corridor"
-                        return
+                        return state
 
                     continue
             case Command.go:
@@ -161,7 +161,7 @@ def lab_2001(state: State):
                                 "You quickly run out of the room and barricade the door behind you."
                             )
                             state.current_room = "east_corridor"
-                            return
+                            return state
                         else:
                             print("You carefully sneak past the zombies...")
                             continue
