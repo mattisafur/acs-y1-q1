@@ -33,7 +33,6 @@ def lab_2001(state: State):
         "Possible commands:\n"
         "Look\n"
         "Take\n"
-        "Go to East Corridor\n"
         "Quit" )
     # prologue. will only show up once as re-entering the room is not possible
 
