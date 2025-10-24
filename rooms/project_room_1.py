@@ -106,7 +106,7 @@ def project_room_1(state: State):
         # print that you don't want to be in this room and return to the previous room
         print("You already got the Computer passcode and see no reason to go back in..")
         state.current_room = state.previous_room
-        return
+        return state
 
 
     can_use_look = True
@@ -152,7 +152,7 @@ def project_room_1(state: State):
                              # make keycard possible to pick up by adding it to the list of items we can pick up in the room
                             can_use_look = False  # make "look" no longer available
                             state.current_room = "lobby"
-                            return
+                            return state
 
                         # all cases under here result in death, we only print the text that's not the same between the commands here, and under the match statement we reset the room because we want it to happen in all of these cases
                         case other if other != "72946":
@@ -162,7 +162,7 @@ def project_room_1(state: State):
 
                     print("(You will be returned to the start of the room)")
                     state = state_snapshot  # reset the game state
-                    return
+                    return state
             case Command.take:
                 # if there are no items you can pick up, skip the commands logic and continue with the code so it will print "invalid command"
                 if len(pickable_items) > 0:
