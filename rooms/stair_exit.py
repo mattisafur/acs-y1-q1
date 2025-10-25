@@ -16,6 +16,7 @@ from util import (
 
 
 def stair_exit(state: State):
+
     print(
         "You spot a door with an EXIT sign — your chance to escape the building!\n"
         "You start smashing the door with your hammer until it breaks open.\n"
@@ -58,8 +59,6 @@ def stair_exit(state: State):
                                 "You use the master key on the door... It works!\n"
                                 "You are free!"
                             )
-                            state.current_room = "west_corridor"
-                            return state
 
                         case "Rush through the smoke without any protection.":
                             print(
@@ -93,8 +92,6 @@ def stair_exit(state: State):
                                             "You reach it and use the master key... It works!\n"
                                             "You are free!"
                                         )
-                                        state.current_room = "west_corridor"
-                                        return state
 
                                     case "Search around in the smoke for something useful":
                                         print("You find nothing useful. The smoke chokes you. Game Over.")
@@ -146,12 +143,15 @@ def stair_exit(state: State):
 
 
 if __name__ == "__main__":
+    from datetime import datetime
+
     test_state = State(
         player_name="TestPlayer",
         current_room="stair_exit",
-        previous_room="",
+        previous_room="west_corridor",
         visited_rooms=[],
         time_played=TimeDelta(),
         inventory=[],
+        session_start_time=datetime.now(),
     )
     stair_exit(test_state)

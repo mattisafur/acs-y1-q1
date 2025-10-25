@@ -54,22 +54,25 @@ def north_corridor(state: State):
                         display_go_list(available_rooms)
                     case "lobby":
                         state.current_room = "lobby"
-                        return
+                        return state
                     case "front_desk_office":
                         state.current_room = "front_desk_office"
-                        return
+                        return state
                     case "storage_room":
                         state.current_room = "storage_room"
-                        return
+                        return state
                     case "project_room_1":
                         state.current_room = "project_room_1"
-                        return
+                        return state
                     case "teacher_room_3":
                         state.current_room = "teacher_room_3"
-                        return
+                        return state
+                    case "west_corridor":
+                        state.current_room = "west_corridor"
+                        return state
                     case "classroom_2_021" | "classroom_2_015" | "equinox_students_society" | "project_room_3" | "teacher_room_1" | "teacher_room_2":
                         print("The door is locked.")
-                        return
+                        return state
                     case _:
                         print("Invalid destination.")
                 continue

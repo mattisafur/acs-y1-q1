@@ -49,16 +49,16 @@ def west_corridor(state: State):
                         )
                     case "stair_exit":
                         state.current_room = "stair_exit"
-                        return
+                        return state
                     case "classroom_2.035":
                         state.current_room = "classroom_2.035"
-                        return
+                        return state
                     case "classroom_2.031":
                         state.current_room = "classroom_2.031"
-                        return
+                        return state
                     case "project_room_4":
                         state.current_room = "project_room_4"
-                        return
+                        return state
 
                 continue
             case Command.look:

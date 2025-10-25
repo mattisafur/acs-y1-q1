@@ -30,7 +30,8 @@ def teacher_room_3(state: State):
     print(
         "You step into the teacher's lounge. Papers are scattered everywhere, coffee mugs still half full as if abandoned in a hurry. \n"
         "A bookshelf is tilted precariously, blocking part of the exit. The room feels eerie in its stillness, \n"
-        "as though the teachers left in the middle of their day.\n"
+        "as though the teachers left in the middle of their day.\n\n"
+        "Use command 'look' to see around the room"
     )
 
     puzzle_solved = False
