@@ -1,5 +1,4 @@
 from copy import deepcopy
-
 from models import Command, State
 from util import (
     display_invalid_syntax,
@@ -23,7 +22,7 @@ def storage_room(state: State):
             "You can hear zombies groaning in the room. Since you already obtained what you needed here, going back would be too risky."
         )
         state.current_room = state.previous_room
-        return
+        return state
     else:
         if not hasattr(state, "visited_rooms"):
             state.visited_rooms = []
@@ -94,16 +93,14 @@ def storage_room(state: State):
                         "Groans surge closer—zombies rush in.\n"
                         "Game over. (You will be returned to the start of the room)"
                     )
-                    state = state_snapshot
-                    return
+                    return deepcopy(state_snapshot)
 
                 if choice == "forward":
                     print(
                         "You squeeze into the debris path, but a metal rod clatters free and crashes to the floor.\n"
                         "The noise carries—zombies converge. Game over. (You will be returned to the start of the room)"
                     )
-                    state = state_snapshot
-                    return
+                    return deepcopy(state_snapshot)
 
                 if choice == "right":
                     print(
@@ -124,7 +121,7 @@ def storage_room(state: State):
                     continue
 
                 if len(args) != 1:
-
+                    display_invalid_syntax()
                     continue
 
                 match args[0]:
@@ -162,7 +159,7 @@ def storage_room(state: State):
                     print("You quietly retrace your steps and slip back into the corridor.")
                     state.previous_room = "storage_room"
                     state.current_room = "north_corridor"
-                    return
+                    return state
 
                 display_invalid_syntax()
                 continue
@@ -187,7 +184,7 @@ def storage_room(state: State):
                 continue
 
 if __name__ == "__main__":
-    from datetime import timedelta as TimeDelta
+    from datetime import timedelta as TimeDelta, datetime
 
     mock_state = State(
         player_name="mock",
@@ -196,6 +193,7 @@ if __name__ == "__main__":
         visited_rooms=[],
         time_played=TimeDelta(),
         inventory=[],
+        session_start_time=datetime.now(),
     )
 
     storage_room(mock_state)

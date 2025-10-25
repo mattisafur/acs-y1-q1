@@ -20,10 +20,14 @@ from util import (
 def lab_2003(state: State):
     state_snapshot = deepcopy(state)
 
-    if "lab_2003" not in state.visited_rooms:
-        state.visited_rooms.append("lab_2003")
-        print("You are in the Computer lab 2.003.")
-    else:
+    if "project_room_1" not in state.visited_rooms:
+        print(
+            "Apparently, you are not ready to come into this room.\n"
+            "Go explore the rooms in the lobby and come back here."
+        )
+        state.current_room = "east_corridor"
+        return state
+    elif "lab_2003" in state.visited_rooms and "lab_2003_affirmations" not in state.visited_rooms:
         print(
             "You forgot the door opened last time you were here.\n"
             "The zombies got in and are throwing a party.\n"
@@ -33,19 +37,22 @@ def lab_2003(state: State):
         )
         state.current_room = "east_corridor"
         return state
+    elif "lab_2003" not in state.visited_rooms:
+        state.visited_rooms.append("lab_2003")
+        print("You are in the Computer lab 2.003.")
+    else:
+        print("You are in the Computer lab 2.003 again. The computer is still on.")
 
     print(
         "Possible commands:\n"
         "Look\n"
         "Take\n"
-        "Go to East Corridor\n"
         "Quit"
     )
 
     can_use_look = True
     can_choose_action = True
     pickable_items: list[str] = []
-
     attempts = 0
     max_attempts = 3
 
@@ -116,7 +123,8 @@ def lab_2003(state: State):
                             "You bite a zombie from behind.\n"
                             "The zombie bites you back.\n"
                             "You bleed to death in the East Corridor.\n"
-                            f"{last_words} — you may rest in peace."
+                            f"{last_words} — you may rest in peace.\n"
+                            "Room will be restarted"
                         )
                         state = deepcopy(state_snapshot)
                         return state
@@ -127,7 +135,8 @@ def lab_2003(state: State):
                         print(
                             "\nThe screen displays 'Incorrect password' and you cry a lot.\n"
                             "You drink something from a glass — it was the zombie potion.\n"
-                            "You are now one of them. It is not allowed to become a zombie."
+                            "You are now one of them. It is not allowed to become a zombie.\n"
+                            "Room will be restarted"
                         )
                         state = deepcopy(state_snapshot)
                         return state
@@ -135,8 +144,10 @@ def lab_2003(state: State):
                     elif choice == "Write positive affirmations":
                         print(
                             "You write some positive affirmations.\n"
-                            "Things don't get better, but least you're leaving laboratory 2.003 optimistic now."
+                            "Things don't get better, but at least you're leaving laboratory 2.003 optimistic now."
                         )
+                        if "lab_2003_affirmations" not in state.visited_rooms:
+                            state.visited_rooms.append("lab_2003_affirmations")
                         state.current_room = "east_corridor"
                         return state
 
