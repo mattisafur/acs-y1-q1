@@ -43,7 +43,8 @@ def front_desk_office(state):
 
         match cmd:
             case Command.help:
-                raise NotImplementedError
+                display_help()
+                continue
 
             case Command.look:
                 if can_use_look:

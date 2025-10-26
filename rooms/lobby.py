@@ -26,7 +26,7 @@ def lobby(state: State):
 
         match command:
             case Command.help:
-                raise NotImplementedError
+                display_help()
             case Command.go:
                 if len(args) != 1:
                     display_invalid_syntax("go")

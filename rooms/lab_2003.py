@@ -1,3 +1,4 @@
+import time
 from copy import deepcopy
 from datetime import timedelta as TimeDelta
 
@@ -17,17 +18,24 @@ from util import (
 )
 
 
+def display_help() -> None:
+    print(
+        "Possible commands:\n"
+        "look        look around the room\n"
+        "answer      choose a path (left|right|forward)\n"
+        "take        pick up an item\n"
+        "go          go to another room\n"
+        "stats       display your stats\n"
+        "leaderboard view the leaderboard\n"
+        "pause       save and quit the game\n"
+        "quit        quit the game without saving"
+    )
+
+
 def lab_2003(state: State):
     state_snapshot = deepcopy(state)
 
-    if "project_room_1" not in state.visited_rooms:
-        print(
-            "Apparently, you are not ready to come into this room.\n"
-            "Go explore the rooms in the lobby and come back here."
-        )
-        state.current_room = "east_corridor"
-        return state
-    elif "lab_2003" in state.visited_rooms and "lab_2003_affirmations" not in state.visited_rooms:
+    if "lab_2003" in state.visited_rooms and "lab_2003_affirmations" not in state.visited_rooms:
         print(
             "You forgot the door opened last time you were here.\n"
             "The zombies got in and are throwing a party.\n"
@@ -43,12 +51,7 @@ def lab_2003(state: State):
     else:
         print("You are in the Computer lab 2.003 again. The computer is still on.")
 
-    print(
-        "Possible commands:\n"
-        "Look\n"
-        "Take\n"
-        "Quit"
-    )
+    print("Possible commands:\nLook\nTake\nQuit")
 
     can_use_look = True
     can_choose_action = True
@@ -61,7 +64,7 @@ def lab_2003(state: State):
 
         match cmd:
             case Command.help:
-                raise NotImplementedError
+                display_help()
 
             case Command.look:
                 if can_use_look:
@@ -69,8 +72,6 @@ def lab_2003(state: State):
                         "There is just one computer on. On the screen it displays:\n"
                         "“Login required – Insert authorized password.”\n"
                         "You must insert something.\n"
-                    )
-                    print(
                         "Type code from Project room\n"
                         "Write a goodbye letter\n"
                         "Type your mom's number\n"
@@ -119,7 +120,7 @@ def lab_2003(state: State):
                         )
                         last_words = input("  ")
                         print(
-                            "\nYou leave the room desperate and anxious.\n"
+                            f"\nYou leave the room desperate and anxious.\n"
                             "You bite a zombie from behind.\n"
                             "The zombie bites you back.\n"
                             "You bleed to death in the East Corridor.\n"
@@ -166,6 +167,7 @@ def lab_2003(state: State):
                             display_take_list(pickable_items)
                         case "knife":
                             print("You picked up the knife and head back to East Corridor")
+                            time.sleep(1.5)
                             state.inventory.append("knife")
                             state.current_room = "east_corridor"
                             return state
@@ -180,7 +182,7 @@ def lab_2003(state: State):
                     case "?":
                         display_go_help()
                     case "list":
-                        display_take_list(pickable_items)
+                        display_go_list(pickable_items)
 
             case Command.quit:
                 quit_game()
@@ -193,6 +195,9 @@ def lab_2003(state: State):
 
             case Command.leaderboard:
                 display_leaderboard()
+
+            case _:
+                display_invalid_command(cmd)
 
     return state
 

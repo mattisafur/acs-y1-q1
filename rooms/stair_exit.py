@@ -1,10 +1,10 @@
 from datetime import timedelta as TimeDelta
 from models import Command, State
 from util import (
+    display_invalid_syntax,
     display_go_help,
     display_go_list,
     display_invalid_command,
-    display_invalid_syntax,
     display_leaderboard,
     display_stats,
     display_take_help,
@@ -12,8 +12,8 @@ from util import (
     get_user_input,
     pause_game,
     quit_game,
+    display_help,
 )
-
 
 def stair_exit(state: State):
 
@@ -41,7 +41,7 @@ def stair_exit(state: State):
 
         match cmd:
             case Command.help:
-                raise NotImplementedError
+                display_help()
 
             case Command.answer:
                 if can_choose_action:

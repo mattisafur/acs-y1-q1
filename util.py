@@ -50,6 +50,17 @@ def display_stats(state: State) -> None:
         f"Time played: {hours}h{minutes}m\n"
         f"Rooms visited: {percentage:.0f}% ({len(state.visited_rooms)}/{len(state.all_rooms)})")
 
+def display_help() -> None:
+    print(
+        "Possible commands:\n"
+        "look        look around the room\n"
+        "take        pick up an item\n"
+        "go          go to another room\n"
+        "stats       display your stats\n"
+        "leaderboard view the leaderboard\n"
+        "pause       save and quit the game\n"
+        "quit        quit the game without saving"
+    )
 
 def display_inventory(state: State) -> None:
     print("Inventory:\n" + "\n".join(state.inventory))

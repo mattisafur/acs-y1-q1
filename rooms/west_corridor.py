@@ -8,6 +8,7 @@ from util import (
     display_inventory,
     display_leaderboard,
     display_stats,
+    display_help,
     get_user_input,
     pause_game,
     quit_game,
@@ -29,7 +30,9 @@ def west_corridor(state: State):
 
         match command:
             case Command.help:
-                raise NotImplementedError
+                display_help()
+                continue
+
             case Command.go:
                 if len(args) != 1:
                     display_invalid_syntax("go")
@@ -61,6 +64,7 @@ def west_corridor(state: State):
                         return state
 
                 continue
+
             case Command.look:
                 print(
                     "The corridor is empty, nothing to see here, go choose your next room!"

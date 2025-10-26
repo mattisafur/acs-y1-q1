@@ -12,6 +12,7 @@ from util import (
     get_user_input,
     pause_game,
     quit_game,
+    display_help,
 )
 
 def storage_room(state: State):
@@ -26,8 +27,7 @@ def storage_room(state: State):
         state.visited_rooms = []
     state.visited_rooms.append("storage_room")
 
-    print("You step into the storage room.\nThe air is dusty and the lights are out, leaving only thin beams of light cutting through the darkness. To the left, an overturned table blocks part of the way.\nTo the right, a tall cabinet looms, obscuring much of the corner.\nStraight ahead, a narrow path twists through fallen debris and chairs."
-          "\nType 'look' to go around the room")
+    print("You step into the storage room.\nThe air is dusty and the lights are out, leaving only thin beams of light cutting through the darkness. To the left, an overturned table blocks part of the way.\nTo the right, a tall cabinet looms, obscuring much of the corner.\nStraight ahead, a narrow path twists through fallen debris and chairs.\nType 'look' to go around the room")
 
     can_use_look = True
     can_choose_action = False
@@ -42,8 +42,9 @@ def storage_room(state: State):
         cmd, *args = tokens
         match cmd:
             case Command.help:
-                print("Possible commands:\nlook    look around the room\nanswer  choose a path (left|right|forward)\ntake    pick up an item\ngo      go to another room\nstats   display your stats\nleaderboard view the leaderboard\npause   save and quit the game\nquit    quit the game without saving")
+                display_help()
                 continue
+
             case Command.look:
                 if can_use_look:
                     print("Shadows stretch between shelves and toppled furniture.\nThe cabinet on the right looks reachable if careful, \nbut shifting the table to the left could be loud, and the narrow path ahead is littered with loose scrap.")
@@ -53,9 +54,10 @@ def storage_room(state: State):
                 else:
                     print("The cabinet on the right still stands where it is, and the room remains tense and quiet.")
                 continue
+
             case Command.answer:
                 if not can_choose_action or len(args) != 1:
-                    display_invalid_syntax()
+                    display_invalid_syntax("answer")
                     continue
                 choice = args[0].strip().lower()
                 if choice == "left":
@@ -72,12 +74,13 @@ def storage_room(state: State):
                     continue
                 print("Invalid choice. Try: left | right | forward.")
                 continue
+
             case Command.take:
                 if not pickable_items:
                     display_take_help()
                     continue
                 if len(args) != 1:
-                    display_invalid_syntax()
+                    display_invalid_syntax("take")
                     continue
                 match args[0]:
                     case "?":
@@ -99,9 +102,10 @@ def storage_room(state: State):
                 else:
                     display_invalid_command()
                 continue
+
             case Command.go:
                 if len(args) != 1:
-                    display_invalid_syntax()
+                    display_invalid_syntax("go")
                     continue
                 dest = args[0].strip().lower()
                 if dest == "?":
@@ -115,21 +119,25 @@ def storage_room(state: State):
                     state.previous_room = "storage_room"
                     state.current_room = "north_corridor"
                     return state
-                display_invalid_syntax()
+                display_invalid_syntax("go")
                 continue
+
             case Command.stats:
                 display_stats()
                 continue
+
             case Command.leaderboard:
                 display_leaderboard()
                 continue
+
             case Command.pause:
                 pause_game(state)
                 return state
+
             case Command.quit:
                 quit_game()
                 return state
+
             case _:
                 display_invalid_command()
                 continue
-

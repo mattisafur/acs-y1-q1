@@ -7,6 +7,7 @@ from util import (
     display_inventory,
     display_leaderboard,
     display_stats,
+    display_help,
     get_user_input,
     pause_game,
     quit_game,
@@ -28,7 +29,8 @@ def east_corridor(state: State):
 
         match command:
             case Command.help:
-                raise NotImplementedError
+                display_help()
+                continue
             case Command.go:
                 if len(args) != 1:
                     display_invalid_syntax("go")

@@ -11,6 +11,7 @@ from util import (
     display_stats,
     display_take_help,
     display_take_list,
+    display_help,
     get_user_input,
     pause_game,
     quit_game,
@@ -28,12 +29,7 @@ def lab_2001(state: State):
         print("There is a zombie inside this room, you don't want to go in.")
         state.current_room = "east_corridor"
         return state
-    print(
-        "You step into the room\n"
-        "Possible commands:\n"
-        "Look\n"
-        "Take\n"
-        "Quit" )
+    print("Useful information:\n? for displaying available commands\nCommand 'look' for exploring inside the rooms")
     # prologue. will only show up once as re-entering the room is not possible
 
     can_use_look = True
@@ -47,8 +43,7 @@ def lab_2001(state: State):
         # match on the command (e.g. take)
         match cmd:
             case Command.help:
-                # the help command is not implemented yet so we raising "not implemented" error
-                raise NotImplementedError
+                display_help()
             case Command.look:
                 # only let the user run the look command if the look command is allowed to be run, if not the command will be skipped so the code will print "invalid command"
                 if can_use_look:

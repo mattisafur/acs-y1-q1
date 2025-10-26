@@ -93,6 +93,7 @@ from util import (
     get_user_input,
     pause_game,
     quit_game,
+    display_help,
 )
 
 def project_room_1(state: State):
@@ -114,7 +115,7 @@ def project_room_1(state: State):
 
         match cmd:
             case Command.help:
-                raise NotImplementedError
+                display_help()
             case Command.look:
                 if can_use_look:
                     print(

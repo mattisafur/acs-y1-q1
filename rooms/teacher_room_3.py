@@ -11,6 +11,7 @@ from util import (
     display_stats,
     display_take_help,
     display_take_list,
+    display_help,
     get_user_input,
     pause_game,
     quit_game,
@@ -41,7 +42,9 @@ def teacher_room_3(state: State):
 
         match cmd:
             case Command.help:
-                raise NotImplementedError
+                display_help()
+                continue
+
             case Command.look:
                 if not puzzle_solved:
                     print(
@@ -79,6 +82,7 @@ def teacher_room_3(state: State):
                         "You've already solved this puzzle. The bookshelf is no longer blocking the exit."
                     )
                 continue
+
             case Command.go:
                 if len(args) != 1:
                     display_invalid_syntax("go")
@@ -104,6 +108,7 @@ def teacher_room_3(state: State):
                                 "The tilted bookshelf is blocking your path. You need to solve the puzzle to clear the way."
                             )
                         continue
+
             case Command.inventory:
                 display_inventory(state)
                 continue
