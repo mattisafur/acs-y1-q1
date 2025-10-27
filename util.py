@@ -1,7 +1,6 @@
 import json
 from datetime import datetime as DateTime
 from datetime import timedelta as TimeDelta
-
 from models import State
 
 
@@ -9,15 +8,34 @@ def get_user_input() -> list[str]:
     return input("> ").strip().split(" ")
 
 
+def display_map():
+    raise NotImplementedError
+
+
+def display_items_list():
+    raise NotImplementedError
+
+
 def quit_game() -> None:
-    print("Thank you for playing!")
+    print("Thank you for playing our zombie a-maze-ing Delft!")
     exit()
+
+
+def update_time_played(
+    current_time_played: TimeDelta, session_start_time: DateTime
+) -> TimeDelta:
+    time_played_this_session = DateTime.now() - session_start_time
+    return current_time_played + time_played_this_session
+
+
+def track_time_played(state: State) -> None:
+    state.time_played = update_time_played(state.time_played, state.session_start_time)
+    state.session_start_time = DateTime.now()
 
 
 def pause_game(state: State) -> None:
     from db import save_state
-    
-    state.time_played = update_time_played(state.time_played, state.session_start_time)
+    track_time_played(state)
     save_state(state)
     print(f"Game paused and saved as '{state.player_name}'.\n \n")
     print("To reload the game with your process use command load + username")
@@ -25,32 +43,68 @@ def pause_game(state: State) -> None:
 
 
 def display_leaderboard() -> None:
-    print("Leaderboard: \n")
+    print("Leaderboard:\n")
     try:
         with open("leaderboard.txt", "r", encoding="utf-8") as f:
             lines = [ln.strip() for ln in f if ln.strip()]
     except FileNotFoundError:
         print("No records yet.")
         return
+
     if not lines:
         print("No records yet.")
         return
-    for i, line in enumerate(lines[:10], 1):
-        print(f"{i}. {line}")
 
+    records = []
+    for line in lines:
+        try:
+            parts = [p.strip() for p in line.split("|")]
+            name = parts[0]
+            completion = int(parts[1].replace("Completion:", "").replace("%", "").strip())
+            time_str = parts[2].replace("Time:", "").strip()
+            hours = 0
+            minutes = 0
+            if "h" in time_str:
+                hours = int(time_str.split("h")[0])
+                if "m" in time_str:
+                    minutes = int(time_str.split("h")[1].replace("m", "").strip() or 0)
+            elif "m" in time_str:
+                minutes = int(time_str.replace("m", "").strip() or 0)
+            total_minutes = hours * 60 + minutes
+            records.append((name, completion, total_minutes))
+        except Exception:
+            continue
+
+    if not records:
+        print("No valid records found.")
+        return
+
+    records.sort(key=lambda r: (-r[1], r[2]))
+
+    print(f"{'Rank':<5}{'Player':<15}{'Completion':<15}{'Time Played'}")
+    print("-" * 50)
+    for i, (name, completion, total_minutes) in enumerate(records[:5], 1):
+        hours = total_minutes // 60
+        minutes = total_minutes % 60
+        print(f"{i:<5}{name:<15}{completion:<15}{hours}h{minutes}m")
 
 
 def display_stats(state: State) -> None:
-        total_seconds = int(state.time_played.total_seconds())
-        hours = total_seconds // 3600
-        minutes = (total_seconds % 3600) // 60
-        percentage = (len(state.visited_rooms) / len(state.all_rooms)) * 100 if state.all_rooms else 0
+    track_time_played(state)
+    total_seconds = int(state.time_played.total_seconds())
+    hours = total_seconds // 3600
+    minutes = (total_seconds % 3600) // 60
+    percentage = (len(state.visited_rooms) / len(get_all_rooms())) * 100
+    print("Stats\n"
+          "-----\n"
+          f"Name: {state.player_name}\n"
+          f"Time played: {hours}h{minutes}m\n"
+          f"Rooms visited: {percentage:.0f}% ({len(state.visited_rooms)}/{len(get_all_rooms())})")
 
-        print("Stats\n"
-        "-----\n"
-        f"Name: {state.player_name}\n"
-        f"Time played: {hours}h{minutes}m\n"
-        f"Rooms visited: {percentage:.0f}% ({len(state.visited_rooms)}/{len(state.all_rooms)})")
+
+def get_all_rooms() -> list[str]:
+    return ["lab_2001", "lobby", "project_room_1", "lab_2003", "storage_room", "front_desk", "teacher_room_3", "stairwell", "east_corridor", "west_corridor", "north_corridor"]
+
 
 def display_help() -> None:
     print(
@@ -67,20 +121,15 @@ def display_help() -> None:
         "load + username        go back to the game after you paused"
     )
 
+
 def display_inventory(state: State) -> None:
     print("Inventory:\n" + "\n".join(state.inventory))
-
-
-def update_time_played(
-    current_time_played: TimeDelta, session_start_time: DateTime
-) -> TimeDelta:
-    time_played_this_session = DateTime.now() - session_start_time
-    return current_time_played + time_played_this_session
 
 
 def display_go_list(rooms: list[str]) -> None:
     print("Rooms available:\n", "\n".join(rooms))
     print("Use command 'go' before typing your chosen room")
+
 
 def display_take_list(items: list[str]) -> None:
     print("Items available to pick up:\n" + "\n".join(items))
@@ -99,6 +148,7 @@ def display_go_help() -> None:
         "go <room name>\n"
         "'go' should be typed before room name\n"
     )
+
 
 def display_look_help() -> None:
     print("look\nlooks around the room and says what you see")
@@ -137,10 +187,12 @@ def display_load_help() -> None:
     print("  load player 1")
     print("  load player 2")
 
+
 def display_where_am_i(state: State) -> None:
     print(f"You are in {state.current_room}.")
 
+
 def display_delete_help() -> None:
     print("Delete player <player name>\n"
-        "Delete item <item> from your inventory\n"
-        "Delete progress")
+          "Delete item <item> from your inventory\n"
+          "Delete progress")
