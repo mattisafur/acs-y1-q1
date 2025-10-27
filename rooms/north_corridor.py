@@ -10,7 +10,7 @@ from util import (
     get_user_input,
     pause_game,
     quit_game,
-    display_help,  # adicionado
+    display_help,
 )
 
 
