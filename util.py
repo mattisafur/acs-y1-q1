@@ -96,14 +96,9 @@ def display_invalid_syntax(command_name: str) -> None:
 
 def display_go_help() -> None:
     print(
-        "go <room name>|list\n"
-        "Go to another room\n"
-        "<room name>\n"
-        "\tGo to the specified room\n"
-        "list\n"
-        "\tList connected rooms"
+        "go <room name>\n"
+        "'go' should be typed before room name\n"
     )
-
 
 def display_look_help() -> None:
     print("look\nlooks around the room and says what you see")
