@@ -18,7 +18,8 @@ def pause_game(state: State) -> None:
     
     state.time_played = update_time_played(state.time_played, state.session_start_time)
     save_state(state)
-    print(f"Game paused and saved as '{state.player_name}'.")
+    print(f"Game paused and saved as '{state.player_name}'.\n \n")
+    print("To reload the game with your process use command load + username")
     quit_game()
 
 
@@ -53,13 +54,16 @@ def display_stats(state: State) -> None:
 def display_help() -> None:
     print(
         "Possible commands:\n"
-        "look        look around the room\n"
+        "look around       look around the room\n"
+        "where              displays the room you are currently on\n"
         "take        pick up an item\n"
         "go          go to another room\n"
         "stats       display your stats\n"
         "leaderboard view the leaderboard\n"
         "pause       save and quit the game\n"
-        "quit        quit the game without saving"
+        "quit        quit the game without saving\n"
+        "inventory   display the items in your inventory\n"
+        "load + username        go back to the game after you paused"
     )
 
 def display_inventory(state: State) -> None:
@@ -120,7 +124,7 @@ def display_answer_help() -> None:
 
 
 def display_inventory_help() -> None:
-    print("inventory\nDisplay the items currently in your inventory")
+    print("inventory\nDisplay the items currently in your inventory\nTo access it type 'inventory'")
 
 
 def display_new_help() -> None:
@@ -131,12 +135,14 @@ def display_new_help() -> None:
 
 def display_load_help() -> None:
     print("load <save_name>")
-    print("Load a saved game by name.")
+    print("Load a saved game by username.")
+    print("Username is the name you defined at the beginning of the game")
     print("Examples:")
-    print("  load autosave")
-    print("  load slot1")
+    print("  load player 1")
+    print("  load player 2")
 
-
+def display_where_am_i(state: State) -> None:
+    print(f"You are in {state.current_room}.")
 
 def display_delete_help() -> None:
     print("Delete player <player name>\n"

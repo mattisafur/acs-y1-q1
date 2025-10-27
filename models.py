@@ -94,3 +94,4 @@ class Command(StrEnum):
     new = "new"  # for starting a new game in the main menu
     load = "load"  # for loading a game save in the main menu
     delete = "delete"  # for deleting a game save in the main menu
+    where = "where"

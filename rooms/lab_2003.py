@@ -18,20 +18,6 @@ from util import (
 )
 
 
-def display_help() -> None:
-    print(
-        "Possible commands:\n"
-        "look        look around the room\n"
-        "answer      choose a path (left|right|forward)\n"
-        "take        pick up an item\n"
-        "go          go to another room\n"
-        "stats       display your stats\n"
-        "leaderboard view the leaderboard\n"
-        "pause       save and quit the game\n"
-        "quit        quit the game without saving"
-    )
-
-
 def lab_2003(state: State):
     state_snapshot = deepcopy(state)
 
@@ -64,9 +50,8 @@ def lab_2003(state: State):
 
         match cmd:
             case Command.help:
-                if len(args) == 1 and args[0] == "around":
-                    display_help()
-                    continue
+                display_help()
+
             case Command.look:
                 if can_use_look:
                     print(

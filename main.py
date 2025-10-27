@@ -18,6 +18,8 @@ from util import (
     display_leaderboard,
     display_load_help,
     display_new_help,
+    display_help,
+    display_where_am_i,
     get_user_input,
     quit_game,
 )
@@ -31,67 +33,66 @@ def main_menu():
     while True:
         global state
 
-        print("what would you like to do?")
+        print("Welcome. Just some useful information before you start:\n"
+              "To start new game, type 'new' + How you like to be called.\n"
+              "Example: new Johnson\n"
+              "To resume the game from the pause, type 'load' + username you want to load.\n"
+              "Example: load Johnson\n"
+              "To quit the game, type 'quit'.\n"
+              "Type '?' to display all possible commands during the game.\n"
+              "Use command 'look around' to explore inside of the rooms.\n"
+              "What would you like to do?")
 
         cmd, *args = get_user_input()
 
         match cmd:
             case Command.help:
-                raise NotImplementedError
+                display_help()
             case Command.new:
                 if len(args) != 1:
                     display_invalid_syntax("new")
                     continue
-
                 if args[0] == "?":
                     display_new_help()
                     continue
-
                 if load_state(args[0]) is not None:
                     print("a save with the specified name already exists")
                     continue
-
                 state = State.new_game(args[0])
                 save_state(state)
-
                 print("starting new game")
                 return
             case Command.load:
                 if len(args) != 1:
                     display_invalid_syntax("load")
                     continue
-
                 if args[0] == "?":
                     display_load_help()
                     continue
-
                 loaded_state = load_state(args[0])
                 if loaded_state is None:
                     print("Save does not exist")
                     continue
-
                 state = loaded_state
-
                 print("save loaded, resuming game")
                 return
             case Command.delete:
                 if len(args) != 1:
                     display_invalid_syntax("delete")
                     continue
-
                 if args[0] == "?":
                     display_delete_help()
                     continue
-
                 if load_state(args[0]) is None:
                     print("Save does not exist")
                     continue
-
                 user_input = input("are you sure you want to delete the save? [y/N]: ")
                 if user_input == "y":
-                    delete_save(args[0])
+                    delete_state(args[0])
                     print("save deleted")
-
+                continue
+            case Command.where:
+                display_where_am_i(state)
                 continue
             case Command.quit:
                 quit_game()
@@ -107,7 +108,7 @@ main_menu()
 while True:
     match state.current_room:
         case "main_menu":
-             main_menu()
+            main_menu()
         case "lab_2001":
             state = lab_2001(state)
         case "east_corridor":
@@ -130,4 +131,3 @@ while True:
             state = teacher_room_3(state)
         case "west_corridor":
             state = west_corridor(state)
-
