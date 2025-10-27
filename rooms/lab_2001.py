@@ -25,12 +25,12 @@ def lab_2001(state: State):
     if "lab_2001" not in state.visited_rooms:
         state.visited_rooms.append("lab_2001")
     else:
-        print("There is a zombie inside this room, you don't want to go in.")
+        print("There is a zombie inside, you don't want to go in.")
         state.current_room = "east_corridor"
         return state
 
     print(
-        "Useful information:\n? for displaying available commands\nCommand 'look around' for exploring inside the rooms")
+        "Useful information:\nCommand 'look around' for exploring inside the rooms \n? for displaying available commands\n")
 
     can_use_look = True
     can_choose_action = False
