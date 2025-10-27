@@ -10,6 +10,7 @@ def get_user_input() -> list[str]:
 
 
 def quit_game() -> None:
+    print("Thank you for playing!")
     exit()
 
 
