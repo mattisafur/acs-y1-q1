@@ -42,8 +42,9 @@ def teacher_room_3(state: State):
 
         match cmd:
             case Command.help:
-                display_help()
-                continue
+                if len(args) == 1 and args[0] == "around":
+                    display_help()
+                    continue
 
             case Command.look:
                 if not puzzle_solved:

@@ -29,8 +29,9 @@ def east_corridor(state: State):
 
         match command:
             case Command.help:
-                display_help()
-                continue
+                
+                    display_help()
+                    continue
             case Command.go:
                 if len(args) != 1:
                     display_invalid_syntax("go")

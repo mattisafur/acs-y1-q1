@@ -64,8 +64,9 @@ def lab_2003(state: State):
 
         match cmd:
             case Command.help:
-                display_help()
-
+                if len(args) == 1 and args[0] == "around":
+                    display_help()
+                    continue
             case Command.look:
                 if can_use_look:
                     print(

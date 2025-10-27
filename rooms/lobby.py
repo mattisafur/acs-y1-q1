@@ -26,7 +26,9 @@ def lobby(state: State):
 
         match command:
             case Command.help:
-                display_help()
+                if len(args) == 1 and args[0] == "around":
+                    display_help()
+                    continue
             case Command.go:
                 if len(args) != 1:
                     display_invalid_syntax("go")
