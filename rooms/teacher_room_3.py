@@ -29,10 +29,11 @@ def teacher_room_3(state: State):
         return state
 
     print(
-        "You step into the teacher's lounge. Papers are scattered everywhere, coffee mugs still half full as if abandoned in a hurry. \n"
-        "A bookshelf is tilted precariously, blocking part of the exit. The room feels eerie in its stillness, \n"
-        "as though the teachers left in the middle of their day.\n\n"
-        "Use command 'look' to see around the room"
+        "You step into the teacher's lounge. The place is a mess—papers everywhere, coffee stains on the floor, and a bookshelf knocked over, blocking the exit."
+        " It's quiet, but you notice a low groan from behind the shelf. There's a zombie teacher slumped there, clutching a ring of keys."
+        " If you want to get out, you'll need to move the shelf, but the teacher is in the way."
+        " On the desk, you spot four folders labeled A, B, C, D. Each has a note:"
+        " Look at the notes to figure out the correct order to unlock the exit."
     )
 
     puzzle_solved = False
@@ -49,33 +50,32 @@ def teacher_room_3(state: State):
             case Command.look:
                 if not puzzle_solved:
                     print(
-                        "The teacher's lounge is a mess. The bookshelf looks unstable and could fall at any moment.\n"
-                        "On the desk are four folders labeled A, B, C, D. Each has a note stuck to it:\n"
-                        "  Folder A: 'Comes after B.'\n"
-                        "  Folder B: 'Must be first.'\n"
-                        "  Folder C: 'Is never next to A.'\n"
-                        "  Folder D: 'Always after C.'\n"
-                        "A whiteboard reads: 'Put knowledge in the right order. Only then the truth is revealed.'\n"
+                        "The shelf is blocking the exit, and the zombie teacher is still out cold."
+                        " You look at the folders and the notes again."
+                        "\n  Folder A: 'Comes after D.'"
+                        "\n  Folder B: 'Must be first.'"
+                        "\n  Folder C: 'Is never next to A.'"
+                        "\n  Folder D: 'Always after C.'"
+                        "\nFigure out the right order (e.g., BCDA) to unlock the exit."
                     )
 
                     while True:
-                        print("Enter the correct order (e.g., ABCD):")
+                        print("Enter the folder order (e.g., BCDA):")
                         user_answer = get_user_input()
                         answer = "".join(user_answer).strip().upper()
 
                         if answer == "BCDA":
                             print(
-                                "Correct! The folders click into place.\n"
-                                "You hear a soft mechanical sound as the bookshelf slowly rights itself,\n"
-                                "revealing a clear path to the exit. You feel a sense of accomplishment."
+                                "Nice! You got it. The shelf slides aside, and you grab the keys from the teacher before he wakes up."
+                                " You slip out through the exit, heart pounding."
                             )
                             puzzle_solved = True
                             break
                         else:
                             print(
-                                "Incorrect! The bookshelf groans ominously. That doesn't seem right."
+                                "Nope, that's not it. The shelf rattles, and the zombie teacher starts to stir. Better get out before he wakes up!"
                             )
-                            print("(You will be returned to the start of the room)")
+                            print("You hurry back to the previous room.")
                             state = deepcopy(state_snapshot)
                             return state
                 else:
