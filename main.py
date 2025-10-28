@@ -30,18 +30,18 @@ initialize_database()
 
 
 def main_menu():
-    while True:
-        global state
+    global state
+    print("Welcome. Just some useful information before you start:\n"
+          "To start new game, type 'new' + How you like to be called.\n"
+          "Example: new Johnson\n"
+          "To resume the game from the pause, type 'load' + username you want to load.\n"
+          "Example: load Johnson\n"
+          "To quit the game, type 'quit'.\n"
+          "Type '?' to display all possible commands during the game.\n"
+          "Use command 'look around' to explore inside of the rooms.\n"
+          "What would you like to do?")
 
-        print("Welcome. Just some useful information before you start:\n"
-              "To start new game, type 'new' + How you like to be called.\n"
-              "Example: new Johnson\n"
-              "To resume the game from the pause, type 'load' + username you want to load.\n"
-              "Example: load Johnson\n"
-              "To quit the game, type 'quit'.\n"
-              "Type '?' to display all possible commands during the game.\n"
-              "Use command 'look around' to explore inside of the rooms.\n"
-              "What would you like to do?")
+    while True:
 
         cmd, *args = get_user_input()
 
