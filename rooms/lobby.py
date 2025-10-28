@@ -7,6 +7,7 @@ from util import (
     display_inventory,
     display_leaderboard,
     display_stats,
+    display_help,
     get_user_input,
     pause_game,
     quit_game,
