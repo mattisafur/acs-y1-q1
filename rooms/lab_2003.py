@@ -1,6 +1,6 @@
 import time
 from copy import deepcopy
-from datetime import timedelta as TimeDelta
+from datetime import timedelta as TimeDelta, datetime
 
 from models import Command, State
 from util import (
@@ -37,7 +37,7 @@ def lab_2003(state: State):
     else:
         print("You are in the Computer lab 2.003 again. The computer is still on.")
 
-    print("Possible commands:\nLook\nTake\nQuit")
+    print("Use command look to explore the room.")
 
     can_use_look = True
     can_choose_action = True
@@ -50,14 +50,14 @@ def lab_2003(state: State):
 
         match cmd:
             case Command.help:
-                display_help()
+                display_help(state)
 
             case Command.look:
                 if can_use_look:
                     print(
                         "There is just one computer on. On the screen it displays:\n"
                         "“Login required – Insert authorized password.”\n"
-                        "You must insert something.\n"
+                        "You must unlock it.\n"
                         "Type code from Project room\n"
                         "Write a goodbye letter\n"
                         "Type your mom's number\n"
@@ -121,9 +121,19 @@ def lab_2003(state: State):
                         mom_number = input("  ")
                         print(
                             "\nThe screen displays 'Incorrect password' and you cry a lot.\n"
-                            "You drink something from a glass — it was the zombie potion.\n"
+                            "You cried so, so, so much that now you feel dehydrated.\n"
+                            "You spot a glass in one of the tables.\n "
+                            "You are so, so, so thirsty that you drink it.\n"
+                            "You start to smell something bad, and you realize you are stinking.\n"
+                            "'How is that possible....' you think to yourself. 'I know I used deodorant this morning!!'\n"
+                            "You look at your hands, and then you understand: you are rotting.\n"
+                            "You drank a potion that turned all your classmates in zombies.\n"
+                        )
+                        time.sleep(1.5)
+                        print(
                             "You are now one of them. It is not allowed to become a zombie.\n"
-                            "Room will be restarted"
+                            "You are D-E-A-D. \n"
+                            "Room will be restarted :)"
                         )
                         state = deepcopy(state_snapshot)
                         return state
@@ -183,7 +193,7 @@ def lab_2003(state: State):
                 display_leaderboard()
 
             case _:
-                display_invalid_command(cmd)
+                display_invalid_command()  # fixed
 
     return state
 
@@ -196,5 +206,6 @@ if __name__ == "__main__":
         visited_rooms=[],
         time_played=TimeDelta(),
         inventory=[],
+        session_start_time=datetime.now(),
     )
     lab_2003(test_state)
