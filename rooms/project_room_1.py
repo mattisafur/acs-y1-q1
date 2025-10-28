@@ -101,8 +101,8 @@ def project_room_1(state: State):
 
     if "project_room_1" not in state.visited_rooms:
         state.visited_rooms.append("project_room_1")
-    else:
-        print("You already got the Computer passcode and see no reason to go back in..")
+    if state.project_room_1_solved:
+        print("You already solved the puzzle in this room. You can look around, but there's nothing more to do.")
         state.current_room = state.previous_room
         return state
 
@@ -145,6 +145,7 @@ def project_room_1(state: State):
                             "Correct, You solved the puzzle and wrote down the combination on a piece of paper, and return to the lobby."
                         )
                         can_use_look = False
+                        state.project_room_1_solved = True
                         state.current_room = "lobby"
                         return state
                     else:
