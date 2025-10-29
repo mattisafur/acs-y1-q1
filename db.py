@@ -7,21 +7,35 @@ def initialize_database() -> None:
     with sqlite3.connect(config.DATABASE_FILE_PATH) as conn:
         conn.execute(
             """
-            CREATE TABLE IF NOT EXISTS progress (
-                player_name TEXT PRIMARY KEY,
-                current_room TEXT,
-                previous_room TEXT,
-                visited_rooms TEXT,
-                time_played REAL,
-                inventory TEXT
+            CREATE TABLE IF NOT EXISTS progress
+            (
+                player_name
+                TEXT
+                PRIMARY
+                KEY,
+                current_room
+                TEXT,
+                previous_room
+                TEXT,
+                visited_rooms
+                TEXT,
+                time_played
+                REAL,
+                inventory
+                TEXT
             );
             """
         )
         conn.execute(
             """
-            CREATE TABLE IF NOT EXISTS leaderboard (
-                player_name TEXT PRIMARY KEY,
-                play_time REAL
+            CREATE TABLE IF NOT EXISTS leaderboard
+            (
+                player_name
+                TEXT
+                PRIMARY
+                KEY,
+                play_time
+                REAL
             );
             """
         )
@@ -53,7 +67,7 @@ def save_state(state: State) -> None:
                 state.current_room,
                 state.previous_room,
                 ",".join(state.visited_rooms),
-                state.time_played,
+                state.time_played.total_seconds(),
                 ",".join(state.inventory),
             ),
         )
