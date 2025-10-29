@@ -36,9 +36,6 @@ def main_menu():
           "Example: new Johnson\n"
           "To resume the game from the pause, type 'load' + username you want to load.\n"
           "Example: load Johnson\n"
-          "To quit the game, type 'quit'.\n"
-          "Type '?' to display all possible commands during the game.\n"
-          "Use command 'look around' to explore inside of the rooms.\n"
           "What would you like to do?")
 
     while True:
@@ -86,7 +83,7 @@ def main_menu():
                 if load_state(args[0]) is None:
                     print("Save does not exist")
                     continue
-                user_input = input("are you sure you want to delete it? [y/N]: ")
+                user_input = input("are you sure you want to delete it? [y/n]: ").strip().lower()
                 if user_input == "y":
                     delete_state(args[0])
                     print("It has been deleted")

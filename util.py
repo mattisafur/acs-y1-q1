@@ -17,12 +17,11 @@ def display_items_list():
 
 
 def quit_game() -> None:
-    print("Thank you for playing our zombie a-maze-ing Delft!")
     exit()
 
 
 def update_time_played(
-    current_time_played: TimeDelta, session_start_time: DateTime
+        current_time_played: TimeDelta, session_start_time: DateTime
 ) -> TimeDelta:
     time_played_this_session = DateTime.now() - session_start_time
     return current_time_played + time_played_this_session
@@ -103,13 +102,14 @@ def display_stats(state: State) -> None:
 
 
 def get_all_rooms() -> list[str]:
-    return ["lab_2001", "lobby", "project_room_1", "lab_2003", "storage_room", "front_desk", "teacher_room_3", "stairwell", "east_corridor", "west_corridor", "north_corridor"]
+    return ["lab_2001", "lobby", "project_room_1", "lab_2003", "storage_room", "front_desk", "teacher_room_3",
+            "stairwell", "east_corridor", "west_corridor", "north_corridor"]
 
 
 def display_help() -> None:
     print(
         "Possible commands:\n"
-        "look around       look around the room\n"
+        "look around       explore the room\n"
         "where              displays the room you are currently on\n"
         "take        pick up an item\n"
         "go          go to another room\n"
@@ -156,12 +156,10 @@ def display_look_help() -> None:
 
 def display_take_help() -> None:
     print(
-        "take <item>|list\n"
+        "take <item>\n"
         "Pick up an item from the room and place it in your inventory\n"
-        "<item>\n"
         "\tpick up the specified item\n"
-        "list\n"
-        "\tlist items possible to take"
+        "\tlist items possible to take\n"
     )
 
 
@@ -195,4 +193,4 @@ def display_where_am_i(state: State) -> None:
 def display_delete_help() -> None:
     print("Delete player <player name>\n"
           "Delete item <item> from your inventory\n"
-          "Delete progress")
+          "Delete progress\n")
