@@ -13,6 +13,7 @@ from util import (
     quit_game,
 )
 
+
 def lobby(state: State):
     if "lobby" not in state.visited_rooms:
         state.visited_rooms.append("lobby")
@@ -27,9 +28,8 @@ def lobby(state: State):
 
         match command:
             case Command.help:
-                if len(args) == 1 and args[0] == "around":
-                    display_help()
-                    continue
+                display_help()
+                continue
             case Command.go:
                 if len(args) != 1:
                     display_invalid_syntax("go")
@@ -60,7 +60,7 @@ def lobby(state: State):
             case Command.pause:
                 pause_game(state)
             case Command.stats:
-                display_stats()
+                display_stats(state)
                 continue
             case Command.leaderboard:
                 display_leaderboard()

@@ -1,6 +1,9 @@
+import time
+
 from models import Command, State
 from util import (
     display_go_help,
+    display_where_am_i,
     display_go_list,
     display_invalid_command,
     display_invalid_syntax,
@@ -62,7 +65,8 @@ def north_corridor(state: State):
                                 "He stares down, offended. 'Detention!' he bellows, flinging you across the hallway.\n"
                                 "You crash into the lobby door, dazed but alive."
                             )
-                            state.current_room = "lobby"
+                            state.visited_rooms.append("north_corridor")
+                            state.current_room = "north_corridor"
                             return state
 
                         case "2" | "kick" | "run":
@@ -71,7 +75,8 @@ def north_corridor(state: State):
                                 "He loses balance for a second but then roars: 'NO RUNNING IN THE HALLS!'\n"
                                 "A telekinetic force blasts you through the lobby doors."
                             )
-                            state.current_room = "lobby"
+                            state.visited_rooms.append("north_corridor")
+                            state.current_room = "north_corridor"
                             return state
 
                         case "3" | "correct" | "math":
@@ -81,14 +86,15 @@ def north_corridor(state: State):
                                 "'Then you can solve THIS!' he snarls, scribbling π × 0 on the wall — before smacking you with the chalkboard.\n"
                                 "You died."
                             )
-                            quit_game()
+                            state.current_room = "north_corridor"
 
                         case _:
                             print(
                                 "\nYou hesitate, and the zombie’s patience runs out.\n"
                                 "‘Pop quiz over,’ he growls, before tossing you back toward the lobby."
                             )
-                            state.current_room = "lobby"
+                            state.visited_rooms.append("north_corridor")
+                            state.current_room = "north_corridor"
                             return state
 
                 else:
@@ -96,9 +102,11 @@ def north_corridor(state: State):
                         "\nThe zombie growls: 'WRONG!'\n"
                         "He raises his arms, and glowing equations swirl around you like chains.\n"
                         "‘Repeat the class… in the afterlife.’\n"
-                        "You died."
+                        "He throws you very far away.\n"
+                        "Happily, you feel against one of the couches on the lobby, so you survive"
                     )
-                    quit_game()
+                    state.current_room = "lobby"
+                    return state
 
             case "2" | "explore" | "around":
                 print(
@@ -109,23 +117,18 @@ def north_corridor(state: State):
                 state.current_room = "lobby"
                 return state
 
-            case _:
-                print(
-                    "\nYou hesitate too long...\n"
-                    "The zombie senses your fear and charges forward — too late to run.\n"
-                    "You died."
-                )
-                quit_game()
-
     else:
         print(
             "As you go in direction of North Corridor, you notice a creature in front of it.\n"
             "He is gigantic and will not let you pass by.\n"
+            "It is.. your old math teacher\n"
+            "He is also one of them now. He is a zombie math teacher...\n"
+            "The most ugly one.\n"
             "You must do something to go further.\n\n"
             "You feel the cold steel of the knife you picked up in Lab 2003 in your pocket.\n"
             "The zombie takes a lumbering step forward, drool pooling at its feet.\n"
-            "This time, you’re ready.\n\n"
-            "Choose how you’ll attack:\n"
+            "You’re ready.\n\n"
+            "Choose how you’ll attack your math teacher:\n"
             "1. Go for a tough, direct strike to the head.\n"
             "2. Throw the knife at the zombie.\n"
             "3. Sneak up and attack."
@@ -136,16 +139,19 @@ def north_corridor(state: State):
             case "1" | "head" | "strike":
                 print(
                     "\nYou grip the knife tightly, waiting for the perfect moment.\n"
-                    "As the zombie lunges, you sidestep and drive the blade straight into its skull.\n"
-                    "The creature collapses. You survived. The path ahead is clear."
                 )
+                time.sleep(1)
+                print("As your teacher lunges, you sidestep and drive the blade straight into his skull.\n")
+                time.sleep(1)
+                print("The creature collapses. You survived. The path ahead is clear.")
+                time.sleep(1)
                 state.visited_rooms.append("north_corridor")
                 state.current_room = "north_corridor"
 
             case "2" | "throw":
                 print(
                     "\nYou throw the knife — perfect shot! It lands in the zombie’s forehead.\n"
-                    "The creature freezes mid-growl, then crashes to the ground. You walk forward."
+                    "Your teacher freezes mid-growl, then crashes to the ground. You walk forward."
                 )
                 state.visited_rooms.append("north_corridor")
                 state.current_room = "north_corridor"
@@ -173,10 +179,6 @@ def north_corridor(state: State):
                 state.visited_rooms.append("north_corridor")
                 state.current_room = "north_corridor"
 
-            case _:
-                print("\nYou hesitate... The zombie doesn’t. You died.")
-                quit_game()
-
     print("You are in the north corridor. Choose where you would like to go:")
     available_rooms = [
         "lobby",
@@ -194,23 +196,43 @@ def north_corridor(state: State):
     display_go_list(available_rooms)
 
     command, *args = get_user_input()
-    if command == Command.go and len(args) == 1:
+    if command.lower() == "go" and len(args) == 1:
         destination = args[0].lower()
-        if destination in available_rooms:
-            state.current_room = destination
-        else:
-            print("Invalid destination.")
-    elif command == Command.inventory:
+
+        match destination:
+            case "lobby":
+                print(
+                    "\nYou try to leave the north corridor, but the enormous corpse of your zombie math teacher lies sprawled across the path.\n"
+                    "Its twisted limbs block the entire passage, and the smell of decaying chalk makes your eyes water.\n"
+                    "You’ll need another way around — or a strong stomach."
+                )
+            case "front_desk_office":
+                state.current_room = "front_desk_office"
+                print("\nYou walk carefully past the fallen teacher and make your way toward the Front Desk Office.")
+            case "storage_room":
+                state.current_room = "storage_room"
+                print("\nYou move quietly toward the storage room, the air heavy with leftover tension.")
+            case "west_corridor":
+                state.current_room = "west_corridor"
+                print("\nYou step over debris and head west, deeper into the dark corridors.")
+            case "teachers_room_3":
+                state.current_room = "teachers_room_3"
+                print("\nYou push open the heavy door marked 'Teachers Room 3' and step inside cautiously."
+                      )
+
+    elif command.lower() == "inventory":
         display_inventory(state)
-    elif command == Command.quit:
+    elif command.lower() == "where":
+        display_where_am_i(state)
+    elif command.lower() == "quit":
         quit_game()
-    elif command == Command.pause:
+    elif command.lower() == "pause":
         pause_game(state)
-    elif command == Command.stats:
+    elif command.lower() == "stats":
         display_stats(state)
-    elif command == Command.leaderboard:
+    elif command.lower() == "leaderboard":
         display_leaderboard()
-    elif command in ("help", "?"):
+    elif command.lower() in ("help", "?"):
         display_help()
     else:
         display_invalid_command()

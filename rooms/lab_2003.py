@@ -4,6 +4,7 @@ from datetime import timedelta as TimeDelta, datetime
 
 from models import Command, State
 from util import (
+    display_inventory,
     display_go_help,
     display_go_list,
     display_invalid_command,
@@ -15,11 +16,18 @@ from util import (
     get_user_input,
     pause_game,
     quit_game,
+    display_help,
+    display_where_am_i
 )
 
 
 def lab_2003(state: State):
     state_snapshot = deepcopy(state)
+
+    if "project_room_1" not in state.visited_rooms:
+        print("You are not ready for this room. Explore lobby rooms first.")
+        state.current_room = "east_corridor"
+        return state
 
     if "lab_2003" in state.visited_rooms and "lab_2003_affirmations" not in state.visited_rooms:
         print(
@@ -27,15 +35,15 @@ def lab_2003(state: State):
             "The zombies got in and are throwing a party.\n"
             "No humans are invited.\n"
             "Too bad....\n"
-            "CHOOSE ANOTHER ROOM!!!"
+            "At least you collected the knife already.\n"
         )
         state.current_room = "east_corridor"
         return state
+    elif "lab_2003" in state.visited_rooms and "lab_2003_affirmations" in state.visited_rooms:
+        print("You are back in Laboratory 2003.")
     elif "lab_2003" not in state.visited_rooms:
         state.visited_rooms.append("lab_2003")
         print("You are in the Computer lab 2.003.")
-    else:
-        print("You are in the Computer lab 2.003 again. The computer is still on.")
 
     print("Use command look to explore the room.")
 
@@ -50,7 +58,7 @@ def lab_2003(state: State):
 
         match cmd:
             case Command.help:
-                display_help(state)
+                display_help()
 
             case Command.look:
                 if can_use_look:
@@ -122,7 +130,7 @@ def lab_2003(state: State):
                         print(
                             "\nThe screen displays 'Incorrect password' and you cry a lot.\n"
                             "You cried so, so, so much that now you feel dehydrated.\n"
-                            "You spot a glass in one of the tables.\n "
+                            "You spot a glass in one of the tables.\n"
                             "You are so, so, so thirsty that you drink it.\n"
                             "You start to smell something bad, and you realize you are stinking.\n"
                             "'How is that possible....' you think to yourself. 'I know I used deodorant this morning!!'\n"
@@ -186,14 +194,22 @@ def lab_2003(state: State):
             case Command.pause:
                 pause_game(state)
 
+            case Command.inventory:
+                display_inventory(state)
+                continue
+
+            case Command.where:
+                display_where_am_i(state)
+                continue
+
             case Command.stats:
-                display_stats()
+                display_stats(state)
 
             case Command.leaderboard:
                 display_leaderboard()
 
             case _:
-                display_invalid_command()  # fixed
+                display_invalid_command()
 
     return state
 
