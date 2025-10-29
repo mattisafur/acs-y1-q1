@@ -1,29 +1,27 @@
-
 from copy import deepcopy
 from models import Command, State
+from rooms.east_corridor import east_corridor
 from util import (
-    display_invalid_syntax,
     display_go_help,
+    display_where_am_i,
+    display_inventory,
     display_go_list,
     display_invalid_command,
+    display_invalid_syntax,
     display_leaderboard,
     display_stats,
     display_take_help,
     display_take_list,
+    display_help,
+    display_delete_help,
     get_user_input,
     pause_game,
     quit_game,
-    display_help,
 )
+
 
 def project_room_1(state: State):
     state_snapshot = deepcopy(state)
-
-    # if "project_room_1" not in state.visited_rooms:
-    #     state.visited_rooms.append("project_room_1")
-
-
-
 
     if "project_room_1" not in state.visited_rooms:
         state.visited_rooms.append("project_room_1")
@@ -32,21 +30,7 @@ def project_room_1(state: State):
         state.current_room = state.previous_room
         return state
 
-    # if state.project_room_1_solved:
-    #     print("You already solved the puzzle in this room. You can look around, but there's nothing more to do.")
-    #     state.current_room = state.previous_room
-    #     return state
-
-    # if "project_room_1" in getattr(state, "visited_rooms", []):
-    #     print("You already solved the puzzle in this room. You can look around, but there's nothing more to do.")
-    #     state.current_room = state.previous_room
-    #     return state
-    print("You enter the Project room 1\n"
-        "Possible commands:\n"
-        "Look\n"
-        "Go to Lobby\n"
-        "Quit")
-
+    print("You enter the Project room 1\nUse command look around to explore the room.")
 
     can_use_look = True
     can_choose_action = False
@@ -57,9 +41,8 @@ def project_room_1(state: State):
 
         match cmd:
             case Command.help:
-                if len(args) == 1 and args[0] == "around":
-                    display_help()
-                    continue
+                display_help()
+                continue
             case Command.look:
                 if can_use_look:
                     print(
@@ -80,44 +63,71 @@ def project_room_1(state: State):
                     if not args:
                         display_invalid_syntax("answer")
                         continue
-
                     answer = " ".join(args)
                     if answer == "72946":
                         print(
-                            "Correct, You solved the puzzle and wrote down the combination on a piece of paper, and return to the lobby."
+                            "Correct! You solved the puzzle and wrote down the combination on a piece of paper.\n"
+                            "You return now to the lobby."
                         )
                         can_use_look = False
                         state.project_room_1_solved = True
+                        state.inventory.append("Code 72946, from project room")
                         state.current_room = "lobby"
                         return state
                     else:
                         print("Wrong answer. Try again.")
                         continue
             case Command.take:
-                if len(pickable_items) > 0:
-                    if len(args) != 1:
-                        display_invalid_syntax("take")
+                if len(args) != 1:
+                    display_invalid_syntax("take")
+                    continue
+
+                match args[0]:
+                    case "?":
+                        display_take_help()
                         continue
-                    match " ".join(args):
-                        case "?":
-                            display_take_help()
+                    case "list":
+                        display_take_list(pickable_items)
+                        continue
+                    case "Code 72946, from project room":
+                        if "Code 72946, from project room" in pickable_items:
+                            state.inventory.append("Code 72946, from project room")
+                            state.current_room = "lobby"
+                            return state
+                        else:
+                            print("You can't take this. Try again")
                             continue
-                        case "list":
-                            display_take_list(pickable_items)
-                            continue
+                    case _:
+                        print("You can't take this. Try again")
+                        continue
+
+            case Command.delete:
+                if len(args) != 1:
+                    display_invalid_syntax("delete")
+                    continue
+
+                match args[0]:
+                    case "?":
+                        display_delete_help()
+                        continue
+                    case _:
+                        print("delete ?")
+                        display_delete_help()
+                        continue
             case Command.go:
                 if len(args) != 1:
                     display_invalid_syntax("go")
                     continue
-                match " ".join(args):
+                match args[0]:
                     case "?":
-                        display_go_help()
+                        print("go <room name>\n"
+                              "'go' should be typed before room name\n")
                         continue
                     case "list":
                         display_go_list(["east_corridor"])
                         continue
-            # case Command.where:
-            #     display_where_am_i(state)
+            case Command.where:
+                display_where_am_i(state)
                 continue
             case Command.quit:
                 quit_game()
@@ -126,12 +136,23 @@ def project_room_1(state: State):
             case Command.stats:
                 display_stats(state)
                 continue
+            case Command.inventory:
+                display_inventory(state)
             case Command.leaderboard:
                 display_leaderboard()
                 continue
+            case _:
+                display_invalid_command()
+        continue
 
-
-        display_invalid_command()
-
-
-# project_room_1(False)
+    if __name__ == "__main__":
+        test_state = State(
+            player_name="TestPlayer",
+            current_room="project_room_1",
+            previous_room="",
+            visited_rooms=[],
+            time_played=TimeDelta(),
+            inventory=[],
+            session_start_time=datetime.now(),
+        )
+        project_room_1(test_state)
