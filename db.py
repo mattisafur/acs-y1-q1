@@ -1,5 +1,4 @@
 import sqlite3
-
 import config
 from models import LeaderboardEntry, State
 
@@ -20,24 +19,22 @@ def initialize_database() -> None:
         )
         conn.execute(
             """
-            CREATE TABLE IF NOT EXISTS leadeerboard (
-                player_name TEXT PRIMARY_KEY,
+            CREATE TABLE IF NOT EXISTS leaderboard (
+                player_name TEXT PRIMARY KEY,
                 play_time REAL
-            )
+            );
             """
         )
+        conn.commit()
 
 
 def load_state(player_name: str) -> State | None:
     with sqlite3.connect(config.DATABASE_FILE_PATH) as conn:
         cur = conn.execute(
-            f"""
-            SELECT * FROM progress
-            WHERE player_name = '{player_name}'
-            """
+            "SELECT * FROM progress WHERE player_name = ?", (player_name,)
         )
-
         results = cur.fetchall()
+
         match len(results):
             case 0:
                 return None
@@ -50,19 +47,29 @@ def load_state(player_name: str) -> State | None:
 def save_state(state: State) -> None:
     with sqlite3.connect(config.DATABASE_FILE_PATH) as conn:
         conn.execute(
-            f"INSERT OR REPLACE INTO progress VALUES ({state.to_sql_value_string()})"
+            "INSERT OR REPLACE INTO progress VALUES (?, ?, ?, ?, ?, ?)",
+            (
+                state.player_name,
+                state.current_room,
+                state.previous_room,
+                ",".join(state.visited_rooms),
+                state.time_played,
+                ",".join(state.inventory),
+            ),
         )
+        conn.commit()
 
 
-def delete_state(state: State):
+def delete_state(player_name: str):
     with sqlite3.connect(config.DATABASE_FILE_PATH) as conn:
-        conn.execute(f"DELETE FROM progress WHERE player_name = '{state.player_name}'")
+        conn.execute("DELETE FROM progress WHERE player_name = ?", (player_name,))
+        conn.commit()
 
 
 def get_top_leaderboard(count: int) -> list[LeaderboardEntry]:
     with sqlite3.connect(config.DATABASE_FILE_PATH) as conn:
         cur = conn.execute(
-            f"SELECT * FROM leaderboard ORDER BY play_time LIMIT {count}"
+            "SELECT * FROM leaderboard ORDER BY play_time LIMIT ?", (count,)
         )
         results = cur.fetchall()
         return [LeaderboardEntry.from_db_tuple(result) for result in results]
@@ -71,5 +78,10 @@ def get_top_leaderboard(count: int) -> list[LeaderboardEntry]:
 def save_leaderboard(leaderboard_entry: LeaderboardEntry) -> None:
     with sqlite3.connect(config.DATABASE_FILE_PATH) as conn:
         conn.execute(
-            f"INSERT INTO leaderboard VALUES ({leaderboard_entry.to_sql_value_string()})"
+            "INSERT OR REPLACE INTO leaderboard VALUES (?, ?)",
+            (
+                leaderboard_entry.player_name,
+                leaderboard_entry.play_time,
+            ),
         )
+        conn.commit()

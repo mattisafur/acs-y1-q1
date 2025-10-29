@@ -86,10 +86,10 @@ def main_menu():
                 if load_state(args[0]) is None:
                     print("Save does not exist")
                     continue
-                user_input = input("are you sure you want to delete the save? [y/N]: ")
+                user_input = input("are you sure you want to delete it? [y/N]: ")
                 if user_input == "y":
                     delete_state(args[0])
-                    print("save deleted")
+                    print("It has been deleted")
                 continue
             case Command.where:
                 display_where_am_i(state)
