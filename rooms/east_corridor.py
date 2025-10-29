@@ -10,7 +10,7 @@ from util import (
     display_help,
     get_user_input,
     pause_game,
-    quit_game,
+    quit_game, display_take_help, display_where_am_i,
 )
 
 
@@ -24,14 +24,13 @@ def east_corridor(state: State):
     display_go_list(["lab_2001", "lab_2003", "lobby"])
 
     while True:
-        # split the user input to the command (string) and the arguments (list of strings)
         command, *args = get_user_input()
 
         match command:
             case Command.help:
-                
-                    display_help()
-                    continue
+
+                display_help()
+                continue
             case Command.go:
                 if len(args) != 1:
                     display_invalid_syntax("go")
@@ -58,6 +57,11 @@ def east_corridor(state: State):
                     "The corridor is empty, nothing to see here, go choose your next room!"
                 )
                 continue
+            case Command.take:
+                display_take_help()
+            case Command.where:
+                display_where_am_i(state)
+                continue
             case Command.inventory:
                 display_inventory(state)
                 continue
@@ -66,7 +70,7 @@ def east_corridor(state: State):
             case Command.pause:
                 pause_game(state)
             case Command.stats:
-                display_stats()
+                display_stats(state)
                 continue
             case Command.leaderboard:
                 display_leaderboard()
