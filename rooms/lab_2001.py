@@ -32,7 +32,8 @@ def lab_2001(state: State):
         return state
 
     print(
-        "Useful information: ? for displaying available commands\nYou are in Lab 2003\n\n \nCommand 'look around' for exploring inside the rooms \n")
+        "Useful information: ? for displaying available commands\nYou are in Lab 2003\n\n \nCommand 'look around' for exploring inside the rooms \n"
+    )
 
     can_use_look = True
     can_choose_action = False
@@ -40,7 +41,9 @@ def lab_2001(state: State):
 
     while True:
         cmd, *args = get_user_input()
-        full_input = " ".join([cmd, *args]).strip()
+        cmd = cmd.lower() if cmd else ""
+        args = [a.lower() for a in args]
+        full_input = " ".join([cmd, *args]).strip().lower()
 
         match cmd:
             case Command.help:
@@ -62,14 +65,15 @@ def lab_2001(state: State):
                     if len(args) != 1:
                         display_invalid_syntax("take")
                         continue
-                    match args[0]:
+                    arg = args[0]
+                    match arg:
                         case "?":
                             display_take_help()
                             continue
                         case "list":
                             display_take_list(pickable_items)
                             continue
-                    item = args[0]
+                    item = arg
                     match item:
                         case "keycard":
                             print(
@@ -78,12 +82,16 @@ def lab_2001(state: State):
                             state.inventory.append("keycard")
                             state.current_room = "east_corridor"
                             return state
+                        case _:
+                            print("You can’t take that.")
+                            continue
                     continue
             case Command.go:
                 if len(args) != 1:
                     display_invalid_syntax("go")
                     continue
-                match args[0]:
+                destination = args[0].lower()
+                match destination:
                     case "?":
                         display_go_help()
                         continue
@@ -128,7 +136,8 @@ def lab_2001(state: State):
                 case "sneak":
                     print(
                         "You notice a keycard on one of the desks.\nYou imagine is from the door of the laboratory.\nSo you decided to take it\n\n"
-                        "To pick up the keycard, you should use the command 'take keycard'")
+                        "To pick up the keycard, you should use the command 'take keycard'"
+                    )
                     pickable_items.append("keycard")
                     can_use_look = False
                     continue
