@@ -69,7 +69,6 @@ def project_room_1(state: State):
                             "You return now to the lobby."
                         )
                         can_use_look = False
-                        state.project_room_1_solved = True
                         state.inventory.append("Code 72946, from project room")
                         state.current_room = "lobby"
                         return state
