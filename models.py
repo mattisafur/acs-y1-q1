@@ -96,3 +96,4 @@ class Command(StrEnum):
     delete = "delete"  # for deleting a game save in the main menu
     where = "where"
     items = "items"
+    map = "map"
