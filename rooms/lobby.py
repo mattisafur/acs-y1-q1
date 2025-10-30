@@ -11,6 +11,9 @@ from util import (
     get_user_input,
     pause_game,
     quit_game,
+    display_map,
+    display_items_list,
+    display_where_am_i,
 )
 
 
@@ -51,6 +54,15 @@ def lobby(state: State):
 
             case Command.look:
                 print("The Lobby is empty, nothing to see here, go choose your next destination!")
+                continue
+            case Command.map:
+                display_map()
+                continue
+            case Command.where:
+                display_where_am_i(state)
+                continue
+            case Command.items:
+                display_items_list()
                 continue
             case Command.inventory:
                 display_inventory(state)
