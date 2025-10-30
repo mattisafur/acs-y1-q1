@@ -23,7 +23,7 @@ def display_map():
         "lobby| front_desk_office | equinox_students_society | storage_room | project_room_3\n",
         "teachers_room_3 | teachers_room_2 | teachers_room_1 | west_corridor\n\n"
         "Rooms available in west_corridor:\n"
-        "stair_exit | classroom_2035 | classroom_2031 | project_room_4\n\n"
+        "stair_exit | classroom_2035 | classroom_2031 | west_corridor\n\n"
         "To enter stair_exit: storage_room has to be visited first\n",
     )
 
