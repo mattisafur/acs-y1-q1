@@ -13,6 +13,9 @@ from util import (
     get_user_input,
     pause_game,
     quit_game,
+    display_items_list,
+    display_map,
+    display_where_am_i
 )
 
 
@@ -27,7 +30,8 @@ def teacher_room_3(state: State):
         return state
 
     print(
-        "You step into the teacher's lounge. The place is a mess—papers everywhere, coffee stains on the floor, and a bookshelf knocked over, blocking the exit."
+        "You step into the teacher's lounge.\n"
+        " The place is a mess—papers everywhere, coffee stains on the floor, and a bookshelf knocked over, blocking the exit."
         " It's quiet, but you notice a low groan from behind the shelf. There's a zombie teacher slumped there, clutching a ring of keys."
         " If you want to get out, you'll need to move the shelf, but the teacher is in the way."
         " On the desk, you spot four folders labeled A, B, C, D. Each has a note:"
@@ -81,7 +85,15 @@ def teacher_room_3(state: State):
                         "You've already solved this puzzle. The bookshelf is no longer blocking the exit."
                     )
                 continue
-
+            case Command.items:
+                display_items_list()
+                continue
+            case Command.map:
+                display_map()
+                continue
+            case Command.where:
+                display_where_am_i(state)
+                continue
             case Command.go:
                 if len(args) != 1:
                     display_invalid_syntax("go")
