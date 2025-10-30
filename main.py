@@ -13,16 +13,16 @@ from rooms.teacher_room_3 import teacher_room_3
 from rooms.west_corridor import west_corridor
 from util import (
     display_delete_help,
+    display_help,
     display_invalid_command,
     display_invalid_syntax,
+    display_items_list,
     display_leaderboard,
     display_load_help,
     display_new_help,
-    display_help,
     display_where_am_i,
     get_user_input,
     quit_game,
-    display_items_list,
 )
 
 state = State.new_game("dummy_state")

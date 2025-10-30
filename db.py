@@ -1,4 +1,5 @@
 import sqlite3
+
 import config
 from models import LeaderboardEntry, State
 
