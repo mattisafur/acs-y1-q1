@@ -23,6 +23,8 @@ from util import (
     display_where_am_i,
     get_user_input,
     quit_game,
+    display_map,
+    display_inventory,
 )
 
 state = State.new_game("dummy_state")
@@ -76,6 +78,12 @@ def main_menu():
                 state = loaded_state
                 print("save loaded, resuming game")
                 return
+            case Command.map:
+                display_map()
+                continue
+            case Command.inventory:
+                display_inventory()
+                continue
             case Command.delete:
                 if len(args) != 1:
                     display_invalid_syntax("delete")
