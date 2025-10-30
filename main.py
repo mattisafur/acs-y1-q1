@@ -46,10 +46,8 @@ def main_menu():
         match cmd:
             case Command.items:
                 display_items_list()
-                continue
             case Command.help:
                 display_help()
-                continue
             case Command.new:
                 if len(args) != 1:
                     display_invalid_syntax("new")
