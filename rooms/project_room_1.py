@@ -1,6 +1,5 @@
 from copy import deepcopy
 from models import Command, State
-from rooms.east_corridor import east_corridor
 from util import (
     display_go_help,
     display_where_am_i,
@@ -146,6 +145,9 @@ def project_room_1(state: State):
         continue
 
 if __name__ == "__main__":
+    from datetime import timedelta as TimeDelta
+    from datetime import datetime as DateTime
+
     test_state = State(
         player_name="TestPlayer",
         current_room="project_room_1",
@@ -153,6 +155,6 @@ if __name__ == "__main__":
         visited_rooms=[],
         time_played=TimeDelta(),
         inventory=[],
-        session_start_time=datetime.now(),
+        session_start_time=DateTime.now(),
     )
     project_room_1(test_state)

@@ -1,3 +1,4 @@
+from sqlite3 import Date
 from models import Command, State
 
 from util import (
@@ -90,6 +91,7 @@ def west_corridor(state: State):
 
 if __name__ == "__main__":
     from datetime import timedelta as TimeDelta
+    from datetime import datetime as DateTime
 
     mock_state = State(
         player_name="mock",
@@ -98,6 +100,7 @@ if __name__ == "__main__":
         visited_rooms=[],
         time_played=TimeDelta(),
         inventory=[],
+        session_start_time=DateTime.now()
     )
 
     west_corridor(mock_state)

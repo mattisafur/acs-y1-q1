@@ -1,5 +1,4 @@
 from copy import deepcopy
-
 from models import Command, State
 from util import (
     display_go_help,
@@ -131,6 +130,7 @@ def teacher_room_3(state: State):
 
 if __name__ == "__main__":
     from datetime import timedelta as TimeDelta
+    from datetime import datetime as DateTime
 
     mock_state = State(
         player_name="mock",
@@ -139,6 +139,7 @@ if __name__ == "__main__":
         visited_rooms=[],
         time_played=TimeDelta(),
         inventory=[],
+        session_start_time=DateTime.now()
     )
 
     teacher_room_3(mock_state)
