@@ -145,14 +145,14 @@ def project_room_1(state: State):
                 display_invalid_command()
         continue
 
-    if __name__ == "__main__":
-        test_state = State(
-            player_name="TestPlayer",
-            current_room="project_room_1",
-            previous_room="",
-            visited_rooms=[],
-            time_played=TimeDelta(),
-            inventory=[],
-            session_start_time=datetime.now(),
-        )
-        project_room_1(test_state)
+if __name__ == "__main__":
+    test_state = State(
+        player_name="TestPlayer",
+        current_room="project_room_1",
+        previous_room="",
+        visited_rooms=[],
+        time_played=TimeDelta(),
+        inventory=[],
+        session_start_time=datetime.now(),
+    )
+    project_room_1(test_state)
