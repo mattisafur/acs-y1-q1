@@ -63,7 +63,7 @@ def lab_2001(state: State):
                         display_invalid_syntax("take")
                         continue
 
-                    item = args[0].lower()
+                        item = args[0].lower()
                     match item:
                         case "?":
                             display_take_help()
