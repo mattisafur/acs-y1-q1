@@ -43,10 +43,20 @@ def storage_room(state: State):
             display_invalid_command()
             continue
 
-        user_input = " ".join(tokens).strip().lower()
+        tokens_lower = [t.lower() for t in tokens]
+        user_input = " ".join(tokens_lower).strip()
+        cmd_lower, *args_lower = tokens_lower
 
-        if tokens[0] in [c.value for c in Command]:
-            cmd, *args = tokens
+        matched_command = None
+        for c in Command:
+            if cmd_lower == c.value.lower():
+                matched_command = c
+                break
+
+        if matched_command:
+            cmd = matched_command
+            args = args_lower
+
             match cmd:
                 case Command.where:
                     display_where_am_i(state)
@@ -59,6 +69,7 @@ def storage_room(state: State):
                     continue
                 case Command.map:
                     display_map()
+                    continue
                 case Command.help:
                     display_help()
                     continue
@@ -69,7 +80,7 @@ def storage_room(state: State):
                         can_choose_action = True
                         can_use_look = False
                     else:
-                        print("The cabinet on the right still stands where it is, and the room remains tense and quiet.")
+                        print("To explore more, try: left | right | forward")
                     continue
                 case Command.take:
                     if not pickable_items:
@@ -79,14 +90,12 @@ def storage_room(state: State):
                         display_invalid_syntax("take")
                         continue
                     item = args[0].lower()
-                    match item:
-                        case "?":
-                            display_take_help()
-                            continue
-                        case "list":
-                            display_take_list(pickable_items)
-                            continue
-                    item = args[0].strip().lower()
+                    if item == "?":
+                        display_take_help()
+                        continue
+                    if item == "list":
+                        display_take_list(pickable_items)
+                        continue
                     if item in pickable_items:
                         print(f"You pick up the {item} and hold it firmly.\nYou decide to go back to North Corridor.\n\n")
                         if not hasattr(state, "inventory"):
@@ -103,7 +112,7 @@ def storage_room(state: State):
                     if len(args) != 1:
                         display_invalid_syntax("go")
                         continue
-                    dest = args[0].strip().lower()
+                    dest = args[0].lower()
                     if dest == "?":
                         display_go_help()
                         continue
@@ -136,10 +145,10 @@ def storage_room(state: State):
         if can_choose_action:
             choice = user_input
             if choice == "left":
-                print("You push against the overturned table.\nIt scrapes loudly across the floor, echoing through the room. Groans surge closer—zombies rush in.\nGame over. (You will be returned to the start of the room)")
+                print("You push against the overturned table.\nIt scrapes loudly across the floor, echoing through the room. Groans surge closer—zombies rush in.\nGame over.\n(You will be returned to the start of the room)")
                 return deepcopy(state_snapshot)
             elif choice == "forward":
-                print("You squeeze into the debris path, but a metal rod clatters free and crashes to the floor.\nThe noise carries—zombies converge. Game over. (You will be returned to the start of the room)")
+                print("You squeeze into the debris path, but a metal rod clatters free and crashes to the floor.\nThe noise carries—zombies converge. Game over.\n(You will be returned to the start of the room)")
                 return deepcopy(state_snapshot)
             elif choice == "right":
                 print("You edge over to the tall cabinet and feel along the top-left shelf.\nYour fingers close around a sturdy hammer hidden in the darkness.")
@@ -155,17 +164,17 @@ def storage_room(state: State):
 
 
 if __name__ == "__main__":
-        from datetime import datetime
-        from models import State
-        from datetime import timedelta as TimeDelta
+    from datetime import datetime
+    from models import State
+    from datetime import timedelta as TimeDelta
 
-        test_state = State(
-            player_name="TestPlayer",
-            current_room="storage_room",
-            previous_room="north_corridor",
-            visited_rooms=[],
-            time_played=TimeDelta(),
-            inventory=[],
-            session_start_time=datetime.now(),
-        )
-        storage_room(test_state)
+    test_state = State(
+        player_name="TestPlayer",
+        current_room="storage_room",
+        previous_room="north_corridor",
+        visited_rooms=[],
+        time_played=TimeDelta(),
+        inventory=[],
+        session_start_time=datetime.now(),
+    )
+    storage_room(test_state)
