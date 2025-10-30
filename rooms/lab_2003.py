@@ -16,6 +16,7 @@ from util import (
     display_take_help,
     display_take_list,
     display_where_am_i,
+    display_map,
     get_user_input,
     pause_game,
     quit_game,
@@ -109,7 +110,9 @@ def lab_2003(state: State):
 
             case Command.pause:
                 pause_game(state)
-
+            case Command.map():
+                display_map()
+                continue
             case Command.inventory:
                 display_inventory(state)
                 continue
@@ -120,10 +123,10 @@ def lab_2003(state: State):
 
             case Command.stats:
                 display_stats(state)
-
+                continue
             case Command.leaderboard:
                 display_leaderboard()
-
+                continue
             case _:
                 if can_choose_action:
                     choice = full_input
