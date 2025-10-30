@@ -62,22 +62,22 @@ def lab_2001(state: State):
                     if len(args) != 1:
                         display_invalid_syntax("take")
                         continue
-
-                        item = args[0].lower()
-                    match item:
+                    match args[0]:
                         case "?":
                             display_take_help()
                             continue
                         case "list":
                             display_take_list(pickable_items)
                             continue
-                    if args[0] in pickable_items and args[0] == "keycard":
-                        print(
-                            "Keycard in hand, you sneak past the zombies and swipe the lab door.\nIt opens.\nYou slip into the corridor and quickly close it behind you.\n"
-                        )
-                        state.inventory.append("keycard")
-                        state.current_room = "east_corridor"
-                        return state
+                    item = args[0]
+                    match item:
+                        case "keycard":
+                            print(
+                                "Keycard in hand, you sneak past the zombies and swipe the lab door.\nIt opens.\nYou slip into the corridor and quickly close it behind you.\n"
+                            )
+                            state.inventory.append("keycard")
+                            state.current_room = "east_corridor"
+                            return state
                     continue
             case Command.go:
                 if len(args) != 1:
