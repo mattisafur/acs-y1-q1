@@ -22,6 +22,7 @@ from util import (
     display_where_am_i,
     get_user_input,
     quit_game,
+    display_items_list,
 )
 
 state = State.new_game("dummy_state")
@@ -43,8 +44,12 @@ def main_menu():
         cmd, *args = get_user_input()
 
         match cmd:
+            case Command.items:
+                display_items_list()
+                continue
             case Command.help:
                 display_help()
+                continue
             case Command.new:
                 if len(args) != 1:
                     display_invalid_syntax("new")

@@ -13,7 +13,8 @@ def display_map():
 
 
 def display_items_list():
-    raise NotImplementedError
+    print("Pickable items in rooms:\n"
+          "Keycard in room lab_2001 |  Knife in lab_2003 | Code in project_room_1  | Hammer in Storage_room  |  Masterkey in front_desk_office")
 
 
 def quit_game() -> None:
@@ -117,6 +118,7 @@ def display_help() -> None:
         "leaderboard view the leaderboard\n"
         "pause       save and quit the game\n"
         "quit        quit the game without saving\n"
+        "items       display a list of all pickable available items\n"     
         "inventory   display the items in your inventory\n"
         "load + username        go back to the game after you paused"
     )
