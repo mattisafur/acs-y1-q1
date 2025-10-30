@@ -24,12 +24,12 @@ def project_room_1(state: State):
 
     if "project_room_1" not in state.visited_rooms:
         state.visited_rooms.append("project_room_1")
+        print("You enter the Project room 1\nUse 'look' around to explore the room.")
     else:
         print("You already solved the puzzle in this room. You can look around, but there's nothing more to do.")
         state.current_room = state.previous_room
         return state
 
-    print("You enter the Project room 1\nUse command look around to explore the room.")
 
     can_use_look = True
     can_choose_action = False
@@ -53,7 +53,8 @@ def project_room_1(state: State):
                         "Dial 3 equals (Dial 1 + Dial 4 − Dial 2).\n"
                         "Dial 4 is a perfect square digit, it’s even, and it’s greater than 2.\n"
                         "Dial 5 shows a number that is exactly one less than Dial 1.\n"
-                        "Self-check: The sum of all five digits should be 28."
+                        "Self-check: The sum of all five digits should be 28.\n"
+                        "Type 'answer' before your number"
                     )
                     can_choose_action = True
                     continue
