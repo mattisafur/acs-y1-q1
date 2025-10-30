@@ -110,7 +110,7 @@ def lab_2003(state: State):
 
             case Command.pause:
                 pause_game(state)
-            case Command.map():
+            case Command.map:
                 display_map()
                 continue
             case Command.inventory:

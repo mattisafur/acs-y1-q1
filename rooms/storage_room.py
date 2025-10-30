@@ -57,7 +57,7 @@ def storage_room(state: State):
                 case Command.inventory:
                     display_inventory(state)
                     continue
-                #case Command.map:
+                case Command.map:
                     display_map()
                 case Command.help:
                     display_help()
