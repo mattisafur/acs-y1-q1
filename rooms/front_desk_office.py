@@ -161,7 +161,7 @@ def front_desk_office(state):
 
         display_invalid_command()
 
-front_desk_office(False)
+# front_desk_office(False)
 # if __name__ == "__main__":
 #     from datetime import timedelta as TimeDelta
 #     mock_state = State(
