@@ -16,7 +16,8 @@ from util import (
     get_user_input,
     pause_game,
     quit_game,
-    display_inventory
+    display_inventory,
+    display_items_list
 )
 
 
@@ -61,7 +62,9 @@ def lab_2001(state: State):
                     if len(args) != 1:
                         display_invalid_syntax("take")
                         continue
-                    match args[0]:
+
+                    item = args[0].lower()
+                    match item:
                         case "?":
                             display_take_help()
                             continue
@@ -97,6 +100,8 @@ def lab_2001(state: State):
                         else:
                             print("You carefully sneak past the zombies...")
                             continue
+            case Command.items:
+                display_items_list()
             case Command.inventory:
                 display_inventory(state)
                 continue
