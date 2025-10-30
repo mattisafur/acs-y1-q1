@@ -15,10 +15,10 @@ def display_map():
         "Map:\n"
         "Rooms available in East_corridor:\n"
         "lab_2001 | lab_2003  | lobby\n\n"
-        "To access lab_2003: project_room_1 has to be visited first\n"
+        "To access lab_2003: project_room_1 has to be visited first\n\n"
         "Rooms available in lobby:\n:"
         "north_corridor | east_corridor | project_room_1\n\n"
-        "To access north_corrido: lab_2003 has to be visited first\n"
+        "To access north_corrido: lab_2003 has to be visited first\n\n"
         "Rooms available in north_corridor:\n"
         "lobby| front_desk_office | equinox_students_society | storage_room | project_room_3\n",
         "teachers_room_3 | teachers_room_2 | teachers_room_1 | west_corridor\n\n"
