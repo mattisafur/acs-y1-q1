@@ -12,6 +12,8 @@ from util import (
     get_user_input,
     pause_game,
     quit_game,
+    display_items_list,
+    display_map
 )
 
 
@@ -242,6 +244,10 @@ def north_corridor(state: State):
         display_stats(state)
     elif command.lower() == "leaderboard":
         display_leaderboard()
+    elif command.lower() == "items":
+        display_items_list()
+    elif command.lower() == "map":
+        display_map()
     elif command.lower() in ("help", "?"):
         display_help()
     else:
