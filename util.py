@@ -144,6 +144,8 @@ def get_all_rooms() -> list[str]:
 def display_help() -> None:
     print(
         "Possible commands:\n"
+        "map               displays all rooms and requisites to enter\n"
+        "?                  display all possible commands\n"
         "look around       explore the room\n"
         "where              displays the room you are currently on\n"
         "take        pick up an item\n"
