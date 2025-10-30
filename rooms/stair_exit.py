@@ -12,7 +12,9 @@ from util import (
     get_user_input,
     pause_game,
     quit_game,
-    display_help,
+    display_help, display_where_am_i,
+    display_items_list,
+    display_inventory
 )
 
 def stair_exit(state: State):
@@ -38,6 +40,8 @@ def stair_exit(state: State):
             "Rush through the smoke without any protection.\n"
             "Try to force open the blocked doors to create another route.\n"
         )
+
+        user_input = " ".join([cmd] + args).lower()
 
         match cmd:
             case Command.help:
@@ -125,18 +129,48 @@ def stair_exit(state: State):
                             print("Invalid choice.")
                             continue
 
+            case Command.help:
+                display_help()
+                continue
+            case Command.where:
+                display_where_am_i(state)
+                continue
+            case Command.go:
+                if len(args) != 1:
+                    display_invalid_syntax("go")
+                    continue
+                match args[0]:
+                    case "?":
+                        display_go_help()
+            case Command.take:
+                if len(pickable_items) > 0:
+                    if len(args) != 1:
+                        display_invalid_syntax("take")
+                        continue
+
+                    item = args[0].lower()
+                    match item:
+                        case "?":
+                            display_take_help()
+                            continue
+                        case "list":
+                            display_take_list(pickable_items)
+                            continue
+            case Command.items:
+                display_items_list()
+            case Command.inventory:
+                display_inventory(state)
+                continue
             case Command.quit:
                 quit_game()
-
             case Command.pause:
                 pause_game(state)
-
             case Command.stats:
-                display_stats()
-
+                display_stats(state)
+                continue
             case Command.leaderboard:
                 display_leaderboard()
-
+                continue
             case _:
                 display_invalid_command()
                 continue
