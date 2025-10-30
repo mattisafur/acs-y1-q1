@@ -5,7 +5,9 @@ from models import State
 
 
 def get_user_input() -> list[str]:
-    return input("> ").strip().split(" ")
+    user_input = input("> ").strip().split(" ")
+    print("")
+    return user_input
 
 
 def display_map():
