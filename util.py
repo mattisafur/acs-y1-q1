@@ -9,12 +9,28 @@ def get_user_input() -> list[str]:
 
 
 def display_map():
-    raise NotImplementedError
+    print(
+        "Map:\n"
+        "Rooms available in East_corridor:\n"
+        "lab_2001 | lab_2003  | lobby\n\n"
+        "To access lab_2003: project_room_1 has to be visited first\n"
+        "Rooms available in lobby:\n:"
+        "north_corridor | east_corridor | project_room_1\n\n"
+        "To access north_corrido: lab_2003 has to be visited first\n"
+        "Rooms available in north_corridor:\n"
+        "lobby| front_desk_office | equinox_students_society | storage_room | project_room_3\n",
+        "teachers_room_3 | teachers_room_2 | teachers_room_1 | west_corridor\n\n"
+        "Rooms available in west_corridor:\n"
+        "stair_exit | classroom_2035 | classroom_2031 | project_room_4\n\n"
+        "To enter stair_exit: storage_room has to be visited first\n",
+    )
 
 
 def display_items_list():
-    print("Pickable items in rooms:\n"
-          "Keycard in room lab_2001 |  Knife in lab_2003 | Code in project_room_1  | Hammer in Storage_room  |  Masterkey in front_desk_office")
+    print(
+        "Pickable items in rooms:\n"
+        "Keycard in room lab_2001 |  Knife in lab_2003 | Code in project_room_1  | Hammer in Storage_room  |  Masterkey in front_desk_office"
+    )
 
 
 def quit_game() -> None:
@@ -22,7 +38,7 @@ def quit_game() -> None:
 
 
 def update_time_played(
-        current_time_played: TimeDelta, session_start_time: DateTime
+    current_time_played: TimeDelta, session_start_time: DateTime
 ) -> TimeDelta:
     time_played_this_session = DateTime.now() - session_start_time
     return current_time_played + time_played_this_session
@@ -35,6 +51,7 @@ def track_time_played(state: State) -> None:
 
 def pause_game(state: State) -> None:
     from db import save_state
+
     track_time_played(state)
     save_state(state)
     print(f"Game paused and saved as '{state.player_name}'.\n \n")
@@ -60,7 +77,9 @@ def display_leaderboard() -> None:
         try:
             parts = [p.strip() for p in line.split("|")]
             name = parts[0]
-            completion = int(parts[1].replace("Completion:", "").replace("%", "").strip())
+            completion = int(
+                parts[1].replace("Completion:", "").replace("%", "").strip()
+            )
             time_str = parts[2].replace("Time:", "").strip()
             hours = 0
             minutes = 0
@@ -95,16 +114,29 @@ def display_stats(state: State) -> None:
     hours = total_seconds // 3600
     minutes = (total_seconds % 3600) // 60
     percentage = (len(state.visited_rooms) / len(get_all_rooms())) * 100
-    print("Stats\n"
-          "-----\n"
-          f"Name: {state.player_name}\n"
-          f"Time played: {hours}h{minutes}m\n"
-          f"Rooms visited: {percentage:.0f}% ({len(state.visited_rooms)}/{len(get_all_rooms())})")
+    print(
+        "Stats\n"
+        "-----\n"
+        f"Name: {state.player_name}\n"
+        f"Time played: {hours}h{minutes}m\n"
+        f"Rooms visited: {percentage:.0f}% ({len(state.visited_rooms)}/{len(get_all_rooms())})"
+    )
 
 
 def get_all_rooms() -> list[str]:
-    return ["lab_2001", "lobby", "project_room_1", "lab_2003", "storage_room", "front_desk", "teacher_room_3",
-            "stairwell", "east_corridor", "west_corridor", "north_corridor"]
+    return [
+        "lab_2001",
+        "lobby",
+        "project_room_1",
+        "lab_2003",
+        "storage_room",
+        "front_desk",
+        "teacher_room_3",
+        "stairwell",
+        "east_corridor",
+        "west_corridor",
+        "north_corridor",
+    ]
 
 
 def display_help() -> None:
@@ -118,7 +150,7 @@ def display_help() -> None:
         "leaderboard view the leaderboard\n"
         "pause       save and quit the game\n"
         "quit        quit the game without saving\n"
-        "items       display a list of all pickable available items\n"     
+        "items       display a list of all pickable available items\n"
         "inventory   display the items in your inventory\n"
         "load + username        go back to the game after you paused"
     )
@@ -130,13 +162,13 @@ def display_inventory(state: State) -> None:
 
 def display_go_list(rooms: list[str]) -> None:
     import textwrap
+
     room_line = "  |  ".join(room.lower() for room in rooms)
     wrapped_lines = textwrap.wrap(room_line, width=100)
     print("\nRooms available:\n")
     for line in wrapped_lines:
         print(line)
     print("\nUse command 'go' before typing your chosen room.")
-
 
 
 def display_take_list(items: list[str]) -> None:
@@ -152,10 +184,7 @@ def display_invalid_syntax(command_name: str) -> None:
 
 
 def display_go_help() -> None:
-    print(
-        "go <room name>\n"
-        "'go' should be typed before room name\n"
-    )
+    print("go <room name>\n'go' should be typed before room name\n")
 
 
 def display_look_help() -> None:
@@ -176,13 +205,13 @@ def display_answer_help() -> None:
 
 
 def display_inventory_help() -> None:
-    print("inventory\nDisplay the items currently in your inventory\nTo access it type 'inventory'")
+    print(
+        "inventory\nDisplay the items currently in your inventory\nTo access it type 'inventory'"
+    )
 
 
 def display_new_help() -> None:
-    print("New player <player name>\n"
-          "New game\n"
-          )
+    print("New player <player name>\nNew game\n")
 
 
 def display_load_help() -> None:
@@ -199,6 +228,8 @@ def display_where_am_i(state: State) -> None:
 
 
 def display_delete_help() -> None:
-    print("Delete player <player name>\n"
-          "Delete item <item> from your inventory\n"
-          "Delete progress\n")
+    print(
+        "Delete player <player name>\n"
+        "Delete item <item> from your inventory\n"
+        "Delete progress\n"
+    )
