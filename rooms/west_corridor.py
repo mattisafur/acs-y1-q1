@@ -24,13 +24,12 @@ def west_corridor(state: State):
     print("You are in the west corridor")
 
     display_go_list(
-        ["stair_exit", "classroom_2.035", "classroom_2.031", "project_room_4"]
+        ["stair_exit", "classroom_2035", "classroom_2031", "project_room_4"]
     )
 
     while True:
         command, *args = get_user_input()
 
-        # make input case-insensitive
         command = command.lower() if command else ""
         args = [a.lower() for a in args]
 
@@ -91,7 +90,7 @@ def west_corridor(state: State):
             case "pause":
                 pause_game(state)
             case "stats":
-                display_stats()
+                display_stats(state)
                 continue
             case "leaderboard":
                 display_leaderboard()
