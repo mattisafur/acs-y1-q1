@@ -16,6 +16,8 @@ from util import (
     get_user_input,
     pause_game,
     quit_game,
+    display_map,
+    display_items_list,
 )
 
 
@@ -134,6 +136,12 @@ def project_room_1(state: State):
                 pause_game(state)
             case Command.stats:
                 display_stats(state)
+                continue
+            case Command.items:
+                display_items_list()
+                continue
+            case Command.map:
+                display_map()
                 continue
             case Command.inventory:
                 display_inventory(state)
