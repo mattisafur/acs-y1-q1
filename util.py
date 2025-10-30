@@ -127,8 +127,14 @@ def display_inventory(state: State) -> None:
 
 
 def display_go_list(rooms: list[str]) -> None:
-    print("Rooms available:\n", "\n".join(rooms))
-    print("Use command 'go' before typing your chosen room")
+    import textwrap
+    room_line = "  |  ".join(rooms)
+    wrapped_lines = textwrap.wrap(room_line, width=100)
+    print("\nRooms available:\n")
+    for line in wrapped_lines:
+        print(line)
+    print("\nUse command 'go' before typing your chosen room.")
+
 
 
 def display_take_list(items: list[str]) -> None:
