@@ -40,7 +40,7 @@ def lab_2001(state: State):
 
     while True:
         cmd, *args = get_user_input()
-        full_input = " ".join([cmd, *args]).strip().lower()
+        full_input = " ".join([cmd, *args]).strip()
 
         match cmd:
             case Command.help:
@@ -102,8 +102,10 @@ def lab_2001(state: State):
                             continue
             case Command.items:
                 display_items_list()
-            case Command.map():
+                continue
+            case Command.map:
                 display_map()
+                continue
             case Command.inventory:
                 display_inventory(state)
                 continue
