@@ -1,5 +1,4 @@
 from models import Command, State
-
 from util import (
     display_go_help,
     display_go_list,
@@ -12,6 +11,9 @@ from util import (
     get_user_input,
     pause_game,
     quit_game,
+    display_map,
+    display_where_am_i,
+    display_items_list,
 )
 
 
@@ -28,13 +30,17 @@ def west_corridor(state: State):
     while True:
         command, *args = get_user_input()
 
+        # make input case-insensitive
+        command = command.lower() if command else ""
+        args = [a.lower() for a in args]
+
         match command:
-            case Command.help:
+            case "help":
                 if len(args) == 1 and args[0] == "around":
                     display_help()
                     continue
 
-            case Command.go:
+            case "go":
                 if len(args) != 1:
                     display_invalid_syntax("go")
                     continue
@@ -63,22 +69,31 @@ def west_corridor(state: State):
 
                 continue
 
-            case Command.look:
+            case "look":
                 print(
                     "The corridor is empty, nothing to see here, go choose your next room!"
                 )
                 continue
-            case Command.inventory:
+            case "where":
+                display_where_am_i(state)
+                continue
+            case "map":
+                display_map()
+                continue
+            case "items":
+                display_items_list()
+                continue
+            case "inventory":
                 display_inventory(state)
                 continue
-            case Command.quit:
+            case "quit":
                 quit_game()
-            case Command.pause:
+            case "pause":
                 pause_game(state)
-            case Command.stats:
+            case "stats":
                 display_stats()
                 continue
-            case Command.leaderboard:
+            case "leaderboard":
                 display_leaderboard()
                 continue
 
@@ -86,7 +101,7 @@ def west_corridor(state: State):
 
 
 if __name__ == "__main__":
-    from datetime import timedelta as TimeDelta
+    from datetime import datetime, timedelta as TimeDelta
 
     mock_state = State(
         player_name="mock",
@@ -95,6 +110,7 @@ if __name__ == "__main__":
         visited_rooms=[],
         time_played=TimeDelta(),
         inventory=[],
+        session_start_time=datetime.now(),
     )
 
     west_corridor(mock_state)
