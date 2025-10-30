@@ -62,8 +62,8 @@ def west_corridor(state: State):
                     case "classroom_2035" | "classroom_2031":
                         print("The door is locked.")
                         continue
-                    case "project_room_4":
-                        state.current_room = "project_room_4"
+                    case "north_corridor":
+                        state.current_room = "north_corridor"
                         return state
 
                 continue

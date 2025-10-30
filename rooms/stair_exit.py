@@ -14,7 +14,8 @@ from util import (
     get_user_input,
     pause_game,
     quit_game,
-    display_help, display_where_am_i,
+    display_help,
+    display_where_am_i,
     display_items_list,
     display_inventory,
     display_map
@@ -25,9 +26,9 @@ def stair_exit(state: State):
     pickable_items: list[str] = []
     can_choose_action = True
 
-
     if "storage_room" not in state.visited_rooms:
         print("The door is locked. You might need to find something first.")
+        state.current_room = "west_corridor"
         return state
 
     print(
@@ -51,7 +52,6 @@ def stair_exit(state: State):
         cmd, *args = get_user_input()
         user_input = " ".join([cmd] + args).lower()
 
-        # --- Actions for escaping ---
         if can_choose_action:
             if user_input == "improvise a mask with keycard":
                 print(
@@ -169,8 +169,6 @@ def stair_exit(state: State):
 
 if __name__ == "__main__":
     from datetime import datetime
-    from models import State
-    from datetime import timedelta as TimeDelta
 
     test_state = State(
         player_name="TestPlayer",

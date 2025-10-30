@@ -20,6 +20,7 @@ from util import (
     get_user_input,
     pause_game,
     quit_game,
+    display_items_list
 )
 
 
@@ -57,13 +58,15 @@ def lab_2003(state: State):
 
     while True:
         cmd, *args = get_user_input()
-        full_input = " ".join([cmd, *args]).strip()
+        cmd = cmd.lower()
+        args = [a.lower() for a in args]
+        full_input = " ".join([cmd, *args]).strip().lower()
 
         match cmd:
-            case Command.help:
+            case "help":
                 display_help()
 
-            case Command.look:
+            case "look":
                 if can_use_look:
                     print(
                         "There is just one computer on. On the screen it displays:\n"
@@ -76,12 +79,13 @@ def lab_2003(state: State):
                     )
                     can_choose_action = True
 
-            case Command.take:
+            case "take":
                 if len(pickable_items) > 0:
                     if len(args) != 1:
                         display_invalid_syntax("take")
                         continue
-                    match args[0]:
+                    arg = args[0].lower()
+                    match arg:
                         case "?":
                             display_take_help()
                         case "list":
@@ -95,43 +99,55 @@ def lab_2003(state: State):
                         case _:
                             print("You can't take that.")
 
-            case Command.go:
+            case "go":
                 if len(args) != 1:
                     display_invalid_syntax("go")
                     continue
-                match args[0]:
+                arg = args[0].lower()
+                match arg:
                     case "?":
                         display_go_help()
                     case "list":
                         display_go_list(pickable_items)
 
-            case Command.quit:
+            case "quit":
                 quit_game()
 
-            case Command.pause:
+            case "pause":
                 pause_game(state)
-            case Command.map:
+
+            case "map":
                 display_map()
                 continue
-            case Command.inventory:
+
+            case "inventory":
                 display_inventory(state)
                 continue
 
-            case Command.where:
+            case "items":
+                display_items_list()
+                continue
+
+            case "where":
                 display_where_am_i(state)
                 continue
 
-            case Command.stats:
+            case "stats":
                 display_stats(state)
                 continue
-            case Command.leaderboard:
+
+            case "leaderboard":
                 display_leaderboard()
                 continue
+
             case _:
                 if can_choose_action:
+                    full_input = " ".join([cmd, *args]).strip().lower()
                     choice = full_input
 
-                    if choice == "Type code from Project room":
+                    choice = full_input.lower()
+
+                    if choice == "type code from project room":
                         print("You carefully type in\n")
                         while attempts < max_attempts:
                             code = input("  ")
@@ -158,16 +174,24 @@ def lab_2003(state: State):
                                     state.current_room = "lab_2003"
                                     return state
 
-                    elif choice == "Write a goodbye letter":
+                    elif choice == "write a goodbye letter":
                         print(
                             "Your hands are shaking, you breathe roughly, sweat covers your face.\n"
                             "You decide to save your last words on the school's computer.\n"
                         )
                         last_words = input("  ")
                         print(
-                            f"\nYou leave the room desperate and anxious.\n"
-                            "You bite a zombie from behind.\n"
+                            "\nAs you finish typing your letter, computer displays:\n"
+                            "Incorrect password. Try again.\n"
+                            "You get desperation, you don't know what to do anymore.\n"
+                            f"Freaking out, you leave the room desperate and anxious.\n"
+                            "You see one of those creatures from behind, so you just bite his neck.\n"
+                            "You don't know why you did that, just felt like it...\n"
+                        )
+                        time.sleep(1.5)
+                        print(
                             "The zombie bites you back.\n"
+                            "Your arm starts to swallow, so much blood is coming out of it"
                             "You bleed to death in the East Corridor.\n"
                             f"{last_words} — you may rest in peace.\n"
                             "Room will be restarted"
@@ -175,7 +199,7 @@ def lab_2003(state: State):
                         state = deepcopy(state_snapshot)
                         return state
 
-                    elif choice == "Type your mom's number":
+                    elif choice == "type your mom's number":
                         print("As an instinct, you decide to type your mom's number:")
                         mom_number = input("  ")
                         print(
@@ -197,11 +221,12 @@ def lab_2003(state: State):
                         state = deepcopy(state_snapshot)
                         return state
 
-                    elif choice == "Write positive affirmations":
+                    elif choice == "write positive affirmations":
                         print(
                             "You write some positive affirmations.\n"
                             "Things don't get better, but at least you're leaving laboratory 2.003 optimistic now."
                         )
+                        time.sleep(1)
                         if "lab_2003_affirmations" not in state.visited_rooms:
                             state.visited_rooms.append("lab_2003_affirmations")
                         state.current_room = "east_corridor"
@@ -209,10 +234,6 @@ def lab_2003(state: State):
 
                     else:
                         print("Invalid choice.")
-                else:
-                    display_invalid_command()
-
-    return state
 
 
 if __name__ == "__main__":

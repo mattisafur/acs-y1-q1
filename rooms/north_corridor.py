@@ -1,4 +1,6 @@
 import time
+from datetime import datetime
+from datetime import timedelta as TimeDelta
 
 from models import State
 from util import (
@@ -119,20 +121,29 @@ def north_corridor(state: State):
 
 
     elif "north_corridor_boss_defeated" not in state.visited_rooms:
-        print(
-            "As you go in direction of North Corridor, you notice a creature in front of it.\n"
-            "He is gigantic and will not let you pass by.\n"
-            "It is.. your old math teacher\n"
-            "He is also one of them now. He is a zombie math teacher...\n"
-            "The most ugly one.\n"
-            "You must do something to go further.\n\n"
-            "You feel the cold steel of the knife you picked up in Lab 2003 in your pocket.\n"
-            "The zombie takes a lumbering step forward, drool pooling at its feet.\n"
-            "You’re ready.\n\n"
-            "Choose how you’ll attack your math teacher:\n"
-            "1. Go for a tough, direct strike to the head.       |     2. Throw the knife at the zombie.      |     3. Sneak up and attack."
+        print("As you go in direction of North Corridor, you notice a creature in front of it.\n"
+              "He is gigantic and will not let you pass by.\n")
+        time.sleep(1)
 
-        )
+        print("It is.. your old math teacher.\n"
+              "He is also one of them now. He is a zombie math teacher...\n")
+        time.sleep(1)
+
+        print("The most ugly one.\n"
+              "You must do something to go further.\n\n")
+        time.sleep(1)
+
+        print("You feel the cold steel of the knife you picked up in Lab 2003 in your pocket.\n"
+              "The zombie takes a lumbering step forward, drool pooling at its feet.\n")
+        time.sleep(1)
+
+        print("You’re ready.\n\n"
+              "Choose how you’ll attack your math teacher:\n")
+        time.sleep(1)
+
+        print(
+            "1. Go for a tough, direct strike to the head.       |     2. Throw the knife at the zombie.      |     3. Sneak up and attack.")
+
         attack_choice = input("> ").strip().lower()
 
         match attack_choice:
@@ -197,13 +208,13 @@ def north_corridor(state: State):
                 print(
                     "\nYou try to leave the north corridor, but the enormous corpse of your zombie math teacher lies sprawled across the path.\n"
                     "Its twisted limbs block the entire passage, and the smell of decaying chalk makes your eyes water.\n"
-                    "You’ll need another way around — or a strong stomach."
+                    "It is not possible to leave the corridor."
                 )
                 return state
 
             case "front_desk_office":
                 state.current_room = "front_desk_office"
-                print("\nYou walk carefully past the fallen teacher and make your way toward the Front Desk Office.")
+                print("\nYou walk toward Front Desk office.")
             case "storage_room":
                 state.current_room = "storage_room"
                 print("\nYou move quietly toward the storage room, the air heavy with leftover tension.")
@@ -212,7 +223,7 @@ def north_corridor(state: State):
             case "teachers_room_3":
                 state.current_room = "teachers_room_3"
             case "teachers_room_2" | "teachers_room_1":
-                print("The door is locked") # ver se vai voltar a ter as outras opções
+                print("The door is locked")
             case "equinox_students_society":
                 print("You slowly turn the handle of the Equinox Students Society door...\n"
                       "It barely moves—something’s blocking it from the inside.\n"
@@ -254,3 +265,14 @@ def north_corridor(state: State):
         display_invalid_command()
 
     return state
+if __name__ == "__main__":
+    test_state = State(
+        player_name="TestPlayer",
+        current_room="north_corridor",
+        previous_room="lobby",
+        visited_rooms=[],
+        time_played=TimeDelta(),
+        inventory=[],
+        session_start_time=datetime.now(),
+    )
+    north_corridor(test_state)
