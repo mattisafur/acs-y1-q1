@@ -130,9 +130,8 @@ def north_corridor(state: State):
             "The zombie takes a lumbering step forward, drool pooling at its feet.\n"
             "You’re ready.\n\n"
             "Choose how you’ll attack your math teacher:\n"
-            "1. Go for a tough, direct strike to the head.\n"
-            "2. Throw the knife at the zombie.\n"
-            "3. Sneak up and attack."
+            "1. Go for a tough, direct strike to the head.       |     2. Throw the knife at the zombie.      |     3. Sneak up and attack."
+
         )
         attack_choice = input("> ").strip().lower()
 
@@ -179,8 +178,6 @@ def north_corridor(state: State):
     available_rooms = [
         "lobby",
         "front_desk_office",
-        "classroom_2_021",
-        "classroom_2_015",
         "equinox_students_society",
         "storage_room",
         "project_room_3",
@@ -212,10 +209,28 @@ def north_corridor(state: State):
                 print("\nYou move quietly toward the storage room, the air heavy with leftover tension.")
             case "west_corridor":
                 state.current_room = "west_corridor"
-                print("\nYou step over debris and head west, deeper into the dark corridors.")
             case "teachers_room_3":
                 state.current_room = "teachers_room_3"
-                print("\nYou push open the heavy door marked 'Teachers Room 3' and step inside cautiously.")
+            case "teachers_room_2" | "teachers_room_1":
+                print("The door is locked") # ver se vai voltar a ter as outras opções
+            case "equinox_students_society":
+                print("You slowly turn the handle of the Equinox Students Society door...\n"
+                      "It barely moves—something’s blocking it from the inside.\n"
+                      "You push harder and hear a loud *CLANG!* A pile of chairs, tables, and vending machines are stacked up like a fortress.\n")
+                time.sleep(1.5)
+
+                print("From behind the barricade, you hear frantic whispers—\n"
+                      '"Who’s there?!"\n'
+                      '"Go away! We’re not opening the door!"\n')
+                time.sleep(1.5)
+
+                print('"Last time someone knocked, it wasn’t human!"\n'
+                      "You realize they’re other students—alive—but clearly not taking visitors.\n"
+                      'A nervous laugh escapes you as someone shouts: "Try the cafeteria if you want snacks, we’re out!"\n')
+                time.sleep(1.5)
+
+                print("You decide it’s best not to argue with a barricade and quietly close the door.\n"
+                      "Time to check another room...\n")
 
     elif command.lower() == "inventory":
         display_inventory(state)
