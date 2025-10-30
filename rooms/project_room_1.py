@@ -1,18 +1,18 @@
 from copy import deepcopy
+
 from models import Command, State
 from util import (
-    display_go_help,
-    display_where_am_i,
-    display_inventory,
+    display_delete_help,
     display_go_list,
+    display_help,
     display_invalid_command,
     display_invalid_syntax,
+    display_inventory,
     display_leaderboard,
     display_stats,
     display_take_help,
     display_take_list,
-    display_help,
-    display_delete_help,
+    display_where_am_i,
     get_user_input,
     pause_game,
     quit_game,
@@ -144,8 +144,8 @@ def project_room_1(state: State):
         continue
 
 if __name__ == "__main__":
-    from datetime import timedelta as TimeDelta
     from datetime import datetime as DateTime
+    from datetime import timedelta as TimeDelta
 
     test_state = State(
         player_name="TestPlayer",

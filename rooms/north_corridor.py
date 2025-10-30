@@ -1,19 +1,17 @@
 import time
 
-from models import Command, State
+from models import State
 from util import (
-    display_go_help,
-    display_where_am_i,
     display_go_list,
+    display_help,
     display_invalid_command,
-    display_invalid_syntax,
     display_inventory,
     display_leaderboard,
     display_stats,
+    display_where_am_i,
     get_user_input,
     pause_game,
     quit_game,
-    display_help,
 )
 
 

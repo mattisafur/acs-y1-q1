@@ -1,23 +1,24 @@
 import time
 from copy import deepcopy
-from datetime import timedelta as TimeDelta, datetime
+from datetime import datetime
+from datetime import timedelta as TimeDelta
 
 from models import Command, State
 from util import (
-    display_inventory,
     display_go_help,
     display_go_list,
+    display_help,
     display_invalid_command,
     display_invalid_syntax,
+    display_inventory,
     display_leaderboard,
     display_stats,
     display_take_help,
     display_take_list,
+    display_where_am_i,
     get_user_input,
     pause_game,
     quit_game,
-    display_help,
-    display_where_am_i
 )
 
 

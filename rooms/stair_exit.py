@@ -1,23 +1,23 @@
 from datetime import timedelta as TimeDelta
-import time
-from models import Command, State
+
 from db import initialize_database
+from models import Command, State
 from util import (
-    display_invalid_syntax,
     display_go_help,
-    display_go_list,
-    display_invalid_command,
+    display_help,
+    display_invalid_syntax,
+    display_inventory,
+    display_items_list,
     display_leaderboard,
     display_stats,
     display_take_help,
     display_take_list,
+    display_where_am_i,
     get_user_input,
     pause_game,
     quit_game,
-    display_help, display_where_am_i,
-    display_items_list,
-    display_inventory
 )
+
 
 def stair_exit(state: State):
     pickable_items: list[str] = []
@@ -167,8 +167,9 @@ def stair_exit(state: State):
 
 if __name__ == "__main__":
     from datetime import datetime
-    from models import State
     from datetime import timedelta as TimeDelta
+
+    from models import State
 
     test_state = State(
         player_name="TestPlayer",
