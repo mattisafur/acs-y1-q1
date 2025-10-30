@@ -55,6 +55,7 @@ def lab_2003(state: State):
 
     while True:
         cmd, *args = get_user_input()
+        full_input = " ".join([cmd, *args]).strip()
 
         match cmd:
             case Command.help:
@@ -73,12 +74,58 @@ def lab_2003(state: State):
                     )
                     can_choose_action = True
 
-            case Command.answer:
-                if can_choose_action:
-                    if not args:
-                        print("Invalid syntax! You need to provide an answer.")
+            case Command.take:
+                if len(pickable_items) > 0:
+                    if len(args) != 1:
+                        display_invalid_syntax("take")
                         continue
-                    choice = " ".join(args)
+                    match args[0]:
+                        case "?":
+                            display_take_help()
+                        case "list":
+                            display_take_list(pickable_items)
+                        case "knife":
+                            print("You picked up the knife and head back to East Corridor")
+                            time.sleep(1.5)
+                            state.inventory.append("knife")
+                            state.current_room = "east_corridor"
+                            return state
+                        case _:
+                            print("You can't take that.")
+
+            case Command.go:
+                if len(args) != 1:
+                    display_invalid_syntax("go")
+                    continue
+                match args[0]:
+                    case "?":
+                        display_go_help()
+                    case "list":
+                        display_go_list(pickable_items)
+
+            case Command.quit:
+                quit_game()
+
+            case Command.pause:
+                pause_game(state)
+
+            case Command.inventory:
+                display_inventory(state)
+                continue
+
+            case Command.where:
+                display_where_am_i(state)
+                continue
+
+            case Command.stats:
+                display_stats(state)
+
+            case Command.leaderboard:
+                display_leaderboard()
+
+            case _:
+                if can_choose_action:
+                    choice = full_input
 
                     if choice == "Type code from Project room":
                         print("You carefully type in\n")
@@ -158,58 +205,8 @@ def lab_2003(state: State):
 
                     else:
                         print("Invalid choice.")
-
-            case Command.take:
-                if len(pickable_items) > 0:
-                    if len(args) != 1:
-                        display_invalid_syntax("take")
-                        continue
-                    match args[0]:
-                        case "?":
-                            display_take_help()
-                        case "list":
-                            display_take_list(pickable_items)
-                        case "knife":
-                            print("You picked up the knife and head back to East Corridor")
-                            time.sleep(1.5)
-                            state.inventory.append("knife")
-                            state.current_room = "east_corridor"
-                            return state
-                        case _:
-                            print("You can't take that.")
-
-            case Command.go:
-                if len(args) != 1:
-                    display_invalid_syntax("go")
-                    continue
-                match args[0]:
-                    case "?":
-                        display_go_help()
-                    case "list":
-                        display_go_list(pickable_items)
-
-            case Command.quit:
-                quit_game()
-
-            case Command.pause:
-                pause_game(state)
-
-            case Command.inventory:
-                display_inventory(state)
-                continue
-
-            case Command.where:
-                display_where_am_i(state)
-                continue
-
-            case Command.stats:
-                display_stats(state)
-
-            case Command.leaderboard:
-                display_leaderboard()
-
-            case _:
-                display_invalid_command()
+                else:
+                    display_invalid_command()
 
     return state
 

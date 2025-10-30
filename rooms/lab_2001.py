@@ -39,6 +39,7 @@ def lab_2001(state: State):
 
     while True:
         cmd, *args = get_user_input()
+        full_input = " ".join([cmd, *args]).strip().lower()
 
         match cmd:
             case Command.help:
@@ -55,50 +56,6 @@ def lab_2001(state: State):
                     )
                     can_choose_action = True
                     continue
-            case Command.answer:
-                if can_choose_action:
-                    if not args:
-                        display_invalid_syntax("answer")
-                        continue
-
-                    match " ".join(args):
-                        case "sneak":
-                            print(
-                                "You notice a keycard on one of the desks.\nYou imagine is from the door of the laboratory.\nSo you decided to take it\n\n"
-                                "To pick up the keycard, you should use the command 'take keycard'")
-                            pickable_items.append("keycard")
-                            can_use_look = False
-                            continue
-                        case "fly away":
-                            print(
-                                "You flap your arms desperately, hoping to take off like a bird.\n"
-                                "The zombies glance at you with amusement as you wobble unsteadily.\n"
-                                "You lift off for a split second... and crash straight into a desk.\n"
-                                "Pain shoots through your body, and before you can recover, the zombies surround you.\n"
-                                "Being human, flight was never an option. You have met a grim fate.\n"
-                                "GAME OVER."
-                            )
-                        case "fight":
-                            print(
-                                "You try to fight one of your classmates.\n"
-                                "They barely react and soon more zombies surround you.\n"
-                                "You struggle, but you are only human.\n"
-                                "The zombies overpower you.\n"
-                                "GAME OVER."
-                            )
-                        case "set building on fire":
-                            print(
-                                "You try to set the building on fire with what you have.\n"
-                                "The flames sputter and fail to catch.\n"
-                                "One of the zombies notices you struggling.\n"
-                                "Before you can react, it pushes you into a corner and sets you on fire instead.\n"
-                                "You scream as the flames engulf you.\n"
-                                "GAME OVER."
-                            )
-                    print("(You will be returned to the start of the room.)")
-                    state.visited_rooms.remove("lab_2001")
-                    state = state_snapshot
-                    return state
             case Command.take:
                 if len(pickable_items) > 0:
                     if len(args) != 1:
@@ -153,18 +110,59 @@ def lab_2001(state: State):
             case Command.stats:
                 display_stats(state)
                 continue
-            case Command.take:
-                if len(args) != 1:
-                    display_invalid_syntax("take")
             case Command.leaderboard:
                 display_leaderboard()
                 continue
+
+        if can_choose_action:
+            match full_input:
+                case "sneak":
+                    print(
+                        "You notice a keycard on one of the desks.\nYou imagine is from the door of the laboratory.\nSo you decided to take it\n\n"
+                        "To pick up the keycard, you should use the command 'take keycard'")
+                    pickable_items.append("keycard")
+                    can_use_look = False
+                    continue
+                case "fly away":
+                    print(
+                        "You flap your arms desperately, hoping to take off like a bird.\n"
+                        "The zombies glance at you with amusement as you wobble unsteadily.\n"
+                        "You lift off for a split second... and crash straight into a desk.\n"
+                        "Pain shoots through your body, and before you can recover, the zombies surround you.\n"
+                        "Being human, flight was never an option. You have met a grim fate.\n"
+                        "GAME OVER."
+                    )
+                case "fight":
+                    print(
+                        "You try to fight one of your classmates.\n"
+                        "They barely react and soon more zombies surround you.\n"
+                        "You struggle, but you are only human.\n"
+                        "The zombies overpower you.\n"
+                        "GAME OVER."
+                    )
+                case "set building on fire":
+                    print(
+                        "You try to set the building on fire with what you have.\n"
+                        "The flames sputter and fail to catch.\n"
+                        "One of the zombies notices you struggling.\n"
+                        "Before you can react, it pushes you into a corner and sets you on fire instead.\n"
+                        "You scream as the flames engulf you.\n"
+                        "GAME OVER."
+                    )
+                case _:
+                    display_invalid_command()
+                    continue
+
+            print("(You will be returned to the start of the room.)")
+            state.visited_rooms.remove("lab_2001")
+            state = state_snapshot
+            return state
 
         display_invalid_command()
 
 
 if __name__ == "__main__":
-    from datetime import timedelta as TimeDelta
+    from datetime import datetime, timedelta as TimeDelta
 
     mock_state = State(
         player_name="mock",
