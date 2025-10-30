@@ -13,6 +13,8 @@ from util import (
     get_user_input,
     pause_game,
     quit_game,
+    display_map,
+    display_items_list
 )
 
 
@@ -61,6 +63,13 @@ def east_corridor(state: State):
                 continue
             case Command.take:
                 display_take_help()
+                continue
+            case Command.items:
+                display_items_list()
+                continue
+            case Command.map:
+                display_map()
+                continue
             case Command.where:
                 display_where_am_i(state)
                 continue
