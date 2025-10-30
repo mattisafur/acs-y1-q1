@@ -1,58 +1,57 @@
 from datetime import timedelta as TimeDelta
-
-from db import initialize_database
+import time
 from models import Command, State
+from db import initialize_database
 from util import (
-    display_go_help,
-    display_help,
     display_invalid_syntax,
-    display_inventory,
-    display_items_list,
+    display_go_help,
+    display_go_list,
+    display_invalid_command,
     display_leaderboard,
     display_stats,
     display_take_help,
     display_take_list,
-    display_where_am_i,
     get_user_input,
     pause_game,
     quit_game,
+    display_help, display_where_am_i,
+    display_items_list,
+    display_inventory,
+    display_map
 )
 
-
 def stair_exit(state: State):
-    pickable_items: list[str] = []
-    first_entry = True
-    can_choose_action = True
     initialize_database()
+    pickable_items: list[str] = []
+    can_choose_action = True
 
-    if first_entry:
-        print(
-            "You are in the stair_exit.\n\nUse command 'look around' to explore the room."
-        )
-        first_entry = False
+
+    if "storage_room" not in state.visited_rooms:
+        print("The door is locked. You might need to find something first.")
+        return state
+
+    print(
+        "You spot a door with an EXIT sign — your chance to escape the building!\n"
+        "You start smashing the door with your hammer until it breaks open.\n"
+        "You enter the stairwell, and thick, greenish virus smoke fills the space.\n"
+        "The acrid fumes make it hard to breathe, and the groans of zombies echo from below.\n"
+        "The upper floors are blocked by debris, leaving no other route.\n"
+        "You hear loud noises coming from where the door is. The wall starts to crumble — you're stuck!\n"
+        "You must find a way to pass the smoke to leave the building. There is nowhere else to go.\n"
+    )
+    time.sleep(1)
+    print(
+        "How will you go through the smoke?\n"
+        "Improvise a mask with keycard\n"
+        "Rush through the smoke without any protection.\n"
+        "Try to force open the blocked doors to create another route.\n"
+    )
 
     while True:
         cmd, *args = get_user_input()
         user_input = " ".join([cmd] + args).lower()
 
-        if cmd == Command.look or user_input == "look around":
-            print(
-                "You spot a door with an EXIT sign — your chance to escape the building!\n"
-                "You start smashing the door with your hammer until it breaks open.\n"
-                "You enter the stairwell, and thick, greenish virus smoke fills the space.\n"
-                "The acrid fumes make it hard to breathe, and the groans of zombies echo from below.\n"
-                "The upper floors are blocked by debris, leaving no other route.\n"
-                "You hear loud noises coming from where the door is. The wall starts to crumble — you're stuck!\n"
-                "You must find a way to pass the smoke to leave the building. There is nowhere else to go.\n"
-            )
-            print(
-                "How will you go through the smoke?\n"
-                "Improvise a mask with keycard\n"
-                "Rush through the smoke without any protection.\n"
-                "Try to force open the blocked doors to create another route.\n"
-            )
-            continue
-
+        # --- Actions for escaping ---
         if can_choose_action:
             if user_input == "improvise a mask with keycard":
                 print(
@@ -119,6 +118,8 @@ def stair_exit(state: State):
                 return state
 
         match cmd:
+            case Command.map:
+                display_map()
             case Command.help:
                 display_help()
                 continue
@@ -165,11 +166,11 @@ def stair_exit(state: State):
                 print("Invalid command.")
                 continue
 
+
 if __name__ == "__main__":
     from datetime import datetime
-    from datetime import timedelta as TimeDelta
-
     from models import State
+    from datetime import timedelta as TimeDelta
 
     test_state = State(
         player_name="TestPlayer",
@@ -180,5 +181,4 @@ if __name__ == "__main__":
         inventory=[],
         session_start_time=datetime.now(),
     )
-
     stair_exit(test_state)
