@@ -14,6 +14,7 @@ from util import (
     display_take_help,
     display_take_list,
     display_where_am_i,
+    display_map,
     get_user_input,
     pause_game,
     quit_game,
@@ -101,6 +102,8 @@ def lab_2001(state: State):
                             continue
             case Command.items:
                 display_items_list()
+            case Command.map():
+                display_map()
             case Command.inventory:
                 display_inventory(state)
                 continue
