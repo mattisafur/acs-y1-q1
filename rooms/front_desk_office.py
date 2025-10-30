@@ -1,12 +1,21 @@
 from copy import deepcopy
+import time
 
 from models import Command, State
 from util import (
+    display_go_help,
+    display_go_list,
     display_help,
     display_invalid_command,
     display_invalid_syntax,
+    display_inventory,
+    display_items_list,
     display_leaderboard,
     display_stats,
+    display_take_help,
+    display_take_list,
+    display_where_am_i,
+    display_map,
     get_user_input,
     pause_game,
     quit_game,
@@ -17,25 +26,20 @@ def front_desk_office(state):
     state_snapshot = deepcopy(state)
 
     print(
-        "You step into the room\n"
-        "Possible commands:\n"
-        "Look\n"
-        "Quit"
+        "You enter the Front Desk office. Use look around to explore further"
     )
     can_use_look = True
     can_choose_action = False
     pickable_items: list[str] = []
-    challenge1 = True
 
     while True:
         cmd, *args = get_user_input()
+        cmd = cmd.lower() if cmd else ""
+        args = [a.lower() for a in args]
 
         match cmd:
             case Command.help:
-                if len(args) == 1 and args[0] == "around":
-                    display_help()
-                else:
-                    display_invalid_command()
+                display_help()
                 continue
 
             case Command.go:
@@ -48,21 +52,20 @@ def front_desk_office(state):
             case Command.look:
                 if can_use_look:
                     print(
-                        "You enter the Front Desk office. A zombie is slumped in a chair, seemingly asleep.\n"
+                        "A zombie is slumped in a chair, seemingly asleep.\n"
                         "The room is filled with clutter, and you notice a glint of metal under the zombie.\n"
                         "It is the Master Key and you’ll have to retrieve it carefully without waking the zombie."
                     )
                     print(
                         "Possible commands:\n"
-                        "1.look\n"
-                        "2.fight\n"
-                        "3.sneak around"
+                        "1.go around the room\n"
+                        "2.sneak around the zombie"
                     )
                     can_choose_action = True
 
                     choice = input("> ").strip().lower()
                     match choice:
-                        case "1" | "look":
+                        case "1" | "go around the room" | "go around":
                             print(
                                 "You look around the room for anything useful in this situation.\n"
                                 "You see a jacket left behind by a student on a chair. You pick it up.\n"
@@ -74,24 +77,29 @@ def front_desk_office(state):
                             )
                             choice = input("> ").strip().lower()
                             match choice:
-                                case "1":
-                                    print("You died.\n(You will be returned to the start of the room)")
+                                case "1" | "fight":
+                                    print("You try to kick the zombie and he wakes up\n"
+                                          "He is not happy\n"
+                                          "'I have never waken you up while you were sleeping in class, bastard'\n"
+                                          "he says as he has his hand around your neck and throws you against the wall\n"
+                                          "You are dead")
                                     state = deepcopy(state_snapshot)
                                     return state
-                                case "2":
+                                case "2" | "tie his face":
                                     print(
-                                        "You tie the zombie up and approach the key.\n"
-                                        "However, the zombie smells you and attacks.\n"
-                                        "You die."
-                                    )
-                                    print("(You will be returned to the start of the room)")
+                                        "You carefully tie the zombie up and inch closer to the glinting key.\n"
+                                        "Suddenly, the zombie twitches and sniffs the air, noticing you there\n"
+                                        "It lunges at you with a terrifying roar.\n"
+                                        "You’re overwhelmed, and the struggle ends here…\n"
+                                        "You will be returned to the start of the room")
                                     state = deepcopy(state_snapshot)
                                     return state
-                                case "3":
+                                case "3" | "tie his body":
                                     print(
-                                        "You tie the zombie up and approach the key.\n"
-                                        "The zombie wakes up but is unable to move.\n"
-                                        "You take the key and immediately leave the room."
+                                        "You skillfully tie the zombie's body, rendering it completely immobile.\n"
+                                        "You reach under it and spot the  Master Key.\n"
+                                        "Type 'take master_key' to take the Master Key.\n"
+
                                     )
                                     pickable_items.append("master_key")
                                     state.inventory.append("master_key")
@@ -101,12 +109,7 @@ def front_desk_office(state):
                                     print("Invalid option.")
                                     continue
 
-                        case "2" | "fight":
-                            print("You died.\n(You will be returned to the start of the room)")
-                            state = deepcopy(state_snapshot)
-                            return state
-
-                        case "3" | "sneak around":
+                        case "2" | "sneak around" | "sneak around the zombie":
                             print(
                                 "You immediately become silent and approach the zombie carefully.\n"
                                 "Possible commands:\n"
@@ -116,47 +119,92 @@ def front_desk_office(state):
                             choice = input("> ").strip().lower()
                             match choice:
                                 case "1" | "move the zombie":
-                                    print("You wake up the zombie. You have died.")
-                                    print("(You will be returned to the start of the room)")
+                                    print(
+                                        "You accidentally jostle the zombie awake!\n"
+                                        "Its eyes snap open, and it lunges at you with terrifying speed!\n"
+                                        "You struggle, but there’s no escape this time.\n"
+                                        "(Returning you to the start of the room…)"
+                                    )
                                     state = deepcopy(state_snapshot)
                                     return state
                                 case "2" | "dig the key out from under the zombie":
-                                    print("You take the key and immediately leave the room.")
+                                    print(
+                                        "You carefully reach under the zombie, holding your breath.\n"
+                                        "Your fingers brush against something cold and metallic...\n"
+                                        "It's the Master Key! You snatch it up quietly.\n"
+                                        "To pick up the Master Key, type 'take master_key'"
+                                    )
                                     pickable_items.append("master_key")
-                                    state.inventory.append("master_key")
-                                    state.current_room = "north_corridor"
-                                    return state
+                                    can_use_look = False
                                 case _:
                                     print("Invalid option.")
                                     continue
                         case _:
                             print("Invalid option.")
                             continue
-
                 continue
 
-            case Command.take:
+            case "take":
                 if len(pickable_items) > 0:
                     if len(args) != 1:
                         display_invalid_syntax("take")
-                    else:
-                        display_invalid_command()
+                        continue
+                    arg = args[0].lower()
+                    match arg:
+                        case "?":
+                            display_take_help()
+                        case "list":
+                            display_take_list(pickable_items)
+                        case "master_key":
+                            print("You picked up the master_key and head back to North Corridor")
+                            time.sleep(1.5)
+                            state.inventory.append("master_key")
+                            state.current_room = "north_corridor"
+                            return state
+                        case _:
+                            print("You can't take that.")
+                    continue
+
+            case Command.go:
+                if len(args) != 1:
+                    display_invalid_syntax("go")
+                    continue
+                match args[0].lower():
+                    case "?":
+                        display_go_help()
+                        continue
+            case Command.items:
+                display_items_list()
                 continue
-            # case Command.where:
-            #     display_where_am_i(state)
-            #     continue
+
+            case Command.map:
+                display_map()
+                continue
+
+            case Command.inventory:
+                display_inventory(state)
+                continue
+
             case Command.quit:
                 quit_game()
+
             case Command.pause:
                 pause_game(state)
+
             case Command.stats:
                 display_stats(state)
                 continue
+
             case Command.leaderboard:
                 display_leaderboard()
                 continue
 
+            case Command.where:
+                display_where_am_i(state)
+                continue
+
         display_invalid_command()
+
 
 if __name__ == "__main__":
     from datetime import datetime as DateTime
