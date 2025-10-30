@@ -128,7 +128,7 @@ def display_inventory(state: State) -> None:
 
 def display_go_list(rooms: list[str]) -> None:
     import textwrap
-    room_line = "  |  ".join(rooms)
+    room_line = "  |  ".join(room.lower() for room in rooms)
     wrapped_lines = textwrap.wrap(room_line, width=100)
     print("\nRooms available:\n")
     for line in wrapped_lines:
