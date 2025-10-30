@@ -117,7 +117,8 @@ def north_corridor(state: State):
                 state.current_room = "lobby"
                 return state
 
-    else:
+
+    elif "north_corridor_boss_defeated" not in state.visited_rooms:
         print(
             "As you go in direction of North Corridor, you notice a creature in front of it.\n"
             "He is gigantic and will not let you pass by.\n"
@@ -137,24 +138,18 @@ def north_corridor(state: State):
 
         match attack_choice:
             case "1" | "head" | "strike":
-                print(
-                    "\nYou grip the knife tightly, waiting for the perfect moment.\n"
-                )
+                print("\nYou grip the knife tightly, waiting for the perfect moment.\n")
                 time.sleep(1)
                 print("As your teacher lunges, you sidestep and drive the blade straight into his skull.\n")
                 time.sleep(1)
                 print("The creature collapses. You survived. The path ahead is clear.")
                 time.sleep(1)
-                state.visited_rooms.append("north_corridor")
-                state.current_room = "north_corridor"
 
             case "2" | "throw":
                 print(
                     "\nYou throw the knife — perfect shot! It lands in the zombie’s forehead.\n"
                     "Your teacher freezes mid-growl, then crashes to the ground. You walk forward."
                 )
-                state.visited_rooms.append("north_corridor")
-                state.current_room = "north_corridor"
 
             case "3" | "sneak":
                 print(
@@ -176,8 +171,9 @@ def north_corridor(state: State):
                         print("You blind it with a strike to the eyes. It collapses.")
                     case _:
                         print("You panic-stab. Somehow, it works. Luck favors the desperate.")
-                state.visited_rooms.append("north_corridor")
-                state.current_room = "north_corridor"
+
+        state.visited_rooms.append("north_corridor_boss_defeated")
+        state.current_room = "north_corridor"
 
     print("You are in the north corridor. Choose where you would like to go:")
     available_rooms = [
@@ -206,6 +202,8 @@ def north_corridor(state: State):
                     "Its twisted limbs block the entire passage, and the smell of decaying chalk makes your eyes water.\n"
                     "You’ll need another way around — or a strong stomach."
                 )
+                return state
+
             case "front_desk_office":
                 state.current_room = "front_desk_office"
                 print("\nYou walk carefully past the fallen teacher and make your way toward the Front Desk Office.")
@@ -217,8 +215,7 @@ def north_corridor(state: State):
                 print("\nYou step over debris and head west, deeper into the dark corridors.")
             case "teachers_room_3":
                 state.current_room = "teachers_room_3"
-                print("\nYou push open the heavy door marked 'Teachers Room 3' and step inside cautiously."
-                      )
+                print("\nYou push open the heavy door marked 'Teachers Room 3' and step inside cautiously.")
 
     elif command.lower() == "inventory":
         display_inventory(state)
