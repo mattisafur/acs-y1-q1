@@ -31,11 +31,14 @@ def teacher_room_3(state: State):
 
     print(
         "You step into the teacher's lounge.\n"
-        " The place is a mess—papers everywhere, coffee stains on the floor, and a bookshelf knocked over, blocking the exit.\n"
-        " It's quiet, but you notice a low groan from behind the shelf. There's a zombie teacher slumped there, clutching a ring of keys.\n"
-        " If you want to get out, you'll need to move the shelf, but the teacher is in the way.\n"
-        " On the desk, you spot four folders labeled A, B, C, D. Each has a note:\n"
-        " Look at the notes to figure out the correct order to unlock the exit."
+        "The place is a mess—papers everywhere, coffee stains on the floor, and a bookshelf knocked over, partially blocking the exit.\n"
+        "A low groan comes from behind the shelf. A zombie teacher slumps in a chair, half-asleep.\n"
+        "On the desk, four folders labeled A, B, C, D catch your eye. Each has a note:\n"
+        "  Folder A: 'Comes after D.'\n"
+        "  Folder B: 'Must be first.'\n"
+        "  Folder C: 'Is never next to A.'\n"
+        "  Folder D: 'Always after C.'\n"
+        "It looks like a puzzle. Solving it might trigger something… you wonder what."
     )
 
     puzzle_solved = False
@@ -52,13 +55,9 @@ def teacher_room_3(state: State):
                 if (len(args) == 0) or (len(args) == 1 and args[0] == "around"):
                     if not puzzle_solved:
                         print(
-                            "The shelf is blocking the exit, and the zombie teacher is still out cold."
-                            " You look at the folders and the notes again."
-                            "\n  Folder A: 'Comes after D.'"
-                            "\n  Folder B: 'Must be first.'"
-                            "\n  Folder C: 'Is never next to A.'"
-                            "\n  Folder D: 'Always after C.'"
-                            "\nFigure out the right order (e.g., BCDA) to unlock the exit."
+                            "The bookshelf still blocks the exit, and the zombie teacher hasn’t moved.\n"
+                            "You examine the folders again, trying to figure out the right order."
+                            #"\nFigure out the right order (e.g., BCDA) to unlock the exit."
                         )
 
                         while True:
@@ -68,22 +67,24 @@ def teacher_room_3(state: State):
 
                             if answer == "BCDA":
                                 print(
-                                    "Nice! You got it. The shelf slides aside, and you grab the keys from the teacher before he wakes up."
-                                    " You slip out through the exit, heart pounding."
+                                    "You arrange the folders correctly. Suddenly, a fire alarm blares loudly!\n"
+                                    "Sprinklers activate and water cascades down from the ceiling, soaking you completely.\n"
+                                    "The zombie teacher stirs but doesn’t notice you amid the chaos.\n"
+                                    "Sputtering and dripping, you back away from the bookshelf and head back to the corridor, completely drenched."
                                 )
                                 puzzle_solved = True
                                 state.current_room = "north_corridor"
                                 return state
-                            else:
-                                print(
-                                    "Nope, that's not it. The shelf rattles, and the zombie teacher starts to stir. Better get out before he wakes up!"
-                                )
-                                print("You hurry back to the previous room.")
-                                state = deepcopy(state_snapshot)
-                                return state
+                            else: print(
+                                "Nope, that's not it. The shelf rattles, and the zombie teacher stirs. "
+                                "The fire alarm triggers anyway, dousing the room in water.\n"
+                                "Soaked and frustrated, you retreat immediately to the previous room."
+                            )
+                            state = deepcopy(state_snapshot)
+                            return state
                     else:
                         print(
-                            "You've already solved this puzzle. The bookshelf is no longer blocking the exit."
+                            "Water sprints are still running, just go away. You are miserably wet enough already."
                         )
                     continue
             case Command.items:
