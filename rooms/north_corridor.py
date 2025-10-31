@@ -65,10 +65,12 @@ def north_corridor(state: State):
                             print(
                                 "\nYou grab the chalk and jab it into his chest — it snaps instantly.\n"
                                 "He stares down, offended. 'Detention!' he bellows, flinging you across the hallway.\n"
-                                "You crash into the lobby door, dazed but alive."
+                                "You crash into the lobby door, dazed but alive.\n"
+                                "You realize that you can't talk to a zombie, you must fight it.\n"
+                                "Maybe there's a weapon you can use in a room"
                             )
                             state.visited_rooms.append("north_corridor")
-                            state.current_room = "north_corridor"
+                            state.current_room = "lobby"
                             return state
 
                         case "2" | "kick" | "run":
@@ -76,9 +78,11 @@ def north_corridor(state: State):
                                 "\nYou give the zombie a solid kick and sprint back.\n"
                                 "He loses balance for a second but then roars: 'NO RUNNING IN THE HALLS!'\n"
                                 "A telekinetic force blasts you through the lobby doors."
+                                "You realize that you can't talk to a zombie, you must fight it.\n"
+                                "Maybe there's a weapon you can use in a room"
                             )
                             state.visited_rooms.append("north_corridor")
-                            state.current_room = "north_corridor"
+                            state.current_room = "lobby"
                             return state
 
                         case "3" | "correct" | "math":
@@ -94,9 +98,11 @@ def north_corridor(state: State):
                             print(
                                 "\nYou hesitate, and the zombie’s patience runs out.\n"
                                 "‘Pop quiz over,’ he growls, before tossing you back toward the lobby."
+                                "You realize that you can't talk to a zombie, you must fight it.\n"
+                                "Maybe there's a weapon you can use in a room"
                             )
                             state.visited_rooms.append("north_corridor")
-                            state.current_room = "north_corridor"
+                            state.current_room = "lobby"
                             return state
 
                 else:
@@ -106,6 +112,8 @@ def north_corridor(state: State):
                         "‘Repeat the class… in the afterlife.’\n"
                         "He throws you very far away.\n"
                         "Happily, you feel against one of the couches on the lobby, so you survive"
+                        "You realize that you can't talk to a zombie, you must fight it.\n"
+                        "Maybe there's a weapon you can use in a room"
                     )
                     state.current_room = "lobby"
                     return state
@@ -115,6 +123,8 @@ def north_corridor(state: State):
                     "\nYou back away slowly, heart pounding.\n"
                     "The zombie tilts its head as it watches you go but doesn’t follow.\n"
                     "You slip back into the lobby, determined to find something that can help you."
+                    "You realize that you can't talk to a zombie, you must fight it.\n"
+                    "Maybe there's a weapon you can use in a room"
                 )
                 state.current_room = "lobby"
                 return state
