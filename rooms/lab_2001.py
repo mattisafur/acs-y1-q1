@@ -50,16 +50,17 @@ def lab_2001(state: State):
                 display_help()
                 continue
             case Command.look:
-                if can_use_look:
-                    print(
-                        "You wake up to strange noises in the university’s computer lab.\nThe last thing you remember is falling asleep during math class.\nThe lights flicker, tables are overturned and your classmates walk and moan around like zombies.\nYou don’t know what’s happening, but you don't want to stay to find out."
-                    )
-                    print(
-                        "A few things go through your mind, but you decide to:\n"
-                        "fly away\nsneak\nfight\nset building on fire"
-                    )
-                    can_choose_action = True
-                    continue
+                if len(args) == 1 and args[0] == "around":
+                    if can_use_look:
+                        print(
+                            "You wake up to strange noises in the university’s computer lab.\nThe last thing you remember is falling asleep during math class.\nThe lights flicker, tables are overturned and your classmates walk and moan around like zombies.\nYou don’t know what’s happening, but you don't want to stay to find out."
+                        )
+                        print(
+                            "A few things go through your mind, but you decide to:\n"
+                            "fly away\nsneak\nfight\nset building on fire"
+                        )
+                        can_choose_action = True
+                        continue
             case Command.take:
                 if len(pickable_items) > 0:
                     if len(args) != 1:

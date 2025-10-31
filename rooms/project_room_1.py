@@ -45,21 +45,22 @@ def project_room_1(state: State):
                 display_help()
                 continue
             case Command.look:
-                if can_use_look:
-                    print(
-                        "You see a barren classroom with something written on the whiteboard. You take a closer look. It seems to be a password to a computer, but it is encrypted. On the whiteboard, it say."
-                    )
-                    print(
-                        "Dial 1 is a prime number greater than 5.\n"
-                        "Dial 2 is the smallest prime number.\n"
-                        "Dial 3 equals (Dial 1 + Dial 4 − Dial 2).\n"
-                        "Dial 4 is a perfect square digit, it’s even, and it’s greater than 2.\n"
-                        "Dial 5 shows a number that is exactly one less than Dial 1.\n"
-                        "Self-check: The sum of all five digits should be 28.\n"
-                        "Type 'answer' before your number"
-                    )
-                    can_choose_action = True
-                    continue
+                if len(args) == 1 and args[0] == "around":
+                    if can_use_look:
+                        print(
+                            "You see a barren classroom with something written on the whiteboard. You take a closer look. It seems to be a password to a computer, but it is encrypted. On the whiteboard, it say."
+                        )
+                        print(
+                            "Dial 1 is a prime number greater than 5.\n"
+                            "Dial 2 is the smallest prime number.\n"
+                            "Dial 3 equals (Dial 1 + Dial 4 − Dial 2).\n"
+                            "Dial 4 is a perfect square digit, it’s even, and it’s greater than 2.\n"
+                            "Dial 5 shows a number that is exactly one less than Dial 1.\n"
+                            "Self-check: The sum of all five digits should be 28.\n"
+                            "Type 'answer' before your number"
+                        )
+                        can_choose_action = True
+                        continue
             case Command.answer:
                 if can_choose_action:
                     if not args:
