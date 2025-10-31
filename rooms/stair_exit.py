@@ -30,6 +30,7 @@ def stair_exit(state: State):
         return state
 
     print(
+        "\n"
         "You spot a door with an EXIT sign — your chance to escape the building!\n"
         "You start smashing the door with your hammer until it breaks open.\n"
         "You enter the stairwell, and thick, greenish virus smoke fills the space.\n"
@@ -41,9 +42,10 @@ def stair_exit(state: State):
     time.sleep(1)
     print(
         "How will you go through the smoke?\n"
-        "Improvise a mask with keycard\n"
-        "Rush through the smoke without any protection.\n"
-        "Try to force open the blocked doors to create another route.\n"
+        "Possible commands:\n"
+        "1.Improvise a mask with keycard\n"
+        "2.Rush through the smoke without any protection.\n"
+        "3.Try to force open the blocked doors to create another route.\n"
     )
 
     while True:
@@ -51,18 +53,26 @@ def stair_exit(state: State):
         user_input = " ".join([cmd] + args).lower()
 
         if can_choose_action:
-            if user_input == "improvise a mask with keycard":
+            if user_input == "1":
                 print(
                     "You press the keycard tightly over your nose and mouth — the plastic shielding you from the worst of the fumes.\n"
                     "The groans below grow louder, but you stay low, moving past the thickest clouds.\n"
                     "At the far end of the stairwell, you stumble into a service landing with a heavy steel door.\n"
                     "It’s the emergency exit!\n"
                     "You use the master key on the door... It works!\n"
-                    "You are free!"
+                    "You are free!\n"
                 )
-                return state
+                print(
+                    "Congratulations, you have finished the game!\n"
+                    "Please rate it 100 stars out of 10."
+                    "Thanks for Playing!\n"
+                )
+                quit()
+                # return state
 
-            elif user_input == "rush through the smoke without any protection.":
+
+
+            elif user_input == "2":
                 print(
                     "You rush straight into the thick smoke. Your lungs burn and your vision blurs.\n"
                     "You have three chances to make it through alive."
@@ -72,29 +82,35 @@ def stair_exit(state: State):
                     print(f"\nYou have {life} chances left.")
                     print(
                         "Possible commands:\n"
-                        "Keep pushing forward blindly\n"
-                        "Drop low to the ground to find cleaner air\n"
-                        "Search around in the smoke for something useful"
+                        "1.Keep pushing forward blindly\n"
+                        "2.Drop low to the ground to find cleaner air\n"
+                        "3.Search around in the smoke for something useful"
                     )
                     action = input("> ").strip().lower()
                     match action:
-                        case "keep pushing forward blindly":
+                        case "1":
                             print(
                                 "You stumble blindly, coughing harder. Your strength fades.\n"
-                                "You fall to the floor, unconscious. Game Over."
+                                "You fall to the floor, unconscious. Game Over.\n"
                             )
                             state.current_room = "stair_exit"
+                            life -= 1
                             return state
-                        case "drop low to the ground to find cleaner air":
+                        case "2":
                             print(
                                 "You drop low and breathe slightly cleaner air.\n"
                                 "Through the haze, you spot the emergency exit door ahead.\n"
                                 "You reach it and use the master key... It works!\n"
                                 "You are free!"
                             )
-                            return state
-                        case "search around in the smoke for something useful":
-                            print("You find nothing useful. The smoke chokes you. Game Over.")
+                            print(
+                                "Congratulations, you have finished the game!\n"
+                                "Please rate it 100 stars out of 10."
+                                "Thanks for Playing!\n"
+                            )
+                            quit()
+                        case "3":
+                            print("You find nothing useful. The smoke chokes you. Game Over.\n")
                             state.current_room = "stair_exit"
                             return state
                         case "quit":
@@ -102,15 +118,15 @@ def stair_exit(state: State):
                         case _:
                             print("Invalid option.")
                             continue
-                    life -= 1
-                print("The smoke overwhelms you. Your vision fades to black. Game Over.")
+                    # life -= 1
+                print("The smoke overwhelms you. Your vision fades to black. Game Over.\n")
                 state.current_room = "stair_exit"
                 return state
 
-            elif user_input == "try to force open the blocked doors to create another route.":
+            elif user_input == "3":
                 print(
                     "You try to force the blocked doors, but the noise draws zombies closer.\n"
-                    "The smoke thickens around you. It’s too late. Game Over."
+                    "The smoke thickens around you. It’s too late. Game Over.\n"
                 )
                 state.current_room = "stair_exit"
                 return state
