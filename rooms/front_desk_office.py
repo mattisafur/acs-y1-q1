@@ -115,7 +115,7 @@ def front_desk_office(state):
                                     "You immediately become silent and approach the zombie carefully.\n"
                                     "Possible commands:\n"
                                     "1.Move the zombie\n"
-                                    "2.Dig the key out from under the zombie"
+                                    "2.Dig the item out from under the zombie"
                                 )
                                 choice = input("> ").strip().lower()
                                 match choice:
