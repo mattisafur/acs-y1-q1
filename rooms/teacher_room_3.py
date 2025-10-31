@@ -129,7 +129,7 @@ def teacher_room_3(state: State):
             case Command.pause:
                 pause_game(state)
             case Command.stats:
-                display_stats()
+                display_stats(state)
                 continue
             case Command.leaderboard:
                 display_leaderboard()
