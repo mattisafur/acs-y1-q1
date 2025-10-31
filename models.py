@@ -67,20 +67,22 @@ class State:
 class LeaderboardEntry:
     player_name: str
     play_time: TimeDelta
+    completion: float
 
     @classmethod
     def from_db_tuple(cls, data: tuple[Any]) -> Self:
-        if len(data) != 2:
+        if len(data) != 3:
             raise ValueError("data is not in correct format")
 
         try:
             player_name = data[0]
             play_time = TimeDelta(seconds=data[1])
+            completion = float(data[2])
         except Exception as e:
             e.add_note("failed to parse value from database")
             raise e
 
-        return cls(player_name=player_name, play_time=play_time)
+        return cls(player_name=player_name, play_time=play_time, completion=completion)
 
 
 @unique

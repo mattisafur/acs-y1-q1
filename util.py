@@ -63,52 +63,34 @@ def pause_game(state: State) -> None:
 
 # FIXME WTFis going on here? this function is completely unrelated to the rest of the code, 100% AI generated and still completely wrong.
 def display_leaderboard() -> None:
+    from db import get_top_leaderboard
+
     print("Leaderboard:\n")
-    try:
-        with open("leaderboard.txt", "r", encoding="utf-8") as f:
-            lines = [ln.strip() for ln in f if ln.strip()]
-    except FileNotFoundError:
+
+    entries = get_top_leaderboard(5)
+    if not entries:
         print("No records yet.")
         return
 
-    if not lines:
-        print("No records yet.")
-        return
+    print(f"{'Rank':<5}{'Player':<18}{'Completion':<12}{'Time Played'}")
+    print("-" * 55)
 
-    records = []
-    for line in lines:
-        try:
-            parts = [p.strip() for p in line.split("|")]
-            name = parts[0]
-            completion = int(
-                parts[1].replace("Completion:", "").replace("%", "").strip()
-            )
-            time_str = parts[2].replace("Time:", "").strip()
-            hours = 0
-            minutes = 0
-            if "h" in time_str:
-                hours = int(time_str.split("h")[0])
-                if "m" in time_str:
-                    minutes = int(time_str.split("h")[1].replace("m", "").strip() or 0)
-            elif "m" in time_str:
-                minutes = int(time_str.replace("m", "").strip() or 0)
-            total_minutes = hours * 60 + minutes
-            records.append((name, completion, total_minutes))
-        except Exception:
-            continue
+    for idx, entry in enumerate(entries, start=1):
+        total_seconds = int(entry.play_time.total_seconds())
+        hours = total_seconds // 3600
+        minutes = (total_seconds % 3600) // 60
+        print(f"{idx:<5}{entry.player_name:<18}{entry.completion:>6.0f}%      {hours}h{minutes}m")
 
-    if not records:
-        print("No valid records found.")
-        return
-
-    records.sort(key=lambda r: (-r[1], r[2]))
-
-    print(f"{'Rank':<5}{'Player':<15}{'Completion':<15}{'Time Played'}")
-    print("-" * 50)
-    for i, (name, completion, total_minutes) in enumerate(records[:5], 1):
-        hours = total_minutes // 60
-        minutes = total_minutes % 60
-        print(f"{i:<5}{name:<15}{completion:<15}{hours}h{minutes}m")
+def submit_leaderboard(state: State) -> None:
+    from db import save_leaderboard
+    from models import LeaderboardEntry
+    total_time = update_time_played(state.time_played, state.session_start_time)
+    total_rooms = len(get_all_rooms())
+    completion = 0.0
+    if total_rooms > 0:
+        completion = (len(state.visited_rooms) / total_rooms) * 100.0
+    entry = LeaderboardEntry(player_name=state.player_name, play_time=total_time, completion=completion)
+    save_leaderboard(entry)
 
 
 def display_stats(state: State) -> None:

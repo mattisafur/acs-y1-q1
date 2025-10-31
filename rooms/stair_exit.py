@@ -16,7 +16,8 @@ from util import (
     display_where_am_i,
     display_items_list,
     display_inventory,
-    display_map
+    display_map,
+    submit_leaderboard,
 )
 
 def stair_exit(state: State):
@@ -67,8 +68,8 @@ def stair_exit(state: State):
                     "Please rate it 100 stars out of 10."
                     "Thanks for Playing!\n"
                 )
+                submit_leaderboard(state)
                 quit()
-                # return state
 
 
 
@@ -108,6 +109,7 @@ def stair_exit(state: State):
                                 "Please rate it 100 stars out of 10."
                                 "Thanks for Playing!\n"
                             )
+                            submit_leaderboard(state)
                             quit()
                         case "3":
                             print("You find nothing useful. The smoke chokes you. Game Over.\n")

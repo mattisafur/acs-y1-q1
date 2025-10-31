@@ -22,10 +22,19 @@ def initialize_database() -> None:
             """
             CREATE TABLE IF NOT EXISTS leaderboard (
                 player_name TEXT PRIMARY KEY,
-                play_time REAL
+                play_time REAL,
+                completion REAL
             );
             """
         )
+        # Ensure completion column exists for older databases
+        try:
+            cur = conn.execute("PRAGMA table_info(leaderboard)")
+            cols = [row[1] for row in cur.fetchall()]
+            if "completion" not in cols:
+                conn.execute("ALTER TABLE leaderboard ADD COLUMN completion REAL")
+        except Exception:
+            pass
         conn.commit()
 
 def load_state(player_name: str) -> State | None:
@@ -69,7 +78,8 @@ def delete_state(player_name: str):
 def get_top_leaderboard(count: int) -> list[LeaderboardEntry]:
     with sqlite3.connect(config.DATABASE_FILE_PATH) as conn:
         cur = conn.execute(
-            "SELECT * FROM leaderboard ORDER BY play_time LIMIT ?", (count,)
+            "SELECT player_name, play_time, completion FROM leaderboard ORDER BY completion DESC, play_time ASC LIMIT ?",
+            (count,),
         )
         results = cur.fetchall()
         return [LeaderboardEntry.from_db_tuple(result) for result in results]
@@ -78,10 +88,11 @@ def get_top_leaderboard(count: int) -> list[LeaderboardEntry]:
 def save_leaderboard(leaderboard_entry: LeaderboardEntry) -> None:
     with sqlite3.connect(config.DATABASE_FILE_PATH) as conn:
         conn.execute(
-            "INSERT OR REPLACE INTO leaderboard VALUES (?, ?)",  # FIXME should not be an OR REPLACE operation
+            "INSERT OR REPLACE INTO leaderboard(player_name, play_time, completion) VALUES (?, ?, ?)",  # FIXME should not be an OR REPLACE operation
             (
                 leaderboard_entry.player_name,
-                leaderboard_entry.play_time,
+                leaderboard_entry.play_time.total_seconds(),
+                leaderboard_entry.completion,
             ),
         )
         conn.commit()
