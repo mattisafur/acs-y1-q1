@@ -61,6 +61,7 @@ def pause_game(state: State) -> None:
     quit_game()
 
 
+# FIXME WTFis going on here? this function is completely unrelated to the rest of the code, 100% AI generated and still completely wrong.
 def display_leaderboard() -> None:
     print("Leaderboard:\n")
     try:
