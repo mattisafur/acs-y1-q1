@@ -78,7 +78,7 @@ def get_top_leaderboard(count: int) -> list[LeaderboardEntry]:
 def save_leaderboard(leaderboard_entry: LeaderboardEntry) -> None:
     with sqlite3.connect(config.DATABASE_FILE_PATH) as conn:
         conn.execute(
-            "INSERT OR REPLACE INTO leaderboard VALUES (?, ?)",
+            "INSERT OR REPLACE INTO leaderboard VALUES (?, ?)",  # FIXME should not be an OR REPLACE operation
             (
                 leaderboard_entry.player_name,
                 leaderboard_entry.play_time,
