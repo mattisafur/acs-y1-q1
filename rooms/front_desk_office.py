@@ -128,7 +128,7 @@ def front_desk_office(state):
                                         )
                                         state = deepcopy(state_snapshot)
                                         return state
-                                    case "2" | "dig the key out from under the zombie":
+                                    case "2" | "dig the item out from under the zombie":
                                         print(
                                             "You carefully reach under the zombie, holding your breath.\n"
                                             "Your fingers brush against something cold and metallic...\n"
