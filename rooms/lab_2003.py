@@ -58,17 +58,18 @@ def lab_2003(state: State):
 
     while True:
         cmd, *args = get_user_input()
-        cmd = cmd.lower() if cmd else ""
-        args = [a.lower() for a in args]
-        full_input = " ".join([cmd, *args]).strip().lower()
+        cmd_lower = cmd.lower() if cmd else ""
+        args_lower = [a.lower() for a in args]
+        full_input = " ".join([cmd_lower, *args_lower]).strip()
 
-        match cmd:
-            case Command.help:
+        # Main commands handling
+        match cmd_lower:
+            case Command.help.value:
                 display_help()
                 continue
 
-            case Command.look:
-                if (len(args) == 0) or (len(args) == 1 and args[0] == "around"):
+            case Command.look.value:
+                if (len(args_lower) == 0) or (len(args_lower) == 1 and args_lower[0] == "around"):
                     if can_use_look:
                         print(
                             "There is just one computer on. On the screen it displays:\n"
@@ -83,12 +84,12 @@ def lab_2003(state: State):
                         can_choose_action = True
                         continue
 
-            case Command.take:
+            case Command.take.value:
                 if len(pickable_items) > 0:
-                    if len(args) != 1:
+                    if len(args_lower) != 1:
                         display_invalid_syntax("take")
                         continue
-                    arg = args[0]
+                    arg = args_lower[0]
                     match arg:
                         case "?":
                             display_take_help()
@@ -109,11 +110,11 @@ def lab_2003(state: State):
                     display_invalid_command()
                     continue
 
-            case Command.go:
-                if len(args) != 1:
+            case Command.go.value:
+                if len(args_lower) != 1:
                     display_invalid_syntax("go")
                     continue
-                destination = args[0].lower()
+                destination = args_lower[0]
                 match destination:
                     case "?":
                         display_go_help()
@@ -128,69 +129,102 @@ def lab_2003(state: State):
                         display_invalid_command()
                         continue
 
-            case Command.items:
+            case Command.items.value:
                 display_items_list()
                 continue
 
-            case Command.map:
+            case Command.map.value:
                 display_map()
                 continue
 
-            case Command.inventory:
+            case Command.inventory.value:
                 display_inventory(state)
                 continue
 
-            case Command.where:
+            case Command.where.value:
                 display_where_am_i(state)
                 continue
 
-            case Command.quit:
+            case Command.quit.value:
                 quit_game()
 
-            case Command.pause:
+            case Command.pause.value:
                 pause_game(state)
 
-            case Command.stats:
+            case Command.stats.value:
                 display_stats(state)
                 continue
 
-            case Command.leaderboard:
+            case Command.leaderboard.value:
                 display_leaderboard()
                 continue
 
             case _:
                 if can_choose_action:
-                    match full_input:
-                        case "1" | "Type code from Project room":
+                    match full_input.lower():
+                        case "1" | "type code from project room":
                             print("You carefully type in\n")
                             while attempts < max_attempts:
-                                code = input("  ")
-                                if code == "72946":
-                                    print(
-                                        "After a short pause, the screen unlocks. The computer has a document opened.\n"
-                                        "One line sparks your attention:\n"
-                                        "'Tools can be found at the top left of the cabinet'\n"
-                                        "You start to look for it, and find a knife.\n"
-                                        "\nTo pick up the knife, you should use the command 'take knife'\n"
-                                    )
-                                    pickable_items.append("knife")
-                                    can_use_look = False
-                                    break
-                                else:
-                                    attempts += 1
-                                    if attempts < max_attempts:
-                                        print(
-                                            f"Computer displays: 'Incorrect password! You have {max_attempts - attempts} chances left.'\n"
-                                        )
-                                    else:
-                                        print("You failed 3 times. Room will restart.")
-                                        state.visited_rooms.remove("lab_2003")
-                                        state = deepcopy(state_snapshot)
-                                        state.current_room = "lab_2003"
-                                        return state
+                                password_input = input("  ").strip()
+
+                                try:
+                                    inner_cmd_enum = Command(password_input.lower())
+                                except ValueError:
+                                    inner_cmd_enum = None
+
+                                match inner_cmd_enum:
+                                    case Command.help:
+                                        display_help()
+                                        continue
+                                    case Command.inventory:
+                                        display_inventory(state)
+                                        continue
+                                    case Command.items:
+                                        display_items_list()
+                                        continue
+                                    case Command.map:
+                                        display_map()
+                                        continue
+                                    case Command.where:
+                                        display_where_am_i(state)
+                                        continue
+                                    case Command.quit:
+                                        quit_game()
+                                    case Command.pause:
+                                        pause_game(state)
+                                    case Command.stats:
+                                        display_stats(state)
+                                        continue
+                                    case Command.leaderboard:
+                                        display_leaderboard()
+                                        continue
+                                    case None:
+                                        if password_input == "72946":
+                                            print(
+                                                "After a short pause, the screen unlocks. The computer has a document opened.\n"
+                                                "One line sparks your attention:\n"
+                                                "'Tools can be found at the top left of the cabinet'\n"
+                                                "You start to look for it, and find a knife.\n"
+                                                "\nTo pick up the knife, you should use the command 'take knife'\n"
+                                            )
+                                            pickable_items.append("knife")
+                                            can_use_look = False
+                                            break
+                                        else:
+                                            attempts += 1
+                                            if attempts < max_attempts:
+                                                print(
+                                                    f"Computer displays: 'Incorrect password! You have {max_attempts - attempts} chances left.'\n"
+                                                )
+                                            else:
+                                                print("You failed 3 times. Room will restart.")
+                                                state.visited_rooms.remove("lab_2003")
+                                                state = deepcopy(state_snapshot)
+                                                state.current_room = "lab_2003"
+                                                return state
                             continue
 
-                        case "2" | "Write a goodbye letter":
+                        case "2" | "write a goodbye letter":
                             print(
                                 "Your hands are shaking, you breathe roughly, sweat covers your face.\n"
                                 "You decide to save your last words on the school's computer.\n"
@@ -216,7 +250,7 @@ def lab_2003(state: State):
                             state = deepcopy(state_snapshot)
                             return state
 
-                        case "3" | "Type your mom's number":
+                        case "3" | "type your mom's number":
                             print("As an instinct, you decide to type your mom's number:")
                             mom_number = input("  ")
                             print(
@@ -239,7 +273,7 @@ def lab_2003(state: State):
                             state = deepcopy(state_snapshot)
                             return state
 
-                        case "4" | "Write positive affirmations":
+                        case "4" | "write positive affirmations":
                             print(
                                 "You write some positive affirmations.\n"
                                 "Things don't get better, but at least you're leaving laboratory 2.003 optimistic now."

@@ -44,64 +44,47 @@ def teacher_room_3(state: State):
     puzzle_solved = False
 
     while True:
-        cmd, *args = get_user_input()
+        user_input_list = get_user_input()
+        if not user_input_list:
+            continue
 
-        match cmd:
+        cmd_str, *args = user_input_list
+        cmd_str = cmd_str.lower()
+
+        try:
+            cmd_enum = Command(cmd_str)
+        except ValueError:
+            cmd_enum = None
+
+        if (not puzzle_solved) and ("".join(user_input_list).strip().upper() == "BCDA"):
+            print(
+                "You arrange the folders correctly. Suddenly, a fire alarm blares loudly!\n"
+                "Sprinklers activate and water cascades down from the ceiling, soaking you completely.\n"
+                "The zombie teacher stirs but doesn’t notice you amid the chaos.\n"
+                "Sputtering and dripping, you back away from the bookshelf and head back to the corridor, completely drenched."
+            )
+            puzzle_solved = True
+            state.current_room = "north_corridor"
+            return state
+
+        match cmd_enum:
             case Command.help:
                 display_help()
                 continue
-
             case Command.look:
-                if (len(args) == 0) or (len(args) == 1 and args[0] == "around"):
-                    if not puzzle_solved:
-                        print(
-                            "The bookshelf still blocks the exit, and the zombie teacher hasn’t moved.\n"
-                            "You examine the folders again, trying to figure out the right order."
-                            #"\nFigure out the right order (e.g., BCDA) to unlock the exit."
-                        )
-
-                        while True:
-                            print("Enter the folder order (e.g., BCDA):")
-                            user_answer = get_user_input()
-                            answer = "".join(user_answer).strip().upper()
-
-                            if answer == "BCDA":
-                                print(
-                                    "You arrange the folders correctly. Suddenly, a fire alarm blares loudly!\n"
-                                    "Sprinklers activate and water cascades down from the ceiling, soaking you completely.\n"
-                                    "The zombie teacher stirs but doesn’t notice you amid the chaos.\n"
-                                    "Sputtering and dripping, you back away from the bookshelf and head back to the corridor, completely drenched."
-                                )
-                                puzzle_solved = True
-                                state.current_room = "north_corridor"
-                                return state
-                            else: print(
-                                "Nope, that's not it. The shelf rattles, and the zombie teacher stirs. "
-                                "The fire alarm triggers anyway, dousing the room in water.\n"
-                                "Soaked and frustrated, you retreat immediately to the previous room."
-                            )
-                            state = deepcopy(state_snapshot)
-                            return state
-                    else:
-                        print(
-                            "Water sprints are still running, just go away. You are miserably wet enough already."
-                        )
-                    continue
-            case Command.items:
-                display_items_list()
-                continue
-            case Command.map:
-                display_map()
-                continue
-            case Command.where:
-                display_where_am_i(state)
+                print(
+                    "The bookshelf still blocks the exit, and the zombie teacher hasn’t moved.\n"
+                    "You examine the folders again, trying to figure out the right order."
+                )
+                if not puzzle_solved:
+                    print("Enter the folder order (e.g., BCDA) to test it.")
                 continue
             case Command.go:
                 if len(args) != 1:
                     display_invalid_syntax("go")
                     continue
-
-                match args[0]:
+                direction = args[0].lower()
+                match direction:
                     case "?":
                         display_go_help()
                         continue
@@ -111,17 +94,28 @@ def teacher_room_3(state: State):
                     case "north_corridor":
                         if puzzle_solved:
                             print(
-                                "With the bookshelf out of the way,\n"
-                                "you carefully navigate through the scattered papers and exit the teacher's lounge."
+                                "Sopping wet but safe, you carefully exit the teacher's lounge\n"
+                                "and return to the north corridor. What a chaotic detour!"
                             )
                             state.current_room = "north_corridor"
                             return state
                         else:
                             print(
-                                "The tilted bookshelf is blocking your path. You need to solve the puzzle to clear the way."
+                                "The bookshelf blocks your path. Maybe you should solve the folder puzzle first…"
                             )
+                            continue
+                    case _:
+                        display_invalid_command()
                         continue
-
+            case Command.items:
+                display_items_list()
+                continue
+            case Command.map:
+                display_map()
+                continue
+            case Command.where:
+                display_where_am_i(state)
+                continue
             case Command.inventory:
                 display_inventory(state)
                 continue
@@ -136,7 +130,9 @@ def teacher_room_3(state: State):
                 display_leaderboard()
                 continue
             case _:
-                display_invalid_command()
+                if "".join(user_input_list).strip().upper() != "BCDA":
+                    display_invalid_command()
+                continue
 
     return state
 
@@ -156,4 +152,3 @@ if __name__ == "__main__":
     )
 
     teacher_room_3(mock_state)
-

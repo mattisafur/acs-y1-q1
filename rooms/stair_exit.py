@@ -25,6 +25,7 @@ def stair_exit(state: State):
     pickable_items: list[str] = []
     can_choose_action = True
 
+
     if "storage_room" not in state.visited_rooms:
         print("The door is locked. You might need to find something first.")
         state.current_room = "west_corridor"

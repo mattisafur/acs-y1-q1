@@ -1,5 +1,6 @@
 import time
 from copy import deepcopy
+from rooms.north_corridor import north_corridor
 
 from models import Command, State
 
