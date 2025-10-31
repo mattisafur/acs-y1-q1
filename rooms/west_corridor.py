@@ -24,7 +24,7 @@ def west_corridor(state: State):
     print("You are in the west corridor")
 
     display_go_list(
-        ["stair_exit", "classroom_2035", "classroom_2031", "project_room_4"]
+        ["stair_exit", "classroom_2035", "classroom_2031", "project_room_4", "north_corridor"]
     )
 
     while True:
@@ -35,9 +35,8 @@ def west_corridor(state: State):
 
         match command:
             case "help":
-                if len(args) == 1 and args[0] == "around":
-                    display_help()
-                    continue
+                display_help()
+                continue
 
             case "go":
                 if len(args) != 1:
@@ -47,6 +46,7 @@ def west_corridor(state: State):
                 match args[0]:
                     case "?":
                         display_go_help()
+                        continue
                     case "list":
                         display_go_list(
                             [
@@ -54,19 +54,25 @@ def west_corridor(state: State):
                                 "classroom_2035",
                                 "classroom_2031",
                                 "project_room_4",
+                                "north_corridor",
                             ]
                         )
+                        continue
                     case "stair_exit":
                         state.current_room = "stair_exit"
                         return state
                     case "classroom_2035" | "classroom_2031":
                         print("The door is locked.")
                         continue
+                    case "project_room_4":
+                        state.current_room = "project_room_4"
+                        return state
                     case "north_corridor":
                         state.current_room = "north_corridor"
                         return state
-
-                continue
+                    case _:
+                        display_invalid_command()
+                        continue
 
             case "look":
                 print(
@@ -87,16 +93,19 @@ def west_corridor(state: State):
                 continue
             case "quit":
                 quit_game()
+                return state
             case "pause":
                 pause_game(state)
+                return state
             case "stats":
                 display_stats(state)
                 continue
             case "leaderboard":
                 display_leaderboard()
                 continue
-
-        display_invalid_command()
+            case _:
+                display_invalid_command()
+                continue
 
 
 if __name__ == "__main__":
