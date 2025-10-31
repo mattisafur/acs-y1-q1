@@ -16,15 +16,11 @@ from util import (
     display_help,
     display_invalid_command,
     display_invalid_syntax,
-    display_items_list,
     display_leaderboard,
     display_load_help,
     display_new_help,
-    display_where_am_i,
     get_user_input,
     quit_game,
-    display_map,
-    display_inventory,
 )
 
 state = State.new_game("dummy_state")
@@ -46,8 +42,6 @@ def main_menu():
         cmd, *args = get_user_input()
 
         match cmd:
-            case Command.items:
-                display_items_list()
             case Command.help:
                 display_help()
             case Command.new:
@@ -78,12 +72,6 @@ def main_menu():
                 state = loaded_state
                 print("save loaded, resuming game")
                 return
-            case Command.map:
-                display_map()
-                continue
-            case Command.inventory:
-                display_inventory()
-                continue
             case Command.delete:
                 if len(args) != 1:
                     display_invalid_syntax("delete")
@@ -98,9 +86,6 @@ def main_menu():
                 if user_input == "y":
                     delete_state(args[0])
                     print("It has been deleted")
-                continue
-            case Command.where:
-                display_where_am_i(state)
                 continue
             case Command.quit:
                 quit_game()
