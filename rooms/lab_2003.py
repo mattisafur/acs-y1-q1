@@ -72,10 +72,11 @@ def lab_2003(state: State):
                         "There is just one computer on. On the screen it displays:\n"
                         "“Login required – Insert authorized password.”\n"
                         "You must unlock it.\n"
-                        "Type code from Project room\n"
-                        "Write a goodbye letter\n"
-                        "Type your mom's number\n"
-                        "Write positive affirmations"
+                        "Possible commands:\n"
+                        "1.Type code from Project room\n"
+                        "2.Write a goodbye letter\n"
+                        "3.Type your mom's number\n"
+                        "4.Write positive affirmations"
                     )
                     can_choose_action = True
 
@@ -147,7 +148,7 @@ def lab_2003(state: State):
 
                     choice = full_input.lower()
 
-                    if choice == "type code from project room":
+                    if choice == "1":
                         print("You carefully type in\n")
                         while attempts < max_attempts:
                             code = input("  ")
@@ -174,7 +175,7 @@ def lab_2003(state: State):
                                     state.current_room = "lab_2003"
                                     return state
 
-                    elif choice == "write a goodbye letter":
+                    elif choice == "2":
                         print(
                             "Your hands are shaking, you breathe roughly, sweat covers your face.\n"
                             "You decide to save your last words on the school's computer.\n"
@@ -199,7 +200,7 @@ def lab_2003(state: State):
                         state = deepcopy(state_snapshot)
                         return state
 
-                    elif choice == "type your mom's number":
+                    elif choice == "3":
                         print("As an instinct, you decide to type your mom's number:")
                         mom_number = input("  ")
                         print(
@@ -221,7 +222,7 @@ def lab_2003(state: State):
                         state = deepcopy(state_snapshot)
                         return state
 
-                    elif choice == "write positive affirmations":
+                    elif choice == "4":
                         print(
                             "You write some positive affirmations.\n"
                             "Things don't get better, but at least you're leaving laboratory 2.003 optimistic now."
