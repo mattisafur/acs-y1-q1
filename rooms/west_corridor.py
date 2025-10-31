@@ -24,7 +24,7 @@ def west_corridor(state: State):
     print("You are in the west corridor")
 
     display_go_list(
-        ["stair_exit", "classroom_2035", "classroom_2031", "project_room_4", "north_corridor"]
+        ["stair_exit", "classroom_2035", "classroom_2031", "north_corridor"]
     )
 
     while True:
@@ -32,6 +32,7 @@ def west_corridor(state: State):
 
         command = command.lower() if command else ""
         args = [a.lower() for a in args]
+        full_input = " ".join([command, *args]).strip().lower()
 
         match command:
             case "help":
@@ -53,7 +54,6 @@ def west_corridor(state: State):
                                 "stair_exit",
                                 "classroom_2035",
                                 "classroom_2031",
-                                "project_room_4",
                                 "north_corridor",
                             ]
                         )
@@ -61,12 +61,18 @@ def west_corridor(state: State):
                     case "stair_exit":
                         state.current_room = "stair_exit"
                         return state
-                    case "classroom_2035" | "classroom_2031":
+                    case "classroom_2035":
                         print("The door is locked.")
                         continue
-                    case "project_room_4":
-                        state.current_room = "project_room_4"
-                        return state
+                    case "classroom_2031":
+                        print("\nYou slowly open the door to Classroom 2031 and step inside.\n"
+                        "The room is eerily silent. Your eyes scan the area and you see bodies lying everywhere, scattered across the floor and desks.\n"
+                        "You recognize some of them—colleagues who were bitten in the chaos, now lifeless.\n"
+                        "Their skin is pale, their clothes torn, and a foul stench fills the air.\n"
+                        "The smell of rot is overwhelming, making your stomach churn.\n"
+                        "The silence is deafening, and the horror of the scene is almost too much to bear.\n"
+                        "You can't stand here any longer. With a shudder, you back away slowly and retreat to the corridor.\n")
+                        continue
                     case "north_corridor":
                         state.current_room = "north_corridor"
                         return state
