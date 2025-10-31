@@ -48,7 +48,9 @@ def project_room_1(state: State):
                 if (len(args) == 0) or (len(args) == 1 and args[0] == "around"):
                     if can_use_look:
                         print(
-                            "You see a barren classroom with something written on the whiteboard. You take a closer look. It seems to be a password to a computer, but it is encrypted. On the whiteboard, it say."
+                            "You see a barren classroom with something written on the whiteboard.\n"
+                            "You take a closer look.\n"
+                            " It seems to be a password to a computer, but it is encrypted. On the whiteboard, it say."
                         )
                         print(
                             "Dial 1 is a prime number greater than 5.\n"
