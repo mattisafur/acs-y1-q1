@@ -55,7 +55,7 @@ def front_desk_office(state):
                         print(
                             "A zombie is slumped in a chair, seemingly asleep.\n"
                             "The room is filled with clutter, and you notice a glint of metal under the zombie.\n"
-                            "It is the Master Key and you’ll have to retrieve it carefully without waking the zombie."
+                            "It is something important and you’ll have to retrieve it carefully without waking the zombie."
                         )
                         print(
                             "Possible commands:\n"
@@ -98,12 +98,12 @@ def front_desk_office(state):
                                     case "3" | "tie his body":
                                         print(
                                             "You skillfully tie the zombie's body, rendering it completely immobile.\n"
-                                            "You reach under it and spot the  Master Key.\n"
-                                            "Type 'take master_key' to take the Master Key.\n"
+                                            "You reach under it and grab the Fidget Spinner?.\n"
+                                            "Type 'take fidget_spinner' to take the Fidget Spinner.\n"
 
                                         )
-                                        pickable_items.append("master_key")
-                                        state.inventory.append("master_key")
+                                        pickable_items.append("fidget_spinner")
+                                        state.inventory.append("fidget_spinner")
                                         state.current_room = "north_corridor"
                                         return state
                                     case _:
@@ -132,10 +132,10 @@ def front_desk_office(state):
                                         print(
                                             "You carefully reach under the zombie, holding your breath.\n"
                                             "Your fingers brush against something cold and metallic...\n"
-                                            "It's the Master Key! You snatch it up quietly.\n"
-                                            "To pick up the Master Key, type 'take master_key'"
+                                            "It's the Fidget Spinner! You snatch it up quietly.\n"
+                                            "To pick up the Fidget Spinner, type 'take fidget_spinner'"
                                         )
-                                        pickable_items.append("master_key")
+                                        pickable_items.append("fidget_spinner")
                                         can_use_look = False
                                     case _:
                                         print("Invalid option.")
@@ -156,10 +156,11 @@ def front_desk_office(state):
                             display_take_help()
                         case "list":
                             display_take_list(pickable_items)
-                        case "master_key":
-                            print("You picked up the master_key and head back to North Corridor")
+                        case "fidget_spinner":
+                            print("You picked up the fidget_spinner and head back to North Corridor\n"
+                                  "You feel more mentally stimulated")
                             time.sleep(1.5)
-                            state.inventory.append("master_key")
+                            state.inventory.append("fidget_spinner")
                             state.current_room = "north_corridor"
                             return state
                         case _:

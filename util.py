@@ -31,7 +31,7 @@ def display_map():
 def display_items_list():
     print(
         "Pickable items in rooms:\n"
-        "Keycard in room lab_2001 |  Knife in lab_2003 | Code in project_room_1  | Hammer in Storage_room  |  Masterkey in front_desk_office"
+        "Keycard in room lab_2001 |  Knife in lab_2003 | Code in project_room_1  | Hammer in Storage_room  |  Fidget spinner in front_desk_office"
     )
 
 
