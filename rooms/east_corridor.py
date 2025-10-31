@@ -57,9 +57,10 @@ def east_corridor(state: State):
 
                 continue
             case Command.look:
-                print(
-                    "The corridor is empty, nothing to see here, go choose your next room!"
-                )
+                if len(args) == 1 and args[0] == "around":
+                    print(
+                        "The corridor is empty, nothing to see here, go choose your next room!"
+                    )
                 continue
             case Command.take:
                 display_take_help()
