@@ -153,7 +153,7 @@ def lab_2001(state: State):
                         "Being human, flight was never an option. You have met a grim fate.\n"
                         "GAME OVER."
                     )
-                case "fight":
+                case "3"|"fight":
                     print(
                         "You try to fight one of your classmates.\n"
                         "They barely react and soon more zombies surround you.\n"
