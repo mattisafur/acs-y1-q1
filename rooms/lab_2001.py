@@ -161,7 +161,7 @@ def lab_2001(state: State):
                         "The zombies overpower you.\n"
                         "GAME OVER."
                     )
-                case "set building on fire":
+                case "4"|"set building on fire":
                     print(
                         "You try to set the building on fire with what you have.\n"
                         "The flames sputter and fail to catch.\n"
