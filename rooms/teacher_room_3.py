@@ -72,7 +72,8 @@ def teacher_room_3(state: State):
                                 " You slip out through the exit, heart pounding."
                             )
                             puzzle_solved = True
-                            break
+                            state.current_room = "north_corridor"
+                            return state
                         else:
                             print(
                                 "Nope, that's not it. The shelf rattles, and the zombie teacher starts to stir. Better get out before he wakes up!"
