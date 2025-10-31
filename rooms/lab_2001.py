@@ -57,7 +57,10 @@ def lab_2001(state: State):
                         )
                         print(
                             "A few things go through your mind, but you decide to:\n"
-                            "fly away\nsneak\nfight\nset building on fire"
+                            "1.fly away\n"
+                            "2.sneak\n"
+                            "3.fight\n"
+                            "4.set building on fire"
                         )
                         can_choose_action = True
                         continue
