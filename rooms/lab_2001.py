@@ -86,7 +86,6 @@ def lab_2001(state: State):
                         case _:
                             print("You can’t take that.")
                             continue
-                    continue
             case Command.go:
                 if len(args) != 1:
                     display_invalid_syntax("go")
