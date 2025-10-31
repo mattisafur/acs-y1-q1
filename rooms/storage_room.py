@@ -1,3 +1,4 @@
+import time
 from copy import deepcopy
 
 from models import Command, State
@@ -35,7 +36,7 @@ def storage_room(state: State):
 
     state.visited_rooms.append("storage_room")
 
-    print("You step into the storage room.\nThe air is dusty and the lights are out, leaving only thin beams of light cutting through the darkness. To the left, an overturned table blocks part of the way.\nTo the right, a tall cabinet looms, obscuring much of the corner.\nStraight ahead, a narrow path twists through fallen debris and chairs.\n\nType 'look' to explore around the room")
+    print("You step into the storage room.\nThe air is dusty and the lights are out, leaving only thin beams of light cutting through the darkness.\n To the left, an overturned table blocks part of the way.\nTo the right, a tall cabinet looms, obscuring much of the corner.\nStraight ahead, a narrow path twists through fallen debris and chairs.\n\nType 'look' to explore around the room")
 
     can_use_look = True
     can_choose_action = False
@@ -133,7 +134,7 @@ def storage_room(state: State):
 
                         state.previous_room = "storage_room"
                         state.current_room = "north_corridor"
-                        return state
+                        return north_corridor(state)
                     else:
                         display_invalid_command()
                     continue
@@ -187,10 +188,12 @@ def storage_room(state: State):
 
             if choice == "left":
                 print("You push against the overturned table.\nIt scrapes loudly across the floor, echoing through the room. Groans surge closer—zombies rush in.\nGame over.\n(You will be returned to the start of the room)")
+                time.sleep(1)
                 return deepcopy(state_snapshot)
 
             elif choice == "forward":
                 print("You squeeze into the debris path, but a metal rod clatters free and crashes to the floor.\nThe noise carries—zombies converge. Game over.\n(You will be returned to the start of the room)")
+                time.sleep(1)
                 return deepcopy(state_snapshot)
 
             elif choice == "right":
