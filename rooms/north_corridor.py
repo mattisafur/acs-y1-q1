@@ -141,6 +141,9 @@ def north_corridor(state: State):
                         state.current_room = "storage_room"
                         print("\nYou move quietly toward the storage room, the air heavy with leftover tension.")
                         return state
+                    case "project_room_3":
+                        print("The door is locked")
+                        continue
                     case "west_corridor":
                         state.current_room = "west_corridor"
                         return state
