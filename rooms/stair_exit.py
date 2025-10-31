@@ -134,6 +134,14 @@ def stair_exit(state: State):
                 return state
 
         match cmd:
+            case Command.look:
+                if (len(args) == 0) or (len(args) == 1 and args[0].lower() == "around"):
+                    print(
+                        "The stairwell is filled with thick, greenish smoke. Debris blocks the upper floors,\n"
+                        "and distant groans echo from below. You notice your keycard and master key might help\n"
+                        "you improvise a way through the smoke."
+                    )
+                    continue
             case Command.map:
                 display_map()
             case Command.help:
