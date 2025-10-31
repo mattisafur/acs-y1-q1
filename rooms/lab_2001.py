@@ -136,7 +136,7 @@ def lab_2001(state: State):
 
         if can_choose_action:
             match full_input:
-                case "sneak":
+                case "1"|"sneak":
                     print(
                         "You notice a keycard on one of the desks.\nYou imagine is from the door of the laboratory.\nSo you decided to take it\n\n"
                         "To pick up the keycard, you should use the command 'take keycard'"
