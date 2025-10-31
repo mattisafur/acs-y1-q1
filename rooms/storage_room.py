@@ -94,15 +94,15 @@ def storage_room(state: State):
                         print("To explore more, try: left | right | forward")
                     continue
 
-                    if len(args) == 1 and args[0] == "around":
-                        if can_use_look:
-                            print("Shadows stretch between shelves and toppled furniture.\nThe cabinet on the right looks reachable if careful, \nbut shifting the table to the left could be loud, and the narrow path ahead is littered with loose scrap.")
-                            print("Choose: left | right | forward")
-                            can_choose_action = True
-                            can_use_look = False
-                        else:
-                            print("To explore more, try: left | right | forward")
-                        continue
+                    # if len(args) == 1 and args[0] == "around":
+                    #     if can_use_look:
+                    #         print("Shadows stretch between shelves and toppled furniture.\nThe cabinet on the right looks reachable if careful, \nbut shifting the table to the left could be loud, and the narrow path ahead is littered with loose scrap.")
+                    #         print("Choose: left | right | forward")
+                    #         can_choose_action = True
+                    #         can_use_look = False
+                    #     else:
+                    #         print("To explore more, try: left | right | forward")
+                    #     continue
                 case Command.take:
                     if not pickable_items:
                         display_take_help()
