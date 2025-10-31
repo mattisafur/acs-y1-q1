@@ -36,9 +36,12 @@ class State:
             player_name = data[0]
             current_room = data[1]
             previous_room = data[2]
-            visited_rooms = data[3].split(", ")
+            # Data is saved with comma (no space) separators in the DB
+            visited_rooms_raw = data[3] or ""
+            visited_rooms = [r for r in visited_rooms_raw.split(",") if r]
             time_played = TimeDelta(seconds=data[4])
-            inventory = data[5].split(", ")
+            inventory_raw = data[5] or ""
+            inventory = [i for i in inventory_raw.split(",") if i]
         except Exception as e:
             e.add_note("failed to parse value from database")
             raise e
@@ -54,8 +57,9 @@ class State:
         )
 
     def to_sql_value_string(self) -> str:
-        visited_rooms_str = ", ".join(self.visited_rooms) if self.visited_rooms else ""
-        inventory_str = ", ".join(self.inventory) if self.inventory else ""
+        # Keep delimiter consistent with DB save format (comma, no spaces)
+        visited_rooms_str = ",".join(self.visited_rooms) if self.visited_rooms else ""
+        inventory_str = ",".join(self.inventory) if self.inventory else ""
         return f"'{self.player_name}','{self.current_room}','{self.previous_room}','{visited_rooms_str}',{self.time_played.total_seconds()},'{inventory_str}'"
 
 
