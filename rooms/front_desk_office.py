@@ -26,7 +26,7 @@ def front_desk_office(state):
     state_snapshot = deepcopy(state)
 
     print(
-        "You enter the Front Desk office. Use look around to explore further"
+        "You enter the Front Desk office. Use 'look' to explore further"
     )
     can_use_look = True
     can_choose_action = False
@@ -50,7 +50,7 @@ def front_desk_office(state):
                 continue
 
             case Command.look:
-                if len(args) == 1 and args[0] == "around":
+                if (len(args) == 0) or (len(args) == 1 and args[0] == "around"):
                     if can_use_look:
                         print(
                             "A zombie is slumped in a chair, seemingly asleep.\n"

@@ -26,9 +26,9 @@ def project_room_1(state: State):
 
     if "project_room_1" not in state.visited_rooms:
         state.visited_rooms.append("project_room_1")
-        print("You enter the Project room 1\nUse 'look' around to explore the room.")
+        print("You enter the Project room 1\nUse 'look' to explore the room.")
     else:
-        print("You already solved the puzzle in this room. You can look around, but there's nothing more to do.")
+        print("You already solved the puzzle in this room. You can look, but there's nothing more to do.")
         state.current_room = state.previous_room
         return state
 
@@ -45,7 +45,7 @@ def project_room_1(state: State):
                 display_help()
                 continue
             case Command.look:
-                if len(args) == 1 and args[0] == "around":
+                if (len(args) == 0) or (len(args) == 1 and args[0] == "around"):
                     if can_use_look:
                         print(
                             "You see a barren classroom with something written on the whiteboard. You take a closer look. It seems to be a password to a computer, but it is encrypted. On the whiteboard, it say."

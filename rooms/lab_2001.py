@@ -32,7 +32,7 @@ def lab_2001(state: State):
         return state
 
     print(
-        "Useful information: ? for displaying available commands\nYou are in Lab 2003\n\n \nCommand 'look around' for exploring inside the rooms \n"
+        "Useful information: ? for displaying available commands\nYou are in Lab 2001\n\n\nUse 'look' to explore inside the room\n"
     )
 
     can_use_look = True
@@ -50,7 +50,7 @@ def lab_2001(state: State):
                 display_help()
                 continue
             case Command.look:
-                if len(args) == 1 and args[0] == "around":
+                if (len(args) == 0) or (len(args) == 1 and args[0] == "around"):
                     if can_use_look:
                         print(
                             "You wake up to strange noises in the university’s computer lab.\nThe last thing you remember is falling asleep during math class.\nThe lights flicker, tables are overturned and your classmates walk and moan around like zombies.\nYou don’t know what’s happening, but you don't want to stay to find out."

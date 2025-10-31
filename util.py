@@ -147,7 +147,7 @@ def display_help() -> None:
         "Possible commands:\n"
         "map               displays all rooms and requisites to enter\n"
         "?                  display all possible commands\n"
-        "look around       explore the room\n"
+        "look               explore the room\n"
         "where              displays the room you are currently on\n"
         "take        pick up an item\n"
         "go          go to another room\n"

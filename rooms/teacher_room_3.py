@@ -45,12 +45,11 @@ def teacher_room_3(state: State):
 
         match cmd:
             case Command.help:
-                if len(args) == 1 and args[0] == "around":
-                    display_help()
-                    continue
+                display_help()
+                continue
 
             case Command.look:
-                if len(args) == 1 and args[0] == "around":
+                if (len(args) == 0) or (len(args) == 1 and args[0] == "around"):
                     if not puzzle_solved:
                         print(
                             "The shelf is blocking the exit, and the zombie teacher is still out cold."

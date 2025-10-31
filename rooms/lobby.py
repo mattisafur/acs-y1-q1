@@ -54,7 +54,7 @@ def lobby(state: State):
                         print("Sorry, it could be a nice way to get out, only if it won't be closed, try other doors.")
                         continue
             case Command.look:
-                if len(args) == 1 and args[0] == "around":
+                if (len(args) == 0) or (len(args) == 1 and args[0] == "around"):
                     print("The Lobby is empty, nothing to see here, go choose your next destination!")
                     continue
             case Command.map:
