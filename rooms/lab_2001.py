@@ -57,7 +57,10 @@ def lab_2001(state: State):
                         )
                         print(
                             "A few things go through your mind, but you decide to:\n"
-                            "fly away\nsneak\nfight\nset building on fire"
+                            "1.fly away\n"
+                            "2.sneak\n"
+                            "3.fight\n"
+                            "4.set building on fire"
                         )
                         can_choose_action = True
                         continue
@@ -133,7 +136,7 @@ def lab_2001(state: State):
 
         if can_choose_action:
             match full_input:
-                case "sneak":
+                case "1"|"sneak":
                     print(
                         "You notice a keycard on one of the desks.\nYou imagine is from the door of the laboratory.\nSo you decided to take it\n\n"
                         "To pick up the keycard, you should use the command 'take keycard'"
@@ -141,7 +144,7 @@ def lab_2001(state: State):
                     pickable_items.append("keycard")
                     can_use_look = False
                     continue
-                case "fly away":
+                case "2"|"fly away":
                     print(
                         "You flap your arms desperately, hoping to take off like a bird.\n"
                         "The zombies glance at you with amusement as you wobble unsteadily.\n"
@@ -150,7 +153,7 @@ def lab_2001(state: State):
                         "Being human, flight was never an option. You have met a grim fate.\n"
                         "GAME OVER."
                     )
-                case "fight":
+                case "3"|"fight":
                     print(
                         "You try to fight one of your classmates.\n"
                         "They barely react and soon more zombies surround you.\n"
@@ -158,7 +161,7 @@ def lab_2001(state: State):
                         "The zombies overpower you.\n"
                         "GAME OVER."
                     )
-                case "set building on fire":
+                case "4"|"set building on fire":
                     print(
                         "You try to set the building on fire with what you have.\n"
                         "The flames sputter and fail to catch.\n"
