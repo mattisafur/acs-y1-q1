@@ -61,7 +61,7 @@ def front_desk_office(state):
                         "1.go around the room\n"
                         "2.sneak around the zombie"
                     )
-                    can_choose_action = True
+                    can_choose_action = True  # NOTE unused variable
 
                     choice = input("> ").strip().lower()
                     match choice:

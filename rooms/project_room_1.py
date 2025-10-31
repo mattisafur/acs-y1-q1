@@ -22,7 +22,7 @@ from util import (
 
 
 def project_room_1(state: State):
-    state_snapshot = deepcopy(state)
+    state_snapshot = deepcopy(state)  # NOTE unused variable
 
     if "project_room_1" not in state.visited_rooms:
         state.visited_rooms.append("project_room_1")
