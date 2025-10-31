@@ -210,7 +210,8 @@ def north_corridor(state: State):
     display_go_list(available_rooms)
 
     command, *args = get_user_input()
-    if command.lower() == "go" and len(args) == 1:
+    # FIXME use match statement
+    if command.lower() == "go" and len(args) == 1:  # FIXME use Command model
         destination = args[0].lower()
 
         match destination:
@@ -257,23 +258,23 @@ def north_corridor(state: State):
                 print("You decide it’s best not to argue with a barricade and quietly close the door.\n"
                       "Time to check another room...\n")
 
-    elif command.lower() == "inventory":
+    elif command.lower() == "inventory":  # FIXME use Command model
         display_inventory(state)
-    elif command.lower() == "where":
+    elif command.lower() == "where":  # FIXME use Command model
         display_where_am_i(state)
-    elif command.lower() == "quit":
+    elif command.lower() == "quit":  # FIXME use Command model
         quit_game()
-    elif command.lower() == "pause":
+    elif command.lower() == "pause":  # FIXME use Command model
         pause_game(state)
-    elif command.lower() == "stats":
+    elif command.lower() == "stats":  # FIXME use Command model
         display_stats(state)
-    elif command.lower() == "leaderboard":
+    elif command.lower() == "leaderboard":  # FIXME use Command model
         display_leaderboard()
-    elif command.lower() == "items":
+    elif command.lower() == "items":  # FIXME use Command model
         display_items_list()
-    elif command.lower() == "map":
+    elif command.lower() == "map":  # FIXME use Command model
         display_map()
-    elif command.lower() in ("help", "?"):
+    elif command.lower() in ("help", "?"):  # FIXME use Command model
         display_help()
     else:
         display_invalid_command()

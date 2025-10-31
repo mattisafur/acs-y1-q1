@@ -145,7 +145,7 @@ def front_desk_office(state):
                                 continue
                     continue
 
-            case "take":
+            case "take":  # FIXME use Command model
                 if len(pickable_items) > 0:
                     if len(args) != 1:
                         display_invalid_syntax("take")

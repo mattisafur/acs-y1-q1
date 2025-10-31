@@ -63,10 +63,10 @@ def lab_2003(state: State):
         full_input = " ".join([cmd, *args]).strip().lower()
 
         match cmd:
-            case "help":
+            case "help":  # FIXME use Command model
                 display_help()
 
-            case "look":
+            case "look":  # FIXME use Command model
                 if can_use_look:
                     print(
                         "There is just one computer on. On the screen it displays:\n"
@@ -80,7 +80,7 @@ def lab_2003(state: State):
                     )
                     can_choose_action = True
 
-            case "take":
+            case "take":  # FIXME use Command model
                 if len(pickable_items) > 0:
                     if len(args) != 1:
                         display_invalid_syntax("take")
@@ -100,7 +100,7 @@ def lab_2003(state: State):
                         case _:
                             print("You can't take that.")
 
-            case "go":
+            case "go":  # FIXME use Command model
                 if len(args) != 1:
                     display_invalid_syntax("go")
                     continue
@@ -111,33 +111,33 @@ def lab_2003(state: State):
                     case "list":
                         display_go_list(pickable_items)
 
-            case "quit":
+            case "quit":  # FIXME use Command model
                 quit_game()
 
-            case "pause":
+            case "pause":  # FIXME use Command model
                 pause_game(state)
 
-            case "map":
+            case "map":  # FIXME use Command model
                 display_map()
                 continue
 
-            case "inventory":
+            case "inventory":  # FIXME use Command model
                 display_inventory(state)
                 continue
 
-            case "items":
+            case "items":  # FIXME use Command model
                 display_items_list()
                 continue
 
-            case "where":
+            case "where":  # FIXME use Command model
                 display_where_am_i(state)
                 continue
 
-            case "stats":
+            case "stats":  # FIXME use Command model
                 display_stats(state)
                 continue
 
-            case "leaderboard":
+            case "leaderboard":  # FIXME use Command model
                 display_leaderboard()
                 continue
 
