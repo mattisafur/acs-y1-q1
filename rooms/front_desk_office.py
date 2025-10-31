@@ -88,7 +88,7 @@ def front_desk_office(state):
                                         return state
                                     case "2" | "tie his face":
                                         print(
-                                            "You carefully tie the zombie up and inch closer to the glinting key.\n"
+                                            "You carefully tie the zombie up and inch closer to the glinting item.\n"
                                             "Suddenly, the zombie twitches and sniffs the air, noticing you there\n"
                                             "It lunges at you with a terrifying roar.\n"
                                             "You’re overwhelmed, and the struggle ends here…\n"
