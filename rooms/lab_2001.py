@@ -144,7 +144,7 @@ def lab_2001(state: State):
                     pickable_items.append("keycard")
                     can_use_look = False
                     continue
-                case "fly away":
+                case "2"|"fly away":
                     print(
                         "You flap your arms desperately, hoping to take off like a bird.\n"
                         "The zombies glance at you with amusement as you wobble unsteadily.\n"
