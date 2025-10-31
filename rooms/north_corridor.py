@@ -202,7 +202,7 @@ def north_corridor(state: State):
         "equinox_students_society",
         "storage_room",
         "project_room_3",
-        "teachers_room_3",
+        "teacher_room_3",
         "teachers_room_2",
         "teachers_room_1",
         "west_corridor",
@@ -225,13 +225,17 @@ def north_corridor(state: State):
             case "front_desk_office":
                 state.current_room = "front_desk_office"
                 print("\nYou walk toward Front Desk office.")
+                return state
             case "storage_room":
                 state.current_room = "storage_room"
                 print("\nYou move quietly toward the storage room, the air heavy with leftover tension.")
+                return state
             case "west_corridor":
                 state.current_room = "west_corridor"
-            case "teachers_room_3":
-                state.current_room = "teachers_room_3"
+                return state
+            case "teacher_room_3":
+                state.current_room = "teacher_room_3"
+                return state
             case "teachers_room_2" | "teachers_room_1":
                 print("The door is locked")
             case "equinox_students_society":
