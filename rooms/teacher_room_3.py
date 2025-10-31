@@ -31,10 +31,10 @@ def teacher_room_3(state: State):
 
     print(
         "You step into the teacher's lounge.\n"
-        " The place is a mess—papers everywhere, coffee stains on the floor, and a bookshelf knocked over, blocking the exit."
-        " It's quiet, but you notice a low groan from behind the shelf. There's a zombie teacher slumped there, clutching a ring of keys."
-        " If you want to get out, you'll need to move the shelf, but the teacher is in the way."
-        " On the desk, you spot four folders labeled A, B, C, D. Each has a note:"
+        " The place is a mess—papers everywhere, coffee stains on the floor, and a bookshelf knocked over, blocking the exit.\n"
+        " It's quiet, but you notice a low groan from behind the shelf. There's a zombie teacher slumped there, clutching a ring of keys.\n"
+        " If you want to get out, you'll need to move the shelf, but the teacher is in the way.\n"
+        " On the desk, you spot four folders labeled A, B, C, D. Each has a note:\n"
         " Look at the notes to figure out the correct order to unlock the exit."
     )
 
