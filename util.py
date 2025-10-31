@@ -1,7 +1,9 @@
+import textwrap
 from datetime import datetime as DateTime
 from datetime import timedelta as TimeDelta
 
-from models import State
+from db import get_top_leaderboard, save_leaderboard, save_state
+from models import LeaderboardEntry, State
 
 
 def get_user_input() -> list[str]:
@@ -52,8 +54,6 @@ def track_time_played(state: State) -> None:
 
 
 def pause_game(state: State) -> None:
-    from db import save_state
-
     track_time_played(state)
     save_state(state)
     print(f"Game paused and saved as '{state.player_name}'.\n \n")
@@ -63,8 +63,6 @@ def pause_game(state: State) -> None:
 
 # FIXME WTFis going on here? this function is completely unrelated to the rest of the code, 100% AI generated and still completely wrong.
 def display_leaderboard() -> None:
-    from db import get_top_leaderboard
-
     print("Leaderboard:\n")
 
     entries = get_top_leaderboard(5)
@@ -82,8 +80,6 @@ def display_leaderboard() -> None:
         print(f"{idx:<5}{entry.player_name:<18}{entry.completion:>6.0f}%      {hours}h{minutes}m")
 
 def submit_leaderboard(state: State) -> None:
-    from db import save_leaderboard
-    from models import LeaderboardEntry
     total_time = update_time_played(state.time_played, state.session_start_time)
     total_rooms = len(get_all_rooms())
     completion = 0.0
@@ -148,8 +144,6 @@ def display_inventory(state: State) -> None:
 
 
 def display_go_list(rooms: list[str]) -> None:
-    import textwrap
-
     room_line = "  |  ".join(room.lower() for room in rooms)
     wrapped_lines = textwrap.wrap(room_line, width=100)
     print("\nRooms available:\n")
