@@ -5,8 +5,6 @@ from db import initialize_database
 from util import (
     display_invalid_syntax,
     display_go_help,
-    display_go_list,
-    display_invalid_command,
     display_leaderboard,
     display_stats,
     display_take_help,
