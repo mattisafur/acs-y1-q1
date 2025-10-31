@@ -32,10 +32,10 @@ def lobby(state: State):
         args = [arg.lower() for arg in args]
 
         match command:
-            case Command.help.value:
+            case Command.help:
                 display_help()
                 continue
-            case Command.go.value:
+            case Command.go:
                 if len(args) != 1:
                     display_invalid_syntax("go")
                     continue
@@ -53,30 +53,30 @@ def lobby(state: State):
                     case "main_stair_exit":
                         print("Sorry, it could be a nice way to get out, only if it won't be closed, try other doors.")
                         continue
-            case Command.look.value:
+            case Command.look:
                 if len(args) == 1 and args[0] == "around":
                     print("The Lobby is empty, nothing to see here, go choose your next destination!")
                     continue
-            case Command.map.value:
+            case Command.map:
                 display_map()
                 continue
-            case Command.where.value:
+            case Command.where:
                 display_where_am_i(state)
                 continue
-            case Command.items.value:
+            case Command.items:
                 display_items_list()
                 continue
-            case Command.inventory.value:
+            case Command.inventory:
                 display_inventory(state)
                 continue
-            case Command.quit.value:
+            case Command.quit:
                 quit_game()
-            case Command.pause.value:
+            case Command.pause:
                 pause_game(state)
-            case Command.stats.value:
+            case Command.stats:
                 display_stats(state)
                 continue
-            case Command.leaderboard.value:
+            case Command.leaderboard:
                 display_leaderboard()
                 continue
 
