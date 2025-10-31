@@ -28,7 +28,7 @@ def project_room_1(state: State):
         state.visited_rooms.append("project_room_1")
         print("You enter the Project room 1\nUse 'look' to explore the room.")
     else:
-        print("You already solved the puzzle in this room. You can look, but there's nothing more to do.")
+        print("You already solved the puzzle in this room.\nThere's nothing more to do, go explore further.")
         state.current_room = state.previous_room
         return state
 
@@ -50,7 +50,7 @@ def project_room_1(state: State):
                         print(
                             "You see a barren classroom with something written on the whiteboard.\n"
                             "You take a closer look.\n"
-                            " It seems to be a password to a computer, but it is encrypted. On the whiteboard, it say."
+                            "It seems to be a password to a computer, but it is encrypted. On the whiteboard, it say."
                         )
                         print(
                             "Dial 1 is a prime number greater than 5.\n"
