@@ -3,6 +3,7 @@ from datetime import timedelta as TimeDelta
 
 from models import State
 
+
 def get_user_input() -> list[str]:
     user_input = input("> ").strip().split(" ")
     print("")
@@ -60,6 +61,7 @@ def pause_game(state: State) -> None:
     quit_game()
 
 
+# FIXME WTFis going on here? this function is completely unrelated to the rest of the code, 100% AI generated and still completely wrong.
 def display_leaderboard() -> None:
     from db import get_top_leaderboard
 
